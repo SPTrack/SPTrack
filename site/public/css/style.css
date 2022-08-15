@@ -159,6 +159,141 @@ section{
 .iconLeft{
     margin-right: 40px;
 }
+#sobre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+.sobreDiv{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgSobre{
+    width: 100%;
+}
+.sobreDivContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+}
+.sobreP1{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.sobreP2{
+    margin-top: 15px;
+    text-align: center;
+}
+.sobreHr{
+    width: 70%;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+#depoimentos{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+.depoimentosBox{
+    background-color: black;
+    flex-direction: column;
+    border-radius: 20px;
+}
+.depoimentosDiv{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.depoimentosDivLeft{
+    justify-content: start;
+}
+.depoimentosDivCenter{
+    justify-content: center;
+}
+.depoimentosDivRight{
+    justify-content: end;
+}
+.depoimentosDivContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.depoimentosDivContentTop{
+    margin-top: 50px;
+}
+.depoimentosDivContentBottom{
+    margin-bottom: 50px;
+}
+.depoimentosImg{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.depoimentosString{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.depoimentosP{
+    margin-top: 5px;
+    width: 50%;
+}
+#contato{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.contatoDiv{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.contatoDivContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.contatoString{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.contatoH2{
+    margin-right: 10px;
+}
+#mapa{
+    width: 100%;
+    height: 100%;
+}
+footer{
+    height: 10vh;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 @media (max-width: 1000px) {
     

@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/cadastro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cep-promise/dist/cep-promise.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script>
+         $(document).ready(function(){	
+        $("#cnpj").mask("99.999.999/9999-99");
+    });
+    </script>
 </head>
+
 <body>
     <header>
         <div class="box">
             <div class="headerDiv headerDivImg">
-                <img src="logo.png" class="imgLogo">
+                <img src="./assets/logo.png" class="imgLogo">
             </div>
             <div class="headerDiv">
                 <ul class="headerUl">
@@ -31,7 +42,67 @@
             </div>
         </div>
     </header>
-    
+    <div id="empresa">
+        <h1>Primeiro cadastre a sua empresa</h1>
+        <label for="">CNPJ</label>
+        <input type="text" id="cnpj" onblur="buscarDadosEmpresa()" data-mask="00.000.000/0000-00">
+        <br>
+        <label for="">Razão Social</label>
+        <input type="text" id="razaoSocial">
+        <br>
+        <label for="">Nome Fantasia</label>
+        <input type="text" id="nomeFantasia">
+        <br>
+        <h3>Endereco</h3>
+        <label for="">CEP</label>
+        <input type="text" id="cep">
+        <br>
+        
+        <label for="">Logradouro</label>
+        <input type="text" id="logradouro">
+        <br>
+        <label for="">Numero</label>
+        <input type="text" id="nmr">
 
+        <label for="">Complemento</label>
+        <input type="text" id="complemento">
+        <br>
+        
+
+        <label for="">Bairro</label>
+        <input type="text" id="bairro">
+        <br>
+
+        <label for="">Cidade</label>
+        <input type="text" id="cidade">
+        <br>
+        
+        <label for="">UF</label>
+        <input type="text" id="uf">
+        <br>
+        
+
+        
+        
+        
+    </div>
+    <div id="usuario">
+        <label for="">Nome: </label>
+        <input type="text" id="nome">
+        <br>
+        <label for="">Email: </label>
+        <input type="text" id="email">
+        <br>
+        <label for="">Senha: </label>
+        <input type="password" id="senha"><br>
+        <label for="">Tipo usuário: </label>
+        <select name="tipoUsuario" id="tipoUsuario">
+            <option value="0">Selecione</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Normal">Normal</option>
+        </select>
+        <button onclick="cadastrar()">Cadastre-se agora!</button>
+    </div>
 </body>
+
 </html>

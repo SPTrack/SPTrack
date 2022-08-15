@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/login.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
         <div class="box">
             <div class="headerDiv headerDivImg">
-                <img src="logo.png" class="imgLogo">
+                <img src="./assets/logo.png" class="imgLogo">
             </div>
             <div class="headerDiv">
                 <ul class="headerUl">
@@ -29,9 +30,19 @@
             <div class="headerDiv headerDivIcon">
                 <i class="bi bi-list white"></i>
             </div>
+
         </div>
+       
     </header>
-    
+    <div>
+        <label for="">Email</label>
+        <input id="email" type="email">
+        <label for="">Senha</label>
+        <input type="password" id="senha">
+        <button onclick="entrar()">Login</button>
+        <img src="./assets/carregando.gif" alt="" style="display: none;" id="carregando">
+        
+    </div>
 
 </body>
 </html>

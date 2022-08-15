@@ -3,8 +3,11 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-      "start": "node ./site/app.js",
-      "postinstall": "cd site && npm install",
-      "dev": "nodemon --exec node ./site/app.js"
+        "start": "node ./site/app.js",
+        "postinstall": "cd site && npm install",
+        "dev": "cd site && nodemon --exec node app.js"
+    },
+    "dependencies": {
+        "nodemon": "^2.0.19"
     }
-  }
+}

@@ -5,7 +5,7 @@ function cadastrar(nome, email, senha, tipoUsuario, fkInstituicao, fkGestor) {
 
     var query = `
         INSERT INTO usuario 
-        VALUES ('${nome}', '${email}', AES_ENCRYPT('${senha}', '30ceb909962ef4c517556239ecb63010'), '${tipoUsuario}', ${fkInstituicao}, ${fkGestor})
+        VALUES (null, '${nome}', '${email}', '${senha}', '${tipoUsuario}', ${fkInstituicao}, ${fkGestor});
     `;
 
     console.log("Executando a instrução SQL: \n" + query);

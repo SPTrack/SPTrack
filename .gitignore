@@ -23,7 +23,7 @@
 hs_err_pid*
 node_modules
 package-lock.json
-
+**/node_modules
 site/node_modules
 site/package-lock.json
 

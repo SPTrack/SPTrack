@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPTrack</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark fixed-top mb-5 bg-black">
+            <div class="container-fluid">
+                <img src="logo.png" width="200" height="50">
+                <div style="height: 100%; width: 50%;" class="d-none d-md-none d-lg-block">
+                    <ul style="width: 100%;" class="d-flex justify-content-around align-items-center m-0">
+                        <a href="#home"><li class="white fs-5">Home</li></a>
+                        <a href="#sobre"><li class="white fs-5">Sobre</li></a>
+                        <a href="#depoimentos"><li class="white fs-5">Depoimentos</li></a>
+                        <a href="#contato"><li class="white fs-5">Contato</li></a>
+                    </ul>
+                </div>
+                <div class="d-none d-md-none d-lg-block">
+                    <a href="#"><button type="button" class="btn btn-outline-light me-3 fs-5">Entrar</button></a>
+                    <a href="#"><button type="button" class="btn btn-light fs-5">Cadastrar-se</button></a>
+                </div>
+                <button class="navbar-toggler d-block d-md-block d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="offcanvas offcanvas-end text-bg-dark bg-black" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div>
+                        <a href="#"><button type="button" class="btn btn-outline-light mt-5 mb-5 ms-5 me-5 fs-5 d-block d-md-block d-lg-none">Entrar</button></a>
+                        <a href="#"><button type="button" class="btn btn-light mt-5 mb-5 ms-5 me-5 fs-5 d-block d-md-block d-lg-none">Cadastrar-se</button></a>
+                        
+                        <div style="height: 100%;" class="d-block d-md-block d-lg-none">
+                            <ul class="d-flex flex-column p-0">
+                                <a href="#home"><li class="white fs-5 ms-5 me-5 mt-4 mb-4">Home</li></a>
+                                <a href="#sobre"><li class="white fs-5 ms-5 me-5 mt-4 mb-4">Sobre</li></a>
+                                <a href="#depoimentos"><li class="white fs-5 ms-5 me-5 mt-4 mb-4">Depoimentos</li></a>
+                                <a href="#contato"><li class="white fs-5 ms-5 me-5 mt-4 mb-4">Contato</li></a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home -->
+    <div id="home" class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-6 d-flex justify-content-center align-items-center">
+                <div>
+                    <h1 class="fs-1">
+                        Inovando na manutenção <br>
+                        de computadores para <br>
+                        ensino superior
+                    </h1>
+                    <p class="fs-5 mt-4 mb-5 w-75">
+                        Já se perguntou a dificuldade que é para um profissional 
+                        fazer a manutenção dos computadores de uma faculdade? 
+                        Pois bem, nós da SPTrack chegamos para mudar esse 
+                        processo com uma tecnologia inovadora. Ficou curioso? 
+                        Clique no botão abaixo para saber mais ou para 
+                        entrar em contato conosco: 
+                    </p>
+                    <div>
+                        <a href="#sobre"><button type="button" class="btn btn-outline-dark me-3 fs-5">Sobre nós</button></a>
+                        <a href="#contato"><button type="button" class="btn btn-dark bg-black fs-5">Contato</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6 d-none d-md-none d-lg-block d-flex justify-content-center align-items-center">
+                <img src="img-home.png" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção -->
+    <div class="container mt-5 mb-5">
+        <div class="row bg-black rounded-4">
+            <div class="col-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center mt-5 mb-5">
+                <div style="display: flex;">
+                    <div style="display: flex; align-items: start;" class="me-4">
+                        <i class="bi bi-mortarboard icons ajusteIcon"></i>
+                    </div>
+                    <div>
+                        <h2 class="fs-4 white">Ensino superior</h2>
+                        <p class="fs-5 text-white-50">
+                            Os nossos clientes são facudades<br> 
+                            que desejam melhorar os seus.<br>  
+                            processos de TI. No caso, o uso<br>  
+                            dos computadores da instituição.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center mt-5 mb-5">
+                <div style="display: flex;">
+                    <div style="display: flex; align-items: start;" class="me-4">
+                        <i class="bi bi-gear icons ajusteIcon"></i>
+                    </div>
+                    <div>
+                        <h2 class="fs-4 white">Manutenção</h2>
+                        <p class="fs-5 text-white-50">
+                            Nós facilitamos completamente<br> 
+                            as tarefas de manutençâo dos<br>  
+                            dispositivos, evitando perdas<br>  
+                            e aborrecimentos dos usuários.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center mt-5 mb-5">
+                <div style="display: flex;">
+                    <div style="display: flex; align-items: start;" class="me-4">
+                        <i class="bi bi-window-sidebar icons ajusteIcon"></i>
+                    </div>
+                    <div>
+                        <h2 class="fs-4 white">Nosso sistema</h2>
+                        <p class="fs-5 text-white-50">
+                            Nossa solução se baseia em um<br> 
+                            sistema que monitora cada <br>  
+                            computador, para identificar<br>  
+                            antecipadamente qualquer problema.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sobre -->
+    <div id="sobre" class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-6 d-none d-md-none d-lg-block d-flex justify-content-center align-items-center">
+                <img src="Dashboard-cuate.png" style="width: 100%;">           
+            </div>
+            <div class="col-12 col-md-12 col-lg-6 d-flex justify-content-center align-items-center">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <h1 class="fs-1 text-center">Sobre nós</h1>
+                    <p style="width: 80%;" class="fs-5 mt-5">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        A SPTrack nasceu com a missão de renovar a forma como as faculdades lidam com a manutenção de seus computadores, que muitas vezes ficavam reféns de funcionários de TI. Esses que por sua vez não possuiam a informação necessária para lidar com as máquinas antes que elas dessem problemas, ainda mais levando em consideração o número absurdo de computadores que uma grande instituição pode ter.
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Pensando nisso, nós desenvolvemos um sistema que é capaz de gerenciar os componentes de todos os computadores de uma faculdade, dando a possibilidade ao profissional responsável de fazer a manutenção de um computador antes que ele dê problema, assim, evitando o custo financeiro que isso causaria e deixando o ambiente da instituição sem reclamações de seus clientes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Divisão -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <hr style="width: 100%;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Depoimentos -->
+    <div id="depoimentos" class="container mt-5 mb-5">
+        <div class="row mb-5">
+            <div class="col">
+                <h1 class="fs-1 text-center">Depoimentos</h1>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col d-flex justify-content-center align-items-center mb-5">
+                <div class="card" style="width: 18rem;">
+                    <img src="shipman-northcutt-sgZX15Da8YE-unsplash.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h2 class="fs-4">Roberto Faria</h2>
+                        <p class="fs-5 mt-3 mb-3"><strong>Chefe de Departamento</strong></p>
+                        <p class="fs-5">
+                            "Graças à SPTrack, a instituição de ensino em que eu trabalho pôde reduzir os custos de manutenção de vários dispositivos tecnológicos."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center mb-5">
+                <div class="card" style="width: 18rem;">
+                    <img src="christopher-campbell-rDEOVtE7vOs-unsplash.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h2 class="fs-4">Ana Espinosa</h2>
+                        <p class="fs-5 mt-3 mb-3"><strong>Coordenadora de Curso</strong></p>
+                        <p class="fs-5">
+                            "Utilizar o sistema da SPTrack fez com que os alunos não precisassem se preocupar com uma possível perda de seus computadores."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center mb-5">
+                <div class="card" style="width: 18rem;">
+                    <img src="brian-tromp-oyoKfOhYtZI-unsplash.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h2 class="fs-4">Arthur Rousseau</h2>
+                        <p class="fs-5 mt-3 mb-3"><strong>Diretor Acadêmico</strong></p>
+                        <p class="fs-5">
+                            "Com o sistema da SPTrack, a nossa empresa é capaz de monitorar todos os computadores de nossos alunos sem nem precisar estar com eles."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contato -->
+    <div id="contato" class="container-fluid mt-5 bg-black">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-6 mt-5 mb-5">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="fs-1 text-center white">Informações de contato</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <div class="mt-5 mb-5">
+                            <div class="row">
+                                <div class="col d-flex">
+                                    <div class="me-3">
+                                        <i class="bi bi-telephone iconContato"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="fs-4 white">Telefone</h2>
+                                        <p class="fs-5 text-white-50">+55 (11) 99999-9999</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex">
+                                    <div class="me-3">
+                                        <i class="bi bi-envelope iconContato"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="fs-4 white">E-mail</h2>
+                                        <p class="fs-5 text-white-50">sptrack@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex">
+                                    <div class="me-3">
+                                        <i class="bi bi-pin iconContato"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="fs-4 white">Endereço</h2>
+                                        <p class="fs-5 text-white-50">Rua Haddock Lobo - <br>
+                                                                      Cerqueira César, São Paulo 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6 mt-5 d-flex justify-content-center align-items-center">
+                <iframe class="mb-5" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.287482017871!2d-46.663802685006566!3d-23.558116367357645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d2b063f663%3A0xc567c0d16d0bc582!2sS%C3%A3o%20Paulo%20Tech%20School!5e0!3m2!1spt-BR!2sbr!4v1660964367165!5m2!1spt-BR!2sbr" width="80%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer style="height: 15vh;" class="bg-black d-flex justify-content-center align-items-center">
+        <p class="fs-5 white text-center m-0">Copyright &copy; 2022 | Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

@@ -1,303 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@600&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
-*{
-    margin: 0;
-    padding: 0;
-}
-body{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 h1{
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
-    font-size: 48px;
 }
 h2{
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
-    font-size: 24px;
 }
 p{
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 16px;
 }
 button{
     font-family: 'Lato', sans-serif;
     font-weight: 700;
-    font-size: 16px;
-    border: 2px solid;
+}
+nav{
+    height: 10vh;
+}
+li{
+    float: left;
+    list-style: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+header{
+    margin-bottom: 15vh;
+}
+a{
+    text-decoration: none;
+}
+hr{
+    border: 2px solid black;
     border-radius: 10px;
-    width: 120px;
-    height: 6vh;
+}
+.logo{
+    height: 80%;
 }
 .white{
     color: white;
 }
-header{
-    width: 100%;
-    height: 10vh;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 100%;
-}
-.headerDiv{
-    width: 33.33%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.headerDivImg{
-    justify-content: start;
-}
-.imgLogo{
-    height: 50%;
-    width: 40%;
-}
-.headerUl{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.headerLi{
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    color: white;
-    list-style: none;
-    margin-right: 20%;
-    margin-left: 20%;
-}
-.headerDivButton{
-    justify-content: end;
-}
-.buttonBlack{
-    background-color: black;
-    color: white;
-    border-color: white;
-}
-.buttonWhite{
-    background-color: white;
+.black{
     color: black;
-    border-color: black;
 }
-.buttonRight{
-    margin-left: 30px;
-}
-.buttonLeft{
-    margin-right: 30px;
-}
-.headerDivIcon{
-    display: none;
-}
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-}
-.mainDiv{
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.mainDivContent{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    width: 80%;
-}
-.mainP{
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-section{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.mainSection{
+.bg-black{
     background-color: black;
-    border-radius: 20px;
-    margin-top: 50px;
 }
-.sectionDiv{
-    width: 33.33%;
-    height: 60%;
+.icons{
+    color: white;
+    font-size: 35px;
+}
+.ajusteIcon{
+    margin-top: -15px;
+}
+.iconContato{
+    color: white;
+    font-size: 35px;
+}
+.navegacao{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
 }
-.sectionDivContent{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-}
-.sectionIcon{
-    height: 100px;
-    width: 40px;
-    font-size: 40px;
-}
-.iconLeft{
-    margin-right: 40px;
-}
-#sobre{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-}
-.sobreDiv{
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.imgSobre{
-    width: 100%;
-}
-.sobreDivContent{
+.divMenu{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 70%;
-}
-.sobreP1{
-    margin-top: 30px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-.sobreP2{
-    margin-top: 15px;
-    text-align: center;
-}
-.sobreHr{
-    width: 70%;
-    border: 2px solid black;
-    border-radius: 10px;
-}
-#depoimentos{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-}
-.depoimentosBox{
-    background-color: black;
-    flex-direction: column;
-    border-radius: 20px;
-}
-.depoimentosDiv{
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-.depoimentosDivLeft{
-    justify-content: start;
-}
-.depoimentosDivCenter{
-    justify-content: center;
-}
-.depoimentosDivRight{
-    justify-content: end;
-}
-.depoimentosDivContent{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-.depoimentosDivContentTop{
-    margin-top: 50px;
-}
-.depoimentosDivContentBottom{
-    margin-bottom: 50px;
-}
-.depoimentosImg{
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.depoimentosString{
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-}
-.depoimentosP{
-    margin-top: 5px;
-    width: 50%;
-}
-#contato{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    margin-top: 100px;
-    margin-bottom: 100px;
-}
-.contatoDiv{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.contatoDivContent{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-.contatoString{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-}
-.contatoH2{
-    margin-right: 10px;
-}
-#mapa{
-    width: 100%;
-    height: 100%;
-}
-footer{
-    height: 10vh;
-    width: 100%;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@media (max-width: 1000px) {
-    
-}
-@media (max-width: 600px) {
-    
 }

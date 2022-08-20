@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@600&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+
+h1{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+h2{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+p{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+button{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+}
+nav{
+    height: 10vh;
+}
+li{
+    float: left;
+    list-style: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+header{
+    margin-bottom: 15vh;
+}
+a{
+    text-decoration: none;
+}
+hr{
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.logo{
+    height: 80%;
+}
+.white{
+    color: white;
+}
+.black{
+    color: black;
+}
+.bg-black{
+    background-color: black;
+}
+.icons{
+    color: white;
+    font-size: 35px;
+}
+.ajusteIcon{
+    margin-top: -15px;
+}
+.iconContato{
+    color: white;
+    font-size: 35px;
+}
+.navegacao{
+    display: flex;
+}
+.divMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -37,9 +37,8 @@ function entrar() {
                 console.log(json);
                 console.log(JSON.stringify(json));
 
-                sessionStorage.EMAIL_USUARIO = json.email;
-                sessionStorage.NOME_USUARIO = json.nome;
-                sessionStorage.ID_USUARIO = json.id;
+                // Dessa forma conseguimos ter todos os dados em único local
+                sessionStorage.USUARIO = JSON.stringify(json);
 
                 setTimeout(function () {
                     window.location = "./dashboard/cards.html";

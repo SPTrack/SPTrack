@@ -10,6 +10,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var instituicaoRouter = require('./src/routes/instituicoes');
+var usuarioRouter = require('./src/routes/usuarios');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,6 +20,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/instituicoes", instituicaoRouter);
+app.use("/usuarios", usuarioRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

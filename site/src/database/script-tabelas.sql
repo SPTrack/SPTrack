@@ -13,29 +13,29 @@ create table instituicao(
     bairro varchar(45),
     logradouro varchar(50),
     numero char(6)
-);
+) auto_increment = 1000;
 
 create table usuario(
 	idUsuario int primary key auto_increment,
     nome varchar(45),
     email varchar(45),
     senha varchar(65),
-    tipoUsuario varchar(45),
+    tipoUsuario varchar(45) check(tipoUsuario IN ('admin', 'analista')),
     fkInstituicao int,
     foreign key (fkInstituicao) references instituicao(idInstituicao),
     fkGestor int,
     foreign key (fkGestor) references usuario(IdUsuario)
-) auto_increment = 1000;
+);
 
 create table sala(
-	idSala int primary key,
+	idSala int primary key auto_increment,
     nome varchar(45),
     fkInstituicao int,
     foreign key (fkInstituicao) references instituicao(idInstituicao)
 );
 
 create table equipamento(
-	idEquipamento int primary key,
+	idEquipamento int primary key auto_increment,
     cpuEquipamento varchar(45),
     memoriaRam char(5),
     disco char(5),
@@ -46,7 +46,7 @@ create table equipamento(
 );
 
 create table registro(
-	idRegistro int primary key,
+	idRegistro int primary key auto_increment,
     cpuEquipamento varchar(45),
     memoria char(5),
     disco char(5),
@@ -59,10 +59,11 @@ create table locacao(
     foreign key (fkEquipamento) references equipamento(idEquipamento),
     fkSala int,
     foreign key (fkSala) references sala(idSala),
-    dtEstadia datetime primary key
+    dtEstadia datetime,
+    primary key (fkEquipamento, fkSala, dtEstadia)
 );
 create table manutencao(
-	idManutencao int primary key,
+	idManutencao int primary key auto_increment,
     dtInicio datetime,
     dtFim datetime,
     situacao varchar(45),

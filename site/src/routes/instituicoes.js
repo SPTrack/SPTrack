@@ -3,7 +3,7 @@ var router = express.Router();
 
 var instituicaoController = require('../controllers/instituicaoController');
 
-router.post('/', function (request, response) {
+router.post('/cadastro', function (request, response) {
     instituicaoController.cadastrar(request, response);
 });
 

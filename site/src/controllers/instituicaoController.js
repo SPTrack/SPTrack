@@ -8,15 +8,15 @@ function cadastrar(request, response) {
     var nomeFantasia = request.body.nomeFantasiaServer;
     var cnpj = request.body.cnpjServer;
     var cep = request.body.cepServer;
-    var estado = request.body.estadoServer;
+    var estado = request.body.ufServer;
     var complemento = request.body.complementoServer;
     var cidade = request.body.cidadeServer;
     var bairro = request.body.bairroServer;
-    var lougradouro = request.body.lougradouroServer;
+    var lougradouro = request.body.logradouroServer;
     var numero = request.body.numeroServer;
     var email = request.body.emailServer;
     var senha = request.body.senhaServer;
-
+    var nomeUsuario = request.body.nomeServer;
     if (razaoSocial == null || razaoSocial == undefined) {
         response.status(400).send('Razão Social é obrigatório!')
     } else if (nomeFantasia == null || nomeFantasia == undefined) {
@@ -57,7 +57,7 @@ function cadastrar(request, response) {
             var idInstituicao = resultadoInstituicao.insertId;
 
             bcrypt.hash(senha, 8).then(senhaCriptografada => {
-                usuarioModel.cadastrar(`Admin ${nomeFantasia}`, email, senhaCriptografada, 'admin', idInstituicao, null)
+                usuarioModel.cadastrar(nomeUsuario, email, senhaCriptografada, 'admin', idInstituicao, null)
                 .then(resultado => {
                     response.json(resultado);
                 }).catch(function (erro) {

@@ -20,6 +20,7 @@ button{
 body{
     background-color: whitesmoke;
 }
+
 nav{
     height: 14vh;
     min-height: 60px;
@@ -46,6 +47,60 @@ hr{
 .logo{
     height: 80%;
 }
+
+.empresa{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.campo{
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.login .campo{
+    width: 30%;
+}
+.login input{
+    height: 30px;
+}
+.empresa button{
+    border-radius: 10px;
+    background-color: black;
+    border: 0px;
+    width: 200px;
+    height: 40px;
+    color: whitesmoke;
+}
+.login button{
+    border-radius: 10px;
+    background-color: black;
+    border: 0px;
+    width: 200px;
+    height: 40px;
+    color: whitesmoke;
+}
+.campo label{
+    align-self: flex-start;
+}
+input{
+    border-radius: 10px;
+    border: 1;
+    border-color: black;
+   
+
+}
 .white{
     color: white;
 }
@@ -69,6 +124,9 @@ hr{
 }
 .navegacao{
     display: flex;
+}
+#contato{
+    height: 80vh;
 }
 .divMenu{
     display: flex;

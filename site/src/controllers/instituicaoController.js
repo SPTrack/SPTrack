@@ -14,6 +14,7 @@ function cadastrar(request, response) {
     var bairro = request.body.bairroServer;
     var lougradouro = request.body.lougradouroServer;
     var numero = request.body.numeroServer;
+    var nome = request.body.nomeServer;
     var email = request.body.emailServer;
     var senha = request.body.senhaServer;
 
@@ -37,6 +38,8 @@ function cadastrar(request, response) {
         response.status(400).send('Lougrado é obrigatório!')
     } else if (numero == null || numero == undefined) {
         response.status(400).send('Número é obrigatório!')
+    } else if (nome == null || nome == undefined) {
+        response.status(400).send('Nome do administrador é obrigatório!')
     } else if (email == null || email == undefined) {
         response.status(400).send('Email do administrador é obrigatório!')
     } else if (senha == null || senha == undefined) {
@@ -57,7 +60,7 @@ function cadastrar(request, response) {
             var idInstituicao = resultadoInstituicao.insertId;
 
             bcrypt.hash(senha, 8).then(senhaCriptografada => {
-                usuarioModel.cadastrar(`Admin ${nomeFantasia}`, email, senhaCriptografada, 'admin', idInstituicao, null)
+                usuarioModel.cadastrar(${nome}, email, senhaCriptografada, 'admin', idInstituicao, null)
                 .then(resultado => {
                     response.json(resultado);
                 }).catch(function (erro) {

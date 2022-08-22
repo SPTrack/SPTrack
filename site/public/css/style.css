@@ -17,8 +17,15 @@ button{
     font-family: 'Lato', sans-serif;
     font-weight: 700;
 }
+body{
+    background-color: whitesmoke;
+}
 nav{
-    height: 10vh;
+    height: 14vh;
+    min-height: 60px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 100%;
 }
 li{
     float: left;
@@ -42,6 +49,7 @@ hr{
 .white{
     color: white;
 }
+
 .black{
     color: black;
 }

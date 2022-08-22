@@ -11,7 +11,7 @@ function entrar(request, response) {
     } else if (senha == null || senha == undefined) {
         response.status(400).send('Senha é obrigatório!')
     } else {
-        usuarioModel.entrar(email).then(usuarioEncontrado => {
+        usuarioModel.procurarPorEmail(email).then(usuarioEncontrado => {
             if (usuarioEncontrado.length == 1) {
                 bcrypt.compare(senha, usuarioEncontrado[0].senha).then(isIgual => {
                     if (isIgual) {

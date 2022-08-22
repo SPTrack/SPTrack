@@ -1,3 +1,4 @@
+import os
 from dashing import HSplit, VSplit, VGauge, HGauge
 from psutil import (
     virtual_memory,
@@ -17,71 +18,51 @@ while True:
     
     if escolha == '0':
         new_dash = VSplit(
-            VSplit(
+            HSplit(
                 HGauge(),
                 title='CPU',
                 border_color=4
-            ),
-            VSplit(
+            ),            
+            HSplit(
                 HSplit(
-                    VSplit(
-                        HGauge(),
-                        title='MEMÓRIA',
-                        border_color=3        
-                    ),
-                    VSplit(
-                        HGauge(),
-                        title='DISCO',
-                        border_color=3        
-                    )
+                    HGauge(),
+                    title='MEMÓRIA',
+                    border_color=3        
+                ),
+                HSplit(
+                    HGauge(),
+                    title='DISCO',
+                    border_color=3        
                 )
-            )
+            )            
         )
-        dash = HSplit(
-            VSplit(
-                HGauge(),
-                title='CPU',
-                border_color=4
-            ),
-            VSplit(
-                HGauge(),
-                title='MEMÓRIA',
-                border_color=3
-            ),
-            VSplit(
-                HGauge(),
-                title='DISCO',
-                border_color=5,
-            ),
-        )
+
+        os.system('clear')
 
         while True:
             #CPU
-            # cpu_dash = new_dash.items[0]
-            cpu_dash = dash.items[0]
+            cpu_dash = new_dash.items[0]
             cpu_percent_dash = cpu_dash.items[0]
             cpu_use = cpu_percent()
-            cpu_percent_dash.value = cpu_use
+            cpu_percent_dash.value = float(round(cpu_use,2))
             cpu_percent_dash.title = f'CPU {cpu_use}%'
 
             #memoria RAM
-            # ram_dash = new_dash.items[1].items[0].items[0]
-            ram_dash= dash.items[1]
+            ram_dash = new_dash.items[1].items[0]
             ram_percent_dash = ram_dash.items[0]
             ram_use = virtual_memory().percent
-            ram_percent_dash.value = ram_use
+            ram_percent_dash.value = float(round(ram_use,2))
             ram_percent_dash.title = f'RAM {ram_use}%'
 
             #DISCO
-            # disc_dash = new_dash.items[1].items[0].items[1]
-            disc_dash = dash.items[2]
+            disc_dash = new_dash.items[1].items[1]
             disc_percent_dash = disc_dash.items[0]
             disc_use = disk_usage('/').percent
-            disc_percent_dash.value = disc_use
+            disc_percent_dash.value = float(round(disc_use,2))
             disc_percent_dash.title = f'DISCO {disc_use}%'
 
             try:
-                dash.display()
+                new_dash.display()
                 sleep(.5)
             except KeyboardInterrupt:
                 break  

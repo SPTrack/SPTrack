@@ -60,11 +60,7 @@ function cadastrar(request, response) {
             var idInstituicao = resultadoInstituicao.insertId;
 
             bcrypt.hash(senha, 8).then(senhaCriptografada => {
-<<<<<<< HEAD
                 usuarioModel.cadastrar(nomeUsuario, email, senhaCriptografada, 'admin', idInstituicao, null)
-=======
-                usuarioModel.cadastrar(${nome}, email, senhaCriptografada, 'admin', idInstituicao, null)
->>>>>>> b314f2433e73954d4f63de56ab3cfc00a2dbdca0
                 .then(resultado => {
                     response.json(resultado);
                 }).catch(function (erro) {

@@ -2,95 +2,117 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
-
-    <link rel="stylesheet" href="../css/style.css">
+    <title>SPTrack</title>
     <link rel="stylesheet" href="dashboards.css">
-    <script src="../js/funcoes.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-    <!-- scripts do Chart.js - 2022-1 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 
-<body onload=" atualizarFeed()">
+<body>
+    <div class="principal">
+        <header class="dash">
+            <div class="boxDash">
+                <div class="headerDivDash headerDivImg">
+                    <img src="../assets/logo.png" class="imgLogoDash">
+                </div>
+                <div class="headerDivDash">
+                    <ul class="headerUlDash">
+                        <li style="font-weight: 700;" class="headerLiDash"> <a href="dashboard.html"> Home</a></li>
+                        <li class="headerLiDash"> <a href="equipamentos.html"> Equipamentos</a></li>
+                        <li class="headerLiDash"><a href="salas.html"> Salas</a></li>
+                        <li class="headerLiDash"> <a href="manutencao.html"> Manutenção</a></li>
+                        <li class="headerLiDash"> <a href="estatisticas.html"> Estatística </a></li>
+                        <li class="headerLiDash"> <a href="equipe.html"> Equipe </a></li>
+                        <li class="headerLiDash"> <a href="instituicao.html"> Instituição </a></li>
+                        <li class="headerLiDash"> <a href="../index.html"> Sair</a></li>
+                    </ul>
+                </div>
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                <div class="headerDiv headerDivIcon">
+                    <i class="bi bi-list white"></i>
+                </div>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários</h3>
-                </a>
+        </header>
+        <div  class="containerDash">
+            <div class="homeDash">
+                <div class="box1"></div>
+                <div class="box1"></div>
+                <div class="box1"></div>
             </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
+            <div class="homeDash2">
+                <div class="boxPrincipal"></div>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
         </div>
 
-        <div class="dash">
-            <div class="btns-dash">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-                <button class="btn-chart btn-pink" onclick="obterDadosGrafico(1)">Aquario 1</button>
-                <button class="btn-chart btn-white" onclick="obterDadosGrafico(2)">Aquario 2</button>
-                <button class="btn-chart btn-white" onclick="obterDadosGrafico(3)">Aquario 3</button>
-                <button class="btn-chart btn-white" onclick="obterDadosGrafico(4)">Aquario 4</button>
+
+
+        <div style="display: none;" class="container">
+            <div class="boxUm">
+                <div class="graficos">
+                    <canvas id="myChart1"></canvas>
+                </div>
+                <div class="graficos">
+                    <canvas id="myChart2"></canvas>
+                </div>
             </div>
-            <div>
-                <h3 class="tituloGraficos">
-                    <span id="tituloAquario">123</span>
-                </h3>
+            <div class="boxDois">
+                <div class="graficos">
+                    <canvas id="myChart3"></canvas>
+                </div>
+                <div class="graficos">
+                    <canvas id="myChart4"></canvas>
+                </div>
             </div>
-            <div class="graph">
-                <canvas id="myChart"></canvas>
-            </div>
-            <div class="avisoCaptura">
-                <p id="avisoCaptura" style="color: white"></p>
-            </div>
+
+
         </div>
     </div>
-
-
 </body>
 
 </html>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <script>
-    
+
+
+    const labels = [
+        'January',
+        'February',
+        'March'
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 5, 2, 30, 45],
+        }]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true
+        }
+    };
+
+    const myChart = new Chart(
+        document.getElementById('myChart1'),
+        config
+    );
+
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-    
+
     let proximaAtualizacao;
-        
+
     window.onload = obterDadosGrafico(1);
 
     verificar_autenticacao();
@@ -143,7 +165,7 @@
 
         // Criando estrutura para plotar gráfico - labels
         let labels = [];
-        
+
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
@@ -162,11 +184,11 @@
                 tension: 0.1
             }]
         };
-        
+
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
-        
+
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
@@ -174,7 +196,7 @@
             dados.datasets[0].data.push(registro.umidade);
             dados.datasets[1].data.push(registro.temperatura);
         }
-        
+
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
@@ -182,7 +204,7 @@
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
-        
+
         // Criando estrutura para plotar gráfico - config
         const config = {
             type: 'line',

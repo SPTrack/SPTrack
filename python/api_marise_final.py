@@ -5,12 +5,24 @@ from psutil import (
     disk_usage,
     cpu_percent
 )
-
+import pymysql
+import _thread as thread
 from time import sleep
+
+conexao = pymysql.connect(host="localhost",user="aluno", password="sptech",database="SPTrack")
+
+contador = 0
+
+
+with conexao.cursor() as cursor:
+    sqlQuery = "insert into equipamento(disco) values('10')"
+    cursor.execute(sqlQuery)
+    resposta = conexao.commit()
+    print(resposta)
+
 
 while True:
     print("Analise de dados da maquina" + '\n' + '\n')
-
     print("Escolha um dado para ser analisado: " + "\n" + "\n" +
     "[0] Ver os Graficos de memoria" + "\n" + "[1] Sair")
 
@@ -40,6 +52,9 @@ while True:
         os.system('clear')
 
         while True:
+            
+
+           
             #CPU
             cpu_dash = new_dash.items[0]
             cpu_percent_dash = cpu_dash.items[0]
@@ -61,6 +76,14 @@ while True:
             disc_percent_dash.value = float(round(disc_use,2))
             disc_percent_dash.title = f'DISCO {disc_use}%'
 
+            if contador % 20 == 0:
+                with conexao.cursor() as cursor:
+                    sqlQuery = 'INSERT INTO registro VALUES(null,%s,%s,%s,now(),1);'
+                    cursor.execute(sqlQuery, (cpu_use, ram_use, disc_use))
+                    resposta = conexao.commit()
+                    print(resposta)
+
+            contador += 1
             try:
                 new_dash.display()
                 sleep(.5)

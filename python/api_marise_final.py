@@ -6,19 +6,11 @@ from psutil import (
     cpu_percent
 )
 import pymysql
-import _thread as thread
 from time import sleep
 
 conexao = pymysql.connect(host="localhost",user="aluno", password="sptech",database="SPTrack")
 
 contador = 0
-
-
-with conexao.cursor() as cursor:
-    sqlQuery = "insert into equipamento(disco) values('10')"
-    cursor.execute(sqlQuery)
-    resposta = conexao.commit()
-    print(resposta)
 
 
 while True:

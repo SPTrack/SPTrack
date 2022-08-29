@@ -9,7 +9,7 @@ import pymysql
 import _thread as thread
 from time import sleep
 
-conexao = pymysql.connect(host="localhost",user="aluno", password="sptech",database="SPTrack")
+conexao = pymysql.connect(host="localhost",user="root", password="@Pedrinho1",database="SPTrack")
 
 contador = 0
 

@@ -45,6 +45,7 @@ create table equipamento(
     numeroSerial varchar(20)
 );
 
+INSERT INTO equipamento VALUES (null, 'I5 9400f','4GB','500GB','HP Prata','Windows','3892','BRG382784F')
 create table registro(
 	idRegistro int primary key auto_increment,
     cpuEquipamento varchar(45),

@@ -1,14 +1,10 @@
 import os
-from dashing import HSplit, VSplit, VGauge, HGauge
-from psutil import (
-    virtual_memory,
-    disk_usage,
-    cpu_percent
-)
+from dashing import HSplit, VSplit, HGauge
+from psutil import virtual_memory, disk_usage, cpu_percent
 import pymysql
 from time import sleep
 
-conexao = pymysql.connect(host="localhost",user="root", password="@Pedrinho1",database="SPTrack")
+conexao = pymysql.connect(host="localhost",user="aluno", password="sptech",database="SPTrack")
 
 contador = 0
 
@@ -36,7 +32,7 @@ while True:
                 HSplit(
                     HGauge(),
                     title='DISCO',
-                    border_color=3        
+                    border_color=5        
                 )
             )            
         )
@@ -51,7 +47,7 @@ while True:
             cpu_dash = new_dash.items[0]
             cpu_percent_dash = cpu_dash.items[0]
             cpu_use = cpu_percent()
-            cpu_percent_dash.value = float(round(cpu_use,2))
+            cpu_percent_dash.value = round(cpu_use,2)
             cpu_percent_dash.title = f'CPU {cpu_use}%'
 
             #memoria RAM
@@ -70,7 +66,7 @@ while True:
 
             if contador % 20 == 0:
                 with conexao.cursor() as cursor:
-                    sqlQuery = 'INSERT INTO registro VALUES(null,%s,%s,%s,now(),1);'
+                    sqlQuery = 'INSERT INTO registro VALUES(null,%s,%s,%s,now(),null);'
                     cursor.execute(sqlQuery, (cpu_use, ram_use, disc_use))
                     resposta = conexao.commit()
                     print(resposta)

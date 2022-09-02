@@ -45,12 +45,12 @@ create table equipamento(
     numeroSerial varchar(20)
 );
 
-INSERT INTO equipamento VALUES (null, 'I5 9400f','4GB','500GB','HP Prata','Windows','3892','BRG382784F')
+INSERT INTO equipamento VALUES (null, 'I5 9400f','4GB','500GB','HP Prata','Windows','3892','BRG382784F');
 create table registro(
 	idRegistro int primary key auto_increment,
-    cpuEquipamento varchar(45),
-    memoria char(5),
-    disco char(5),
+    cpuEquipamento decimal(5,2),
+    memoria decimal(5,2),
+    disco decimal(5,2),
     dataRegistro datetime,
     fkEquipamento int,
     foreign key (fkEquipamento) references equipamento(idEquipamento)
@@ -74,3 +74,4 @@ create table manutencao(
     fkEquipamento int,
     foreign key (fkEquipamento) references equipamento(idEquipamento)
 );
+select * from usuario;

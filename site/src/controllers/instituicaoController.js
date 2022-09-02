@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt');
 
 var instituicaoModel = require('../models/instituicaoModel');
+var salaModel = require('../models/salaModel');
 var usuarioModel = require('../models/usuarioModel');
 
 function cadastrar(request, response) {
@@ -8,16 +9,17 @@ function cadastrar(request, response) {
     var nomeFantasia = request.body.nomeFantasiaServer;
     var cnpj = request.body.cnpjServer;
     var cep = request.body.cepServer;
-    var estado = request.body.ufServer;
+    var uf = request.body.ufServer;
     var complemento = request.body.complementoServer;
     var cidade = request.body.cidadeServer;
     var bairro = request.body.bairroServer;
-    var lougradouro = request.body.logradouroServer;
+    var logradouro = request.body.logradouroServer;
     var numero = request.body.numeroServer;
     var nome = request.body.nomeServer;
     var email = request.body.emailServer;
     var senha = request.body.senhaServer;
     var nomeUsuario = request.body.nomeServer;
+
     if (razaoSocial == null || razaoSocial == undefined) {
         response.status(400).send('Razão Social é obrigatório!')
     } else if (nomeFantasia == null || nomeFantasia == undefined) {
@@ -26,15 +28,15 @@ function cadastrar(request, response) {
         response.status(400).send('CNPJ é obrigatório!')
     } else if (cep == null || cep == undefined) {
         response.status(400).send('CEP é obrigatório!')
-    } else if (estado == null || estado == undefined) {
-        response.status(400).send('Estado é obrigatório!')
+    } else if (uf == null || uf == undefined) {
+        response.status(400).send('uf é obrigatório!')
     } else if (complemento == null || complemento == undefined) {
         response.status(400).send('Complemento é obrigatório!')
     } else if (cidade == null || cidade == undefined) {
         response.status(400).send('Cidade é obrigatório!')
     } else if (bairro == null || bairro == undefined) {
         response.status(400).send('Bairro é obrigatório!')
-    } else if (lougradouro == null || lougradouro == undefined) {
+    } else if (logradouro == null || logradouro == undefined) {
         response.status(400).send('Lougrado é obrigatório!')
     } else if (numero == null || numero == undefined) {
         response.status(400).send('Número é obrigatório!')
@@ -50,24 +52,30 @@ function cadastrar(request, response) {
             nomeFantasia, 
             cnpj, 
             cep, 
-            estado, 
+            uf, 
             complemento, 
             cidade, 
             bairro, 
-            lougradouro, 
+            logradouro, 
             numero
         ).then(resultadoInstituicao => {
             var idInstituicao = resultadoInstituicao.insertId;
 
-            bcrypt.hash(senha, 8).then(senhaCriptografada => {
-                usuarioModel.cadastrar(nomeUsuario, email, senhaCriptografada, 'admin', idInstituicao, null)
-                .then(resultado => {
-                    response.json(resultado);
-                }).catch(function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    response.status(500).json(erro.sqlMessage);
+            salaModel.cadastrar('Sala de TI', idInstituicao).then(_ => {                
+                bcrypt.hash(senha, 8).then(senhaCriptografada => {
+                    usuarioModel.cadastrar(nomeUsuario, email, senhaCriptografada, 'admin', idInstituicao, null)
+                    .then(resultado => {
+                        response.json(resultado);
+                    }).catch(function (erro) {
+                        console.log(erro);
+                        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                        response.status(500).json(erro.sqlMessage);
+                    });
                 });
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                response.status(500).json(erro.sqlMessage);
             });
 
         }).catch(function (erro) {

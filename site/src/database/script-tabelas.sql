@@ -1,3 +1,6 @@
+CREATE USER 'sptrackClient'@'localhost' IDENTIFIED BY 'urubu100';
+GRANT ALL PRIVILEGES ON SPTrack.* TO 'sptrackClient'@'localhost';
+
 create database SPTrack;
 use SPTrack;
 
@@ -46,6 +49,7 @@ create table equipamento(
 );
 
 INSERT INTO equipamento VALUES (null, 'I5 9400f','4GB','500GB','HP Prata','Windows','3892','BRG382784F');
+
 create table registro(
 	idRegistro int primary key auto_increment,
     cpuEquipamento decimal(5,2),
@@ -55,6 +59,7 @@ create table registro(
     fkEquipamento int,
     foreign key (fkEquipamento) references equipamento(idEquipamento)
 );
+
 create table locacao(
 	fkEquipamento int,
     foreign key (fkEquipamento) references equipamento(idEquipamento),
@@ -63,6 +68,7 @@ create table locacao(
     dtEstadia datetime,
     primary key (fkEquipamento, fkSala, dtEstadia)
 );
+
 create table manutencao(
 	idManutencao int primary key auto_increment,
     dtInicio datetime,
@@ -74,4 +80,5 @@ create table manutencao(
     fkEquipamento int,
     foreign key (fkEquipamento) references equipamento(idEquipamento)
 );
+
 select * from usuario;

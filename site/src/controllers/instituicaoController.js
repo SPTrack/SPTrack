@@ -20,6 +20,12 @@ function cadastrar(request, response) {
     var senha = request.body.senhaServer;
     var nomeUsuario = request.body.nomeServer;
 
+    cnpj = cnpj.replace('/', '');
+    cnpj = cnpj.replace('-', '');
+    cnpj = cnpj.replace(/\./g,'');
+    cep = cep.replace('-', '')
+    cep = cep.replace(/\./g, '');
+
     if (razaoSocial == null || razaoSocial == undefined) {
         response.status(400).send('Razão Social é obrigatório!')
     } else if (nomeFantasia == null || nomeFantasia == undefined) {

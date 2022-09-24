@@ -8,7 +8,7 @@ create table instituicao(
 	idInstituicao int primary key auto_increment,
     razaoSocial varchar(120),
     nomeFantasia varchar(100),
-    cnpj varchar (14),
+    cnpj varchar (18),
     cep char(8),
     estado varchar (45),
     complemento varchar(100),

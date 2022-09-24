@@ -42,7 +42,7 @@ function entrar() {
                 sessionStorage.USUARIO = JSON.stringify(json);
 
                 setTimeout(function () {
-                    window.location = "./dashboard/dashboard.html";
+                    window.location = "../dashboard/";
                 }, 1000); // apenas para exibir o loading
 
             });

@@ -82,6 +82,7 @@ CREATE TABLE equipamento(
 CREATE TABLE componente(
     idComponente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(64) NOT NULL,
+    unidadeMedida VARCHAR(64),
     tipo VARCHAR(64),
     
     fkEquipamento INT,
@@ -97,6 +98,10 @@ CREATE TABLE medida(
     FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
 ) AUTO_INCREMENT = 300000;
 
-INSERT INTO equipamento VALUES (NULL, 'I5 9400f','4GB','500GB','HP Prata','Windows','3892','BRG382784F');
-drop database sptrack;
+
+INSERT INTO instituicao VALUES (NULL, 'EDUCARE TECNOLOGIA DA INFORMACAO S.A.', 'EDUCARE', '07165496000100', '01414905', 'SP', 'EDIF', 'SAO PAULO', 'CERQUEIRA CESAR', 'R HADDOCK LOBO 595', '595');
+INSERT INTO sala VALUES (NULL, "Sala 1A", 1, 1, 1000);
+INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG382784F', NOW(), 1000);
+INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100000);
+INSERT INTO medida VALUES (NULL, 55.04, NOW(), 200000);
 select * from usuario;

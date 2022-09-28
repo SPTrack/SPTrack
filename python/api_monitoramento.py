@@ -12,7 +12,6 @@ cls = 'clear' if platform.system() == 'Linux' else 'cls'
 while True:
     os.system(cls)
     
-
     new_dash = VSplit(
         HSplit(
             HGauge(),
@@ -59,8 +58,8 @@ while True:
 
         if contador % 20 == 0:
             with conexao.cursor() as cursor:
-                sqlQuery = 'INSERT INTO registro VALUES(null,%s,%s,%s,now(),null);'
-                cursor.execute(sqlQuery, (cpu_use, ram_use, disc_use))
+                sqlQuery = 'INSERT INTO medida VALUES(NULL, %s, NOW(), 200000);'
+                cursor.execute(sqlQuery, (cpu_use))
                 resposta = conexao.commit()
                 print(resposta)
 

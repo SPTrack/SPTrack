@@ -5,8 +5,10 @@ function cadastrar(razaoSocial, nomeFantasia, cnpj, cep, estado, complemento, ci
 
     var query = `
         INSERT INTO instituicao 
-        VALUES (null, '${razaoSocial}', '${nomeFantasia}', '${cnpj}', '${cep}', '${estado}', '${complemento}', '${cidade}', '${bairro}', '${lougradouro}', '${numero}');
+        VALUES (NULL, '${razaoSocial}', '${nomeFantasia}', '${cnpj}', '${cep}', '${estado}', '${complemento}', '${cidade}', '${bairro}', '${lougradouro}', '${numero}');
     `;
+
+    console.log(query)
 
     console.log("Executando a instrução SQL: \n" + query);
     return database.executar(query);

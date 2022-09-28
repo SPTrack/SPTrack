@@ -42,6 +42,37 @@ CREATE TABLE sala(
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
 ) AUTO_INCREMENT = 1;
 
+CREATE TABLE equipamento(
+	idEquipamento INT PRIMARY KEY AUTO_INCREMENT,
+    modeloEquipamento VARCHAR(64),
+    sistemaOperacional VARCHAR(64),
+    numeroPatrimonio VARCHAR(12),
+    numeroSerial VARCHAR(64),
+    dataRegistro DATETIME,
+    
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
+) AUTO_INCREMENT = 100000;
+
+CREATE TABLE componente(
+    idComponente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(64) NOT NULL,
+    unidadeMedida VARCHAR(64),
+    tipo VARCHAR(64),
+    
+    fkEquipamento INT,
+    FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
+) AUTO_INCREMENT = 200000;
+
+CREATE TABLE medida(
+	idMedida INT PRIMARY KEY AUTO_INCREMENT,
+    valor DECIMAL,
+    dataRegistro DATETIME,
+    
+    fkComponente INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+) AUTO_INCREMENT = 300000;
+
 CREATE TABLE locacao(
 	fkEquipamento INT NOT NULL,
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento),
@@ -67,41 +98,21 @@ CREATE TABLE manutencao(
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
 ) AUTO_INCREMENT = 5000;
 
-CREATE TABLE equipamento(
-	idEquipamento INT PRIMARY KEY AUTO_INCREMENT,
-    modeloEquipamento VARCHAR(64),
-    sistemaOperacional VARCHAR(64),
-    numeroPatrimonio VARCHAR(12),
-    numeroSerial VARCHAR(64),
-    dataRegistro DATETIME,
-    
-    fkInstituicao INT,
-    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao);
-) AUTO_INCREMENT = 100000;
+CREATE VIEW `vw_getDadosInst` AS
+SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+ FROM medida
+ JOIN componente ON medida.fkComponente
+ JOIN equipamento ON componente.fkEquipamento
+ JOIN instituicao ON equipamento.fkInstituicao
+ WHERE instituicao.idInstituicao = idInstituicao
+;
 
-CREATE TABLE componente(
-    idComponente INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(64) NOT NULL,
-    unidadeMedida VARCHAR(64),
-    tipo VARCHAR(64),
-    
-    fkEquipamento INT,
-    FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
-) AUTO_INCREMENT = 200000;
-
-CREATE TABLE medida(
-	idMedida INT PRIMARY KEY AUTO_INCREMENT,
-    valor decimal(5,2),
-    dataRegistro DATETIME,
-    
-    fkComponente INT,
-    FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
-) AUTO_INCREMENT = 300000;
-
+SELECT * FROM vw_getDadosInst;
 
 INSERT INTO instituicao VALUES (NULL, 'EDUCARE TECNOLOGIA DA INFORMACAO S.A.', 'EDUCARE', '07165496000100', '01414905', 'SP', 'EDIF', 'SAO PAULO', 'CERQUEIRA CESAR', 'R HADDOCK LOBO 595', '595');
 INSERT INTO sala VALUES (NULL, "Sala 1A", 1, 1, 1000);
 INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG382784F', NOW(), 1000);
-INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100000);
-INSERT INTO medida VALUES (NULL, 55.04, NOW(), 200000);
+INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 'Processador', 100000);
+INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 'Memória RAM', 100000);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 'Disco Rigído', 100000);
 select * from usuario;

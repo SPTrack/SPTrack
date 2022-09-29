@@ -34,9 +34,9 @@ CREATE TABLE usuario(
 
 CREATE TABLE sala(
 	idSala INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45) NOT NULL,
-    andar VARCHAR(8) NOT NULL,
-    numero INT NOT NULL,
+    nome VARCHAR(45),
+    andar VARCHAR(8),
+    numero INT,
 
     fkInstituicao INT NOT NULL,
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
@@ -44,7 +44,7 @@ CREATE TABLE sala(
 
 CREATE TABLE equipamento(
 	idEquipamento INT PRIMARY KEY AUTO_INCREMENT,
-    modeloEquipamento VARCHAR(64),
+    modelo VARCHAR(64),
     sistemaOperacional VARCHAR(64),
     numeroPatrimonio VARCHAR(12),
     numeroSerial VARCHAR(64),
@@ -98,34 +98,37 @@ CREATE TABLE manutencao(
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
 ) AUTO_INCREMENT = 5000;
 
-CREATE VIEW `vw_getDadosInst` AS
-SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
- FROM medida
- JOIN componente ON medida.fkComponente
- JOIN equipamento ON componente.fkEquipamento
- JOIN instituicao ON equipamento.fkInstituicao
- WHERE instituicao.idInstituicao = idInstituicao
-;
+CREATE VIEW `vw_instituicaoXmedidas` AS
+SELECT instituicao.nomeFantasia, sala.andar, sala.numero, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao AND
+equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
 
-CREATE VIEW `vw_getDados7dias` AS
-SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
- FROM medida
- JOIN componente ON medida.fkComponente
- JOIN equipamento ON componente.fkEquipamento
- JOIN instituicao ON equipamento.fkInstituicao
- WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 7 DAY)
- AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
- equipamento.fkInstituicao = instituicao.idInstituicao
-;
+CREATE VIEW `vw_medidas7dias` AS
+SELECT equipamento.modelo, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 7 DAY)
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
+equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
 
-CREATE VIEW `vw_getDados60sec` AS
-SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
- FROM medida
- JOIN componente ON medida.fkComponente
- JOIN equipamento ON componente.fkEquipamento
- JOIN instituicao ON equipamento.fkInstituicao
- WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 1 MINUTE)
- ;
+CREATE VIEW `vw_medida60s` AS
+SELECT equipamento.modelo, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 1 MINUTE)
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
+equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
 
 SELECT * FROM vw_getDadosInst;
 SELECT * FROM vw_getDados7dias;
@@ -155,4 +158,4 @@ INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 'Processador', 100003);
 INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 'Memória RAM', 100003);
 INSERT INTO componente VALUES (NULL, 'SSD 1GB SATA', 'MB', 'Disco Rigído', 100003);
 
-select * from usuario;
+SELECT * FROM usuario;

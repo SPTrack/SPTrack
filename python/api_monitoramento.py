@@ -34,6 +34,7 @@ while True:
 
     os.system(cls)
 
+    ct = 200000
     while True:
         #CPU
         cpu_dash = new_dash.items[0]
@@ -46,7 +47,7 @@ while True:
         ram_dash = new_dash.items[1].items[0]
         ram_percent_dash = ram_dash.items[0]
         ram_use = virtual_memory().percent
-        ram_useGB = round(virtual_memory().used / (1024.0 ** 3), 1)
+        ram_useGB = round(virtual_memory().used / (1024.0 ** 3), 3)
         ram_percent_dash.value = float(round(ram_use, 2))
         ram_percent_dash.title = f'RAM {ram_use}%'
 
@@ -54,17 +55,28 @@ while True:
         disc_dash = new_dash.items[1].items[1]
         disc_percent_dash = disc_dash.items[0]
         disc_use = disk_usage('/').percent
-        disc_useMB = round(disk_usage('/').used/ (1024.0 ** 2))
+        disc_useMB = disk_usage('/').used/ (1024.0 ** 2)
         disc_percent_dash.value = float(round(disc_use, 2))
         disc_percent_dash.title = f'DISCO {disc_use}%'
 
-        if contador % 20 == 0:
+        if contador % 5 == 0:
             with conexao.cursor() as cursor:
-                sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), 200000), (NULL, {ram_useGB}, NOW(), 200001), (NULL, {disc_useMB}, NOW(), 200002);'
-                print(sqlQuery)
-            
+                sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {ct});'
                 cursor.execute(sqlQuery)
                 resposta = conexao.commit()
+                ct+=1
+
+                sqlQuery = f'INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {ct});'
+                cursor.execute(sqlQuery)
+                resposta = conexao.commit()
+                ct+=1
+
+                sqlQuery = f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {ct});'
+                cursor.execute(sqlQuery)
+                resposta = conexao.commit()
+
+                if ct == 200011:
+                    ct = 200000
 
         contador += 1
         try:

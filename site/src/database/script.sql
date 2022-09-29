@@ -66,7 +66,7 @@ CREATE TABLE componente(
 
 CREATE TABLE medida(
 	idMedida INT PRIMARY KEY AUTO_INCREMENT,
-    valor DECIMAL,
+    valor FLOAT,
     dataRegistro DATETIME,
     
     fkComponente INT,
@@ -107,12 +107,52 @@ SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome,
  WHERE instituicao.idInstituicao = idInstituicao
 ;
 
+CREATE VIEW `vw_getDados7dias` AS
+SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+ FROM medida
+ JOIN componente ON medida.fkComponente
+ JOIN equipamento ON componente.fkEquipamento
+ JOIN instituicao ON equipamento.fkInstituicao
+ WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 7 DAY)
+ AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
+ equipamento.fkInstituicao = instituicao.idInstituicao
+;
+
+CREATE VIEW `vw_getDados60sec` AS
+SELECT componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+ FROM medida
+ JOIN componente ON medida.fkComponente
+ JOIN equipamento ON componente.fkEquipamento
+ JOIN instituicao ON equipamento.fkInstituicao
+ WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 1 MINUTE)
+ ;
+
 SELECT * FROM vw_getDadosInst;
+SELECT * FROM vw_getDados7dias;
+SELECT * FROM vw_getDados60sec;
 
 INSERT INTO instituicao VALUES (NULL, 'EDUCARE TECNOLOGIA DA INFORMACAO S.A.', 'EDUCARE', '07165496000100', '01414905', 'SP', 'EDIF', 'SAO PAULO', 'CERQUEIRA CESAR', 'R HADDOCK LOBO 595', '595');
 INSERT INTO sala VALUES (NULL, "Sala 1A", 1, 1, 1000);
-INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG382784F', NOW(), 1000);
+
+INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG383084F', NOW(), 1000);
+INSERT INTO equipamento VALUES (NULL, 'Dell Preto', 'Linux','3312','BRG381284F', NOW(), 1000);
+INSERT INTO equipamento VALUES (NULL, 'Acer Prata', 'Linux','3586','BRG323283F', NOW(), 1000);
+INSERT INTO equipamento VALUES (NULL, 'Samsung Diamante', 'Windows','3526','BRG323433F', NOW(), 1000);
+
 INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 'Processador', 100000);
 INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 'Memória RAM', 100000);
 INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 'Disco Rigído', 100000);
+
+INSERT INTO componente VALUES (NULL, 'AMD neon Xtr', '%', 'Processador', 100001);
+INSERT INTO componente VALUES (NULL, 'Pente 8x4 - 12GB', 'GB', 'Memória RAM', 100001);
+INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 'Disco Rigído', 100001);
+
+INSERT INTO componente VALUES (NULL, 'I7 8º Gen', '%', 'Processador', 100002);
+INSERT INTO componente VALUES (NULL, 'Pente 2x2 - 4GB', 'GB', 'Memória RAM', 100002);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 'Disco Rigído', 100002);
+
+INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 'Processador', 100003);
+INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 'Memória RAM', 100003);
+INSERT INTO componente VALUES (NULL, 'SSD 1GB SATA', 'MB', 'Disco Rigído', 100003);
+
 select * from usuario;

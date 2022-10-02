@@ -57,8 +57,9 @@ CREATE TABLE equipamento(
 CREATE TABLE componente(
     idComponente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(64) NOT NULL,
-    unidadeMedida VARCHAR(64),
-    tipo VARCHAR(64),
+    unidadeMedida VARCHAR(64) NOT NULL,
+    capacidade INT NOT NULL,
+    tipo VARCHAR(64) NOT NULL,
     
     fkEquipamento INT,
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
@@ -130,9 +131,85 @@ WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(
 AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
 equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
 
+CREATE VIEW `vw_medidaCPU` AS
+SELECT medida.valor as valorCPU
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao
+AND componente.tipo = 'Processador'
+AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
+
+CREATE VIEW `vw_medidaRAM` AS
+SELECT medida.valor as valorRAM
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao
+AND componente.tipo = 'Memória RAM'
+AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
+
+CREATE VIEW `vw_medidaDK` AS
+SELECT medida.valor as valorDK
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao
+AND componente.tipo = 'Disco Rigído'
+AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
+
+SELECT idMedidaCPU, idMedidaRAM, idMedidaDK, ram.valorRAM, dk.valorDK
+FROM 
+(SELECT idMedida AS idMedidaCPU, medida.valor as valorCPU
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao
+AND componente.tipo = 'Processador'
+AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC) AS cpu,
+(SELECT medida.valor AS valorRAM, idMedida AS idMedidaRAM
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao
+AND componente.tipo = 'Memória RAM'
+AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC) AS ram,
+(SELECT medida.valor AS idMedidaDK AS valorDK, idMedida AS idMedidaDK
+FROM medida
+JOIN componente ON medida.fkComponente
+JOIN equipamento ON componente.fkEquipamento
+JOIN instituicao ON equipamento.fkInstituicao
+JOIN sala ON sala.fkInstituicao
+WHERE instituicao.idInstituicao = instituicao.idInstituicao
+AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
+AND sala.fkInstituicao = instituicao.idInstituicao
+AND componente.tipo = 'Disco Rigído'
+AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC) AS dk;
+
 SELECT * FROM vw_getDadosInst;
 SELECT * FROM vw_getDados7dias;
 SELECT * FROM vw_getDados60sec;
+SELECT * FROM vw_medidaTeste;
 
 INSERT INTO instituicao VALUES (NULL, 'EDUCARE TECNOLOGIA DA INFORMACAO S.A.', 'EDUCARE', '07165496000100', '01414905', 'SP', 'EDIF', 'SAO PAULO', 'CERQUEIRA CESAR', 'R HADDOCK LOBO 595', '595');
 INSERT INTO sala VALUES (NULL, "Sala 1A", 1, 1, 1000);
@@ -142,20 +219,20 @@ INSERT INTO equipamento VALUES (NULL, 'Dell Preto', 'Linux','3312','BRG381284F',
 INSERT INTO equipamento VALUES (NULL, 'Acer Prata', 'Linux','3586','BRG323283F', NOW(), 1000);
 INSERT INTO equipamento VALUES (NULL, 'Samsung Diamante', 'Windows','3526','BRG323433F', NOW(), 1000);
 
-INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 'Processador', 100000);
-INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 'Memória RAM', 100000);
-INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 'Disco Rigído', 100000);
+INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100000);
+INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 8, 'GB', 'Memória RAM', 100000);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000,'Disco Rigído', 100000);
 
-INSERT INTO componente VALUES (NULL, 'AMD neon Xtr', '%', 'Processador', 100001);
-INSERT INTO componente VALUES (NULL, 'Pente 8x4 - 12GB', 'GB', 'Memória RAM', 100001);
-INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 'Disco Rigído', 100001);
+INSERT INTO componente VALUES (NULL, 'AMD neon Xtr', '%', 100, 'Processador', 100001);
+INSERT INTO componente VALUES (NULL, 'Pente 8x4 - 12GB', 8, 'GB', 'Memória RAM', 100001);
+INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 1000, 'MB', 'Disco Rigído', 100001);
 
-INSERT INTO componente VALUES (NULL, 'I7 8º Gen', '%', 'Processador', 100002);
-INSERT INTO componente VALUES (NULL, 'Pente 2x2 - 4GB', 'GB', 'Memória RAM', 100002);
-INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 'Disco Rigído', 100002);
+INSERT INTO componente VALUES (NULL, 'I7 8º Gen', '%', 100, 'Processador', 100002);
+INSERT INTO componente VALUES (NULL, 'Pente 2x2 - 4GB', 8, 'GB', 'Memória RAM', 100002);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000, 'Disco Rigído', 100002);
 
-INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 'Processador', 100003);
-INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 'Memória RAM', 100003);
-INSERT INTO componente VALUES (NULL, 'SSD 1GB SATA', 'MB', 'Disco Rigído', 100003);
+INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 100, 'Processador', 100003);
+INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 8, 'GB', 'Memória RAM', 100003);
+INSERT INTO componente VALUES (NULL, 'SSD 1GB SATA', 'MB', 1000, 'Disco Rigído', 100003);
 
 SELECT * FROM usuario;

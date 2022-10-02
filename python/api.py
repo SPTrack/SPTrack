@@ -59,28 +59,27 @@ while True:
         disc_percent_dash.value = float(round(disc_use, 2))
         disc_percent_dash.title = f'DISCO {disc_use}%'
 
-        if contador % 5 == 0:
-            with conexao.cursor() as cursor:
-                sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {ct});'
-                cursor.execute(sqlQuery)
-                resposta = conexao.commit()
+        sleep(2)
+        with conexao.cursor() as cursor:
+            sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {ct});'
+            cursor.execute(sqlQuery)
+            resposta = conexao.commit()
+            ct+=1
+
+            sqlQuery = f'INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {ct});'
+            cursor.execute(sqlQuery)
+            resposta = conexao.commit()
+            ct+=1
+
+            sqlQuery = f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {ct});'
+            cursor.execute(sqlQuery)
+            resposta = conexao.commit()
+
+            if ct == 200011:
+                ct = 200000
+            else:
                 ct+=1
 
-                sqlQuery = f'INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {ct});'
-                cursor.execute(sqlQuery)
-                resposta = conexao.commit()
-                ct+=1
-
-                sqlQuery = f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {ct});'
-                cursor.execute(sqlQuery)
-                resposta = conexao.commit()
-
-                if ct == 200011:
-                    ct = 200000
-                else:
-                    ct+=1
-
-        contador += 1
         try:
             new_dash.display()
             sleep(.5)

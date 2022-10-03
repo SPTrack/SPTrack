@@ -14,6 +14,7 @@ body{
 h1{
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
+  
 }
 h2{
     font-family: 'Raleway', sans-serif;
@@ -105,12 +106,19 @@ hr{
     align-self: flex-start;
 }
 input{
-    border-radius: 10px;
-    border: 1;
-    border-color: black;
-   
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px #000 solid;
+    
 
 }
+
+textarea:focus, input:focus, select:focus {
+
+    box-shadow: 0 0 0 0;    
+    outline: 0;
+} 
+
 .white{
     color: white;
 }

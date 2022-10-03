@@ -169,16 +169,22 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-       
+
         String email = txtEmail.getText();
         String senha = txtPassword.getText();
-        if(email.equals("") || senha.equals("")){
-           lblError.setText("Insira um email e/ou senha válidos!");
-       }
-       
-       
-       
-        
+        if (email.equals("") || senha.equals("")) {
+            lblError.setText("Insira um email e/ou senha válidos!");
+        }
+
+        if (email.equals("admin") && senha.equals("admin")) {
+            Monitoramento monitoramento = new Monitoramento();
+
+            monitoramento.setVisible(true);
+
+            this.dispose();
+        }
+
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed

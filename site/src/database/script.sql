@@ -100,7 +100,7 @@ CREATE TABLE manutencao(
 ) AUTO_INCREMENT = 5000;
 
 CREATE VIEW `vw_instituicaoXmedidas` AS
-SELECT instituicao.nomeFantasia, sala.andar, sala.numero, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
+SELECT instituicao.idInstituicao, sala.andar, sala.numero, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro
 FROM medida
 JOIN componente ON medida.fkComponente
 JOIN equipamento ON componente.fkEquipamento
@@ -169,47 +169,6 @@ AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento =
 AND sala.fkInstituicao = instituicao.idInstituicao
 AND componente.tipo = 'Disco Rigído'
 AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
-
-SELECT idMedidaCPU, idMedidaRAM, idMedidaDK, ram.valorRAM, dk.valorDK
-FROM 
-(SELECT idMedida AS idMedidaCPU, medida.valor as valorCPU
-FROM medida
-JOIN componente ON medida.fkComponente
-JOIN equipamento ON componente.fkEquipamento
-JOIN instituicao ON equipamento.fkInstituicao
-JOIN sala ON sala.fkInstituicao
-WHERE instituicao.idInstituicao = instituicao.idInstituicao
-AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
-AND sala.fkInstituicao = instituicao.idInstituicao
-AND componente.tipo = 'Processador'
-AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC) AS cpu,
-(SELECT medida.valor AS valorRAM, idMedida AS idMedidaRAM
-FROM medida
-JOIN componente ON medida.fkComponente
-JOIN equipamento ON componente.fkEquipamento
-JOIN instituicao ON equipamento.fkInstituicao
-JOIN sala ON sala.fkInstituicao
-WHERE instituicao.idInstituicao = instituicao.idInstituicao
-AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
-AND sala.fkInstituicao = instituicao.idInstituicao
-AND componente.tipo = 'Memória RAM'
-AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC) AS ram,
-(SELECT medida.valor AS idMedidaDK AS valorDK, idMedida AS idMedidaDK
-FROM medida
-JOIN componente ON medida.fkComponente
-JOIN equipamento ON componente.fkEquipamento
-JOIN instituicao ON equipamento.fkInstituicao
-JOIN sala ON sala.fkInstituicao
-WHERE instituicao.idInstituicao = instituicao.idInstituicao
-AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
-AND sala.fkInstituicao = instituicao.idInstituicao
-AND componente.tipo = 'Disco Rigído'
-AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC) AS dk;
-
-SELECT * FROM vw_getDadosInst;
-SELECT * FROM vw_getDados7dias;
-SELECT * FROM vw_getDados60sec;
-SELECT * FROM vw_medidaTeste;
 
 INSERT INTO instituicao VALUES (NULL, 'EDUCARE TECNOLOGIA DA INFORMACAO S.A.', 'EDUCARE', '07165496000100', '01414905', 'SP', 'EDIF', 'SAO PAULO', 'CERQUEIRA CESAR', 'R HADDOCK LOBO 595', '595');
 INSERT INTO sala VALUES (NULL, "Sala 1A", 1, 1, 1000);

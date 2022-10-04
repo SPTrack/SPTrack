@@ -35,8 +35,6 @@ body{
 nav{
     height: 14vh;
     min-height: 60px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
     width: 100%;
 }
 li{
@@ -151,4 +149,17 @@ textarea:focus, input:focus, select:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #44474a;
+    border-radius: 8px;
 }

@@ -39,7 +39,7 @@ function entrar() {
                 console.log(JSON.stringify(json));
 
                 // Dessa forma conseguimos ter todos os dados em único local
-                sessionStorage.USUARIO = JSON.stringify(json);
+                sessionStorage.usuario = JSON.stringify(json);
 
                 setTimeout(function () {
                     window.location = "../dashboard/";

@@ -53,18 +53,8 @@ function cadastrar(request, response) {
     } else if (senha == null || senha == undefined) {
         response.status(400).send('Senha do administrador é obrigatório!')
     } else {
-        instituicaoModel.cadastrar(
-            razaoSocial, 
-            nomeFantasia, 
-            cnpj, 
-            cep, 
-            uf, 
-            complemento, 
-            cidade, 
-            bairro, 
-            logradouro, 
-            numero
-        ).then(resultadoInstituicao => {
+        instituicaoModel.cadastrar(razaoSocial, nomeFantasia, cnpj, cep, uf, complemento, cidade, bairro, logradouro, numero)
+        .then(resultadoInstituicao => {
             var idInstituicao = resultadoInstituicao.insertId;
 
             salaModel.cadastrar('Sala de TI', idInstituicao).then(_ => {                

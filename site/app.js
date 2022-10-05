@@ -12,6 +12,7 @@ var indexRouter = require("./src/routes/index");
 var instituicaoRouter = require('./src/routes/instituicoes');
 var usuarioRouter = require('./src/routes/usuarios');
 var salaRouter = require('./src/routes/salas');
+var medidasRouter = require('./src/routes/medidas');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,6 +24,7 @@ app.use("/", indexRouter);
 app.use("/instituicoes", instituicaoRouter);
 app.use("/usuarios", usuarioRouter);
 app.use('/salas', salaRouter);
+app.use('/medidas', medidasRouter);
 
 app.listen(PORTA, function () {
     console.log(`Link: http://localhost:${PORTA}\nAmbiente: ${process.env.AMBIENTE_PROCESSO}`);

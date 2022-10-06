@@ -62,19 +62,16 @@ while True:
         sleep(2)
         with conexao.cursor() as cursor:
             sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {ct});'
-            print(sqlQuery)
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
             ct+=1
 
             sqlQuery = f'INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {ct});'
-            print(sqlQuery)
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
             ct+=1
 
             sqlQuery = f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {ct});'
-            print(sqlQuery)
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
 
@@ -84,7 +81,7 @@ while True:
                 ct+=1
 
         try:
-            # new_dash.display()
+            new_dash.display()
             sleep(.5)
         except KeyboardInterrupt:
             break

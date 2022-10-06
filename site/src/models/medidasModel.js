@@ -5,7 +5,7 @@ function getComponentes(fkEquipamento) {
 }
 
 function getMedidasInstituicao(idInstituicao){
-    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} LIMIT 500;`);
+    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro LIMIT 300;`);
 }
 
 module.exports = {

@@ -100,7 +100,7 @@ CREATE TABLE manutencao(
 ) AUTO_INCREMENT = 5000;
 
 CREATE VIEW `vw_medidasInstituicao` AS
-SELECT componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, DATE_FORMAT(medida.dataRegistro, "%H:%i")
+SELECT componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
 

@@ -147,7 +147,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                        <div class="col-auto"><i class="fas fa-microchip fa-2x text-gray-300"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -169,6 +169,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-auto"><i class="fas fa-memory fa-2x text-gray-300"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +191,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                                        <div class="col-auto"><i class="fas fa-satellite-dish fa-2x text-gray-300"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -203,60 +204,67 @@
                                             <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Máquinas Monitoradas</span></div>
                                             <div class="text-dark fw-bold h5 mb-0"><span id="qtd_span">0</span></div>
                                         </div>
-                                        <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
+                                        <div class="col-auto"><i class="fas fa-laptop fa-2x text-gray-300"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Gráfico I -->
+
                     <div class="row">
                         <div class="col-lg-7 col-xl-8">
                             <div class="card shadow mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Desempenho das máquinas</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
-                                    </div>
+                                    <h6 class="text-primary fw-bold m-0">Desempenho das Máquinas por Modelo(Hoje)</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div id="graficoBarraCPU"><canvas id="grafico1" style="width:100%;max-width:900px"></canvas></div>
+                                    <div><canvas id="grafico1" style="width:100%;max-width:900px"></canvas></div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Gráfico II -->
+
                         <div class="col-lg-5 col-xl-4">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-4" style="height: 524px;">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Gráfico 2</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
-                                    </div>
+                                    <h6 class="text-primary fw-bold m-0">Disponibilidade de Máquinas</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Direct&quot;,&quot;Social&quot;,&quot;Referral&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;50&quot;,&quot;30&quot;,&quot;15&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
-                                    <div class="text-center small mt-4"><span class="me-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="me-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="me-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
+                                    <div><canvas id="grafico2" style="width:100%;max-width:900px"></canvas></div>
                                 </div>
+                                <span>90%</span>
+                                <span>(1/4)</span>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-xl-4" style="width: 616px;">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Gráfico 3</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
+
+                        <!-- Gráfico III -->
+
+                        <div class="row">
+                            <div class="col-lg-5 col-xl-4">
+                                <div class="card shadow mb-4" style="height: 524px;">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary fw-bold m-0">Estado de Uso</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div><canvas id="grafico3" style="width:100%;max-width:900px"></canvas></div>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="chart-area" style="border-color: rgb(51,65,163);background: transparent;"><canvas data-bss-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Direct&quot;,&quot;Social&quot;,&quot;Referral&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;data&quot;:[&quot;50&quot;,&quot;30&quot;,&quot;15&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;,&quot;display&quot;:false},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;ticks&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}],&quot;yAxes&quot;:[{&quot;ticks&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}]}}}"></canvas></div>
-                                    <div class="text-center small mt-4"><span class="me-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="me-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="me-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
+                            </div>
+
+                            <!-- Gráfico IV -->
+
+                            <div class="col-lg-7 col-xl-8">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary fw-bold m-0">Desempenho da Máquina: </h6>
+                                        <select name="" id=""></select>
+                                    </div>
+                                    <div class="card-body">
+                                        <div><canvas id="grafico4" style="width:100%;max-width:900px"></canvas></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

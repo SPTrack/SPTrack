@@ -19,4 +19,8 @@ router.post('/getMaquinasMonitoradas', function (request, response) {
     medidasController.getMaquinasMonitoradas(request, response);
 });
 
+router.post('/getDisponibilidade', function (request, response) {
+    medidasController.getDisponibilidade(request, response);
+});
+
 module.exports = router;

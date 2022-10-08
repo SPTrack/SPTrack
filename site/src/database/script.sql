@@ -89,8 +89,8 @@ CREATE TABLE manutencao(
 	idManutencao INT PRIMARY KEY AUTO_INCREMENT,
     dtInicio DATETIME NOT NULL,
     dtFim DATETIME NOT NULL,
-    situacao VARCHAR(45) NOT NULL,
-    descricao VARCHAR(60) NOT NULL,
+    situacao VARCHAR(10) CHECK (estado IN ('Aberto', 'Finalizado')) NOT NULL,
+    descricao VARCHAR(128) NOT NULL,
 
     fkUsuario INT NOT NULL,
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
@@ -100,7 +100,7 @@ CREATE TABLE manutencao(
 ) AUTO_INCREMENT = 5000;
 
 CREATE VIEW `vw_medidasInstituicao` AS
-SELECT componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro
+SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, DATE_FORMAT(medida.dataRegistro, "%Y-%m-%d") AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
 
@@ -124,66 +124,38 @@ WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(
 AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
 equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
 
-CREATE VIEW `vw_medidaCPU` AS
-SELECT medida.valor as valorCPU
-FROM medida
-JOIN componente ON medida.fkComponente
-JOIN equipamento ON componente.fkEquipamento
-JOIN instituicao ON equipamento.fkInstituicao
-JOIN sala ON sala.fkInstituicao
-WHERE instituicao.idInstituicao = instituicao.idInstituicao
-AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
-AND sala.fkInstituicao = instituicao.idInstituicao
-AND componente.tipo = 'Processador'
-AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
-
-CREATE VIEW `vw_medidaRAM` AS
-SELECT medida.valor as valorRAM
-FROM medida
-JOIN componente ON medida.fkComponente
-JOIN equipamento ON componente.fkEquipamento
-JOIN instituicao ON equipamento.fkInstituicao
-JOIN sala ON sala.fkInstituicao
-WHERE instituicao.idInstituicao = instituicao.idInstituicao
-AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
-AND sala.fkInstituicao = instituicao.idInstituicao
-AND componente.tipo = 'Memória RAM'
-AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
-
-CREATE VIEW `vw_medidaDK` AS
-SELECT medida.valor as valorDK
-FROM medida
-JOIN componente ON medida.fkComponente
-JOIN equipamento ON componente.fkEquipamento
-JOIN instituicao ON equipamento.fkInstituicao
-JOIN sala ON sala.fkInstituicao
-WHERE instituicao.idInstituicao = instituicao.idInstituicao
-AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento
-AND sala.fkInstituicao = instituicao.idInstituicao
-AND componente.tipo = 'Disco Rigído'
-AND equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro DESC;
-
 -------------- ZONA DE TESTES --------------
-
 INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG383084F', NOW(), 1000);
-INSERT INTO equipamento VALUES (NULL, 'Dell Preto', 'Linux','3312','BRG381284F', NOW(), 1000);
-INSERT INTO equipamento VALUES (NULL, 'Acer Prata', 'Linux','3586','BRG323283F', NOW(), 1000);
-INSERT INTO equipamento VALUES (NULL, 'Samsung Diamante', 'Windows','3526','BRG323433F', NOW(), 1000);
-
 INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100000);
 INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 8, 'Memória RAM', 100000);
-INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000,'Disco Rigído', 100000);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000,'Disco Rígido', 100000);
 
+INSERT INTO equipamento VALUES (NULL, 'Dell Preto', 'Linux','3312','BRG381284F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'AMD neon Xtr', '%', 100, 'Processador', 100001);
-INSERT INTO componente VALUES (NULL, 'Pente 8x4 - 12GB', 'GB', 8, 'Memória RAM', 100001);
-INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 1000, 'Disco Rigído', 100001);
+INSERT INTO componente VALUES (NULL, 'Pente 8x4 - 12GB', 'GB', 12, 'Memória RAM', 100001);
+INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 1000, 'Disco Rígido', 100001);
 
+INSERT INTO equipamento VALUES (NULL, 'Acer Prata', 'Linux','3586','BRG323283F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I7 8º Gen', '%', 100, 'Processador', 100002);
-INSERT INTO componente VALUES (NULL, 'Pente 2x2 - 4GB', 'GB', 8, 'Memória RAM', 100002);
-INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000, 'Disco Rigído', 100002);
+INSERT INTO componente VALUES (NULL, 'Pente 2x2 - 4GB', 'GB', 4, 'Memória RAM', 100002);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000, 'Disco Rígido', 100002);
 
+INSERT INTO equipamento VALUES (NULL, 'Samsung Diamante', 'Windows','3526','BRG323433F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 100, 'Processador', 100003);
-INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 8, 'Memória RAM', 100003);
-INSERT INTO componente VALUES (NULL, 'SSD 1GB SATA', 'MB', 1000, 'Disco Rigído', 100003);
+INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 16, 'Memória RAM', 100003);
+INSERT INTO componente VALUES (NULL, 'SSD 100GB SATA', 'MB', 1000, 'Disco Rígido', 100003);
+
+INSERT INTO equipamento VALUES (NULL, 'Acer 212', 'Windows','3516','BRG213433F', NOW(), 1000);
+INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 100, 'Processador', 100004);
+INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 16, 'Memória RAM', 100004);
+INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 256, 'Disco Rígido', 100004);
+
+INSERT INTO equipamento VALUES (NULL, 'Dell XP22', 'Linux','3515','BRG256433F', NOW(), 1000);
+INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100005);
+INSERT INTO componente VALUES (NULL, 'Pente 4x0 - 16GB', 'GB', 4, 'Memória RAM', 100005);
+INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido', 100005);
+
+INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Problema com display', 
+'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);
 
 SELECT * FROM usuario;

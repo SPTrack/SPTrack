@@ -75,7 +75,7 @@ while True:
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
 
-            if ct == 200011:
+            if ct == 200017:
                 ct = 200000
             else:
                 ct+=1

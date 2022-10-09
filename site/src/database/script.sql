@@ -100,9 +100,15 @@ CREATE TABLE manutencao(
 ) AUTO_INCREMENT = 5000;
 
 CREATE VIEW `vw_medidasInstituicao` AS
-SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, DATE_FORMAT(medida.dataRegistro, "%Y-%m-%d") AS dataRegistro
+SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
+
+CREATE VIEW `vw_medidasEquipamento` AS
+SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, equipamento.idEquipamento, medida.dataRegistro AS dataRegistro
+FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
+JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
+
 
 CREATE VIEW `vw_medidas7dias` AS
 SELECT equipamento.modelo, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro, equipamento.idEquipamento
@@ -125,6 +131,8 @@ AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento =
 equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
 
 -------------- ZONA DE TESTES --------------
+--------(Executar apenas após cadastro)-------
+
 INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG383084F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100000);
 INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 8, 'Memória RAM', 100000);
@@ -157,5 +165,16 @@ INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido
 
 INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Problema com display', 
 'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);
+
+INSERT INTO locacao VALUES (100000, 1, NOW());
+INSERT INTO locacao VALUES (100001, 1, NOW());
+
+INSERT INTO sala VALUES (NULL, 'Sala de SI', 1000);
+INSERT INTO locacao VALUES (100002, 2, NOW());
+INSERT INTO locacao VALUES (100003, 2, NOW());
+
+INSERT INTO sala VALUES (NULL, 'Sala de CCO', 1000);
+INSERT INTO locacao VALUES (100004, 3, NOW());
+INSERT INTO locacao VALUES (100005, 3, NOW());
 
 SELECT * FROM usuario;

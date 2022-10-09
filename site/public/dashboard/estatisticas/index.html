@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../css/estatisticas.css">
 </head>
 
 <body id="page-top">
@@ -235,8 +236,10 @@
                                 <div class="card-body">
                                     <div><canvas id="grafico2" style="width:100%;max-width:900px"></canvas></div>
                                 </div>
-                                <span>90%</span>
-                                <span>(1/4)</span>
+                                <div class="kpiDisponibilidade">
+                                    <span class="percent" id="span_disponibilidade">0%</span>
+                                    <span class="subtotal" id="span_subtotal">(0/0)</span>
+                                </div>
                             </div>
                         </div>
 
@@ -260,10 +263,10 @@
                                 <div class="card shadow mb-4">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <h6 class="text-primary fw-bold m-0">Desempenho da Máquina: </h6>
-                                        <select name="" id=""></select>
+                                        <select id="selectMaquinas" onchange="setDadosG4(this.value)"></select>
                                     </div>
                                     <div class="card-body">
-                                        <div><canvas id="grafico4" style="width:100%;max-width:900px"></canvas></div>
+                                        <div id="grafico4pai"><canvas id="grafico4" style="width:100%;max-width:900px"></canvas></div>
                                     </div>
                                 </div>
                             </div>

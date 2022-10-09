@@ -1,6 +1,5 @@
 dadosInstituicao = {};
 datasetsDadosInstituicao = [];
-xValues = []
 dadosCPU = []
 dadosRAM = []
 dadosDK = []
@@ -8,6 +7,9 @@ mediaCPU = 0;
 mediaRAM = 0;
 qtd = 0;
 qtdMaquinasManutencao = 0;
+dadosCPU4 = [];
+dadosRAM4 = [];
+dadosDK4 = [];
 
 function plotKPIs(){
     usoMedioCPU_span.innerHTML = mediaCPU + '%';
@@ -17,6 +19,8 @@ function plotKPIs(){
     progRAM.setAttribute("style", `width: ${mediaRAM}%`);
 
     qtd_span.innerHTML = qtd;
+    span_disponibilidade.innerHTML = (100 - ((qtdMaquinasManutencao * 100) / qtd)).toFixed(0) + "%";
+    span_subtotal.innerHTML = `(${qtdMaquinasManutencao}/${qtd})`
 }
 
 function plot1(){
@@ -28,6 +32,11 @@ function plot1(){
 
     for(i = 0; i < dadosDK.length; i++){
         dadosDK[i] = (dadosDK[i] * 100) / 100000;
+    }
+
+    xValues = [];
+    for(i = 0; i < dadosDK.length; i++){
+        xValues[i] = i+1;
     }
 
     chart1 = new Chart(grafico, {
@@ -106,7 +115,7 @@ function plot1(){
 function plot2(){
     grafico2 = document.getElementById("grafico2")
 
-    percent = qtdMaquinasManutencao * 100 / qtd;
+    percent = (qtdMaquinasManutencao * 100 / qtd).toFixed(0);
     chart2 = new Chart(grafico2, {
         type: "doughnut",
         data: {
@@ -180,6 +189,102 @@ function plot3(){
     });
 }
 
+function plot4(){
+    grafico = document.getElementById("grafico4")
+    grafico.remove();
+
+    x = document.createElement("canvas");
+    x.setAttribute("style", "width:100%;max-width:900px;");
+    x.setAttribute("id", "grafico4");
+    grafico4pai.appendChild(x)
+    grafico = document.getElementById("grafico4")
+    
+    for(i = 0; i < dadosRAM4.length; i++){
+        dadosRAM4[i] = (dadosRAM4[i] * 100) / 8;
+    }
+
+    for(i = 0; i < dadosDK4.length; i++){
+        dadosDK4[i] = (dadosDK4[i] * 100) / 100000;
+    }
+
+    xValues = [];
+    for(i = 0; i < dadosDK4.length; i++){
+        xValues[i] = i+1;
+    }
+
+    chart1 = new Chart(grafico, {
+        type: "line",
+        data: {
+        labels: xValues,
+        datasets: [{ 
+                data: dadosCPU4,
+                borderColor: "red",
+                fill: false,
+                yAxisID: 'A',
+                label: 'CPU (%)'
+            }, { 
+                data: dadosRAM4,
+                borderColor: "green",
+                fill: false,
+                yAxisID: 'B',
+                label: 'Memória RAM (GB)'
+            }, { 
+                data: dadosDK4,
+                borderColor: "blue",
+                fill: false,
+                yAxisID: 'C',
+                label: 'Disco Rígido (GB)'
+            }]
+        },
+    
+        options: {
+            legend: {display: true},
+            scales: {
+                yAxes: [{
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        max: 100,
+                        min: 0
+                    }
+                }, {
+                    id: 'B',
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        max: 100,
+                        min: 0,
+                        display: false
+                    }
+                },{
+                    id: 'C',
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        max: 100,
+                        min: 0,
+                        display: false
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 5,
+                        maxRotation: 0,
+                        minRotation: 0
+                        // autoSkip: true
+                    }
+                }]
+            },
+            animation: 0,
+            title: {
+                display: false
+                // text: "Desempenho da máquina (Últimos 100 registros)"
+            }
+        }
+    });    
+}
+
 function getDadosInstituicao(){
     fetch("/medidas/getMedidasInstituicao", {
         method: "POST",
@@ -203,20 +308,7 @@ function getDadosInstituicao(){
                         console.log(json[i]['tipo'])
                     }
                 }
-            
             });
-
-            for(i = 0; i < dadosRAM.length; i++){
-                dadosRAM[i] = (dadosRAM[i] * 100) / 8;
-            }
-    
-            for(i = 0; i < dadosDK.length; i++){
-                dadosDK[i] = (dadosDK[i] * 100) / 100000;
-            }
-
-            for(i = 0; i < 100; i++){
-                xValues.push(i)
-            }
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
         
@@ -296,7 +388,6 @@ function getDisponibilidade(){
     }).then(function (resposta) {     
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json)
                 qtdMaquinasManutencao = json[0].qtdManutencao;
             });
 
@@ -312,11 +403,92 @@ function getDisponibilidade(){
     })   
 }
 
+function setDadosG4(idEquipamento){
+    fetch("/medidas/setDadosG4", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idEquipamentoServer: idEquipamento
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                dadosCPU4 = [];
+                dadosRAM4 = [];
+                dadosDK4 = [];
+
+                for(i = 0; i < json.length; i++){
+                    if(json[i]['tipo'] == "Processador"){
+                        dadosCPU4.push(json[i]['valor']);
+                    }else if(json[i]['tipo'] == "Memória RAM"){
+                        dadosRAM4.push(json[i]['valor']);
+                    }else if(json[i]['tipo'] == "Disco Rígido"){
+                        dadosDK4.push(json[i]['valor']);
+                    }else{
+                        console.log(json[i]['tipo'])
+                    }   
+                }
+
+                plot4();
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function getMaquinasInstituicao(){
+    fetch("/medidas/getMaquinasInstituicao", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                idEquipamento1 = json[0].idEquipamento;
+
+                for(i = 0; i < json.length; i++){
+                    x = document.createElement("option");
+                    x.setAttribute("value", json[i].idEquipamento);
+                    x.innerHTML = `${json[i].numeroPatrimonio} (${json[i].sala}) - ${json[i].modelo}`;
+                    selectMaquinas.appendChild(x);
+                }
+                
+                setDadosG4(idEquipamento1);
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function changeEquipamento(){
+    alert("Mudou");
+}
 
 getDadosInstituicao();
 getMediasInstituicao();
 getMaquinasMonitoradas();
 getDisponibilidade();
+getMaquinasInstituicao();
 
 setTimeout(function() {
     setTimeout(function() {

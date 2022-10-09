@@ -10,7 +10,7 @@ function getDisponibilidade(fkInstituicao) {
 }
 
 function getMedidasInstituicao(idInstituicao){
-    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro LIMIT 300;`);
+    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro DESC LIMIT 300;`);
     // return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE dataRegistro = CURDATE() AND
     // idInstituicao = ${idInstituicao} ORDER BY idMedida LIMIT 300;`); EM DESENVOLVIMENTO
 }
@@ -27,10 +27,22 @@ function getMaquinasMonitoradas(idInstituicao){
     return database.executar(`SELECT COUNT(idEquipamento) AS qtd FROM equipamento JOIN instituicao ON fkInstituicao = idInstituicao WHERE idInstituicao = ${idInstituicao};`);
 }
 
+function getMaquinasInstituicao(idInstituicao){
+    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS sala
+    FROM equipamento JOIN  instituicao ON fkInstituicao = idInstituicao JOIN locacao ON fkEquipamento = 
+    idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao};`);
+}
+
+function setDadosG4(idEquipamento){
+    return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro DESC LIMIT 90;`);
+}
+
 module.exports = {
     getComponentes,
     getMedidasInstituicao,
     getMediasInstituicao,
     getMaquinasMonitoradas,
-    getDisponibilidade
+    getDisponibilidade,
+    getMaquinasInstituicao,
+    setDadosG4
 }

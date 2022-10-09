@@ -23,4 +23,12 @@ router.post('/getDisponibilidade', function (request, response) {
     medidasController.getDisponibilidade(request, response);
 });
 
+router.post('/getMaquinasInstituicao', function (request, response) {
+    medidasController.getMaquinasInstituicao(request, response);
+});
+
+router.post('/setDadosG4', function (request, response) {
+    medidasController.setDadosG4(request, response);
+});
+
 module.exports = router;

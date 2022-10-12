@@ -31,4 +31,8 @@ router.post('/setDadosG4', function (request, response) {
     medidasController.setDadosG4(request, response);
 });
 
+router.post('/getMediasEquipamentos', function (request, response) {
+    medidasController.getMediasEquipamentos(request, response);
+});
+
 module.exports = router;

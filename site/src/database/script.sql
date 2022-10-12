@@ -105,7 +105,7 @@ FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idI
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
 
 CREATE VIEW `vw_medidasEquipamento` AS
-SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, equipamento.idEquipamento, medida.dataRegistro AS dataRegistro
+SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, componente.capacidade, medida.valor, equipamento.idEquipamento, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
 
@@ -178,3 +178,6 @@ INSERT INTO locacao VALUES (100004, 3, NOW());
 INSERT INTO locacao VALUES (100005, 3, NOW());
 
 SELECT * FROM usuario;
+
+SELECT COUNT(manutencao.fkEquipamento) AS qtdManutencao, idSala FROM manutencao, sala JOIN equipamento ON fkEquipamento = idEquipamento
+    JOIN instituicao ON fkInstituicao = idInstituicao WHERE situacao = 'Aberto' GROUP BY idSala;

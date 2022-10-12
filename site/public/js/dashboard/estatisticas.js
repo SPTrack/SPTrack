@@ -11,6 +11,18 @@ dadosCPU4 = [];
 dadosRAM4 = [];
 dadosDK4 = [];
 
+/*
+                 MÉTRICAS
+    -----------------------------------------
+    | INDIVIDUAIS      | GRUPO              |
+    -----------------------------------------
+    | Muito Bom: 4     | Muito Bom: == 4    |
+    | Bom:       3     | Bom:       >= 3    |
+    | Regular:   2     | Regular:   >= 2    |
+    | Atenção:   1     | Atenção:   >= 1    |
+    -----------------------------------------
+*/
+
 function plotKPIs(){
     usoMedioCPU_span.innerHTML = mediaCPU + '%';
     progCPU.setAttribute("style", `width: ${mediaCPU}%`);
@@ -124,7 +136,7 @@ function plot2(){
                 'Em manutenção'
             ],
             datasets: [{ 
-                data: [100-percent, percent],
+                data: [qtd-qtdMaquinasManutencao, qtdMaquinasManutencao],
                 label: 'Disponibilidade',
                 backgroundColor: [
                     'rgb(3, 172, 19)',
@@ -198,14 +210,6 @@ function plot4(){
     x.setAttribute("id", "grafico4");
     grafico4pai.appendChild(x)
     grafico = document.getElementById("grafico4")
-    
-    for(i = 0; i < dadosRAM4.length; i++){
-        dadosRAM4[i] = (dadosRAM4[i] * 100) / 8;
-    }
-
-    for(i = 0; i < dadosDK4.length; i++){
-        dadosDK4[i] = (dadosDK4[i] * 100) / 100000;
-    }
 
     xValues = [];
     for(i = 0; i < dadosDK4.length; i++){
@@ -285,6 +289,7 @@ function plot4(){
     });    
 }
 
+// Auxílio - Gráfico 1 (temp)
 function getDadosInstituicao(){
     fetch("/medidas/getMedidasInstituicao", {
         method: "POST",
@@ -321,6 +326,7 @@ function getDadosInstituicao(){
     })   
 }
 
+// Auxílio - KPIs
 function getMediasInstituicao(){
     fetch("/medidas/getMediasInstituicao", {
         method: "POST",
@@ -346,9 +352,39 @@ function getMediasInstituicao(){
         }
     }).catch(function (erro) {
         console.log(erro);
-    })   
+    })
 }
 
+// Auxílio - Gráfico 3
+/*function getMediasEquipamentos(){
+    fetch("/medidas/
+    ", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+        })
+    }).then(function (resposta) {     
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json);
+            });
+
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}*/
+
+// Auxílio - KPIs
 function getMaquinasMonitoradas(){
     fetch("/medidas/getMaquinasMonitoradas", {
         method: "POST",
@@ -376,6 +412,7 @@ function getMaquinasMonitoradas(){
     })   
 }
 
+// Auxílio - KPIs e Gráfico 2
 function getDisponibilidade(){
     fetch("/medidas/getDisponibilidade", {
         method: "POST",
@@ -403,6 +440,7 @@ function getDisponibilidade(){
     })   
 }
 
+// Auxílio - Gráfico 4
 function setDadosG4(idEquipamento){
     fetch("/medidas/setDadosG4", {
         method: "POST",
@@ -421,11 +459,12 @@ function setDadosG4(idEquipamento){
 
                 for(i = 0; i < json.length; i++){
                     if(json[i]['tipo'] == "Processador"){
-                        dadosCPU4.push(json[i]['valor']);
+                        dadosCPU4.push((json[i]['valor'] * 100) / json[i]['capacidade']);
                     }else if(json[i]['tipo'] == "Memória RAM"){
-                        dadosRAM4.push(json[i]['valor']);
+                        dadosRAM4.push((json[i]['valor'] * 100) / json[i]['capacidade']);
                     }else if(json[i]['tipo'] == "Disco Rígido"){
-                        dadosDK4.push(json[i]['valor']);
+                        dadosDK4.push((json[i]['valor'] * 100) / (json[i]['capacidade'] * 100));
+                        console.log(json[i]['capacidade'])
                     }else{
                         console.log(json[i]['tipo'])
                     }   
@@ -445,6 +484,7 @@ function setDadosG4(idEquipamento){
     })
 }
 
+// Auxílio - Gráfico 4
 function getMaquinasInstituicao(){
     fetch("/medidas/getMaquinasInstituicao", {
         method: "POST",
@@ -478,10 +518,6 @@ function getMaquinasInstituicao(){
     }).catch(function (erro) {
         console.log(erro);
     })
-}
-
-function changeEquipamento(){
-    alert("Mudou");
 }
 
 getDadosInstituicao();

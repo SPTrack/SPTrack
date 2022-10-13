@@ -134,83 +134,12 @@
                                     <thead>
                                         <tr>
                                             <th>Sala</th>
-                                            <th>Bloco</th>
-                                            <th>Andar</th>
                                             <th style="margin-right: 46px;">Qntd de Máquinas</th>
                                             <th>Funcionamento</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1CCOa</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>33</td>
-                                            <td>Ok</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1CCOb</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>47</td>
-                                            <td>Ok<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1ENCa</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>66</td>
-                                            <td>Ok<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1SISa</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>41</td>
-                                            <td>Ok<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2SISa</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>28</td>
-                                            <td>Manutenção<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2ADSa</td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>61</td>
-                                            <td>Ok<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2ENCa<br></td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>38</td>
-                                            <td>Manutenção<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2CCOa</td>
-                                            <td>1</td>
-                                            <td>3</td>
-                                            <td>21</td>
-                                            <td>Ok<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2CCOb</td>
-                                            <td>1</td>
-                                            <td>3</td>
-                                            <td>46</td>
-                                            <td>Ok<br></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2CCOc</td>
-                                            <td>2</td>
-                                            <td>3</td>
-                                            <td>22</td>
-                                            <td>Ok<br></td>
-                                        </tr>
+                                    <tbody id="Datasalas">
+
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -222,15 +151,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
                                 </div>
                                 <div class="col-md-6">
                                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                                         <ul class="pagination">
                                             <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item active"><a class="page-link" onclick="aba1()">1</a></li>
+                                            <li class="page-item active"><a class="page-link" onclick="aba2()">2</a></li>
+                                            <li class="page-item active"><a class="page-link" onclick="aba3()">3</a></li>
                                             <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
                                         </ul>
                                     </nav>
@@ -250,5 +178,99 @@
     <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../bootstrap/js/script.min.js"></script>
 </body>
-
 </html>
+<script>
+    var sala=[];
+    var qntdMaquina=[];
+    var funcionamento=[];
+    
+    function data_sala() {
+            fetch("/salas/getqntdMaquinas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }, 
+                body: JSON.stringify({
+                    nomeInstituicaoServer: sessionStorage.usuario
+            })
+            }).then(function (resposta)
+             {
+                if (resposta.ok)
+                 {
+                    resposta.json().then(json => {
+                        console.log(json.length);
+                        console.log(json);
+
+                        for (var i = 0; i < json.length; i++)
+                         {
+                            //guardar no vetor
+                            qntdMaquina.push(json[i].idEquipamento);
+                            
+                        }
+                        
+                    })
+                }
+                
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+            fetch("/salas/getSala", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idEquipamentoServer: sessionStorage.usuario
+            })
+            }).then(function (resposta)
+             {
+                if (resposta.ok)
+                 {
+                    resposta.json().then(json => {
+                        console.log(json.length);
+                        console.log(json);
+
+                        for (var i = 0; i < json.length; i++)
+                         {
+                            qntdMaquina.push(json[i].nome);
+                            
+                            if (json[i].situacao=='Aberto') {
+                                funcionamento.push('Manutenção');
+                        }
+                        else{
+                            funcionamento.push('OK');
+                            }
+                        }
+                        
+                    })
+                }
+                
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+           printarDados(0);
+        }
+    
+        function aba1(){
+            printarDados(0);
+        }
+        function aba2(){
+            printarDados(10);
+        }
+        function aba3(){
+            printarDados(20);
+        }
+        function printarDados(aba){
+            Datasalas.innerHTML="";
+            for (let i = aba; i < aba+10; i++) {
+                Datasalas.innerHTML += `<tr>
+                                <td> ${sala[i]}</td>
+                                <td> ${qntdMaquina[i]}   </td>
+                                <td> ${funcionamento[i]} </td><br>
+                                </tr>`
+                
+            }
+        }
+        
+        data_sala()
+</script>

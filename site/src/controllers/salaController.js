@@ -19,7 +19,41 @@ function cadastrar(request, response) {
         });
     }
 }
+function getSala(request,response){
+    var nomeInstituicao=request.body.InstituicaoServer;
+    if (nomeInstituicao == null || nomeInstituicao == undefined) {
+        response.status(400).send("Nome da instituição não foi encantrado!");
+    }
+            salaModel.getSala(nomeInstituicao).then(resultado => {
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+}
+function getqntdMaquinas(request,response){
+    var idEquipamento=request.body.idEquipamentoServer;
+
+    if (idEquipamento == null || idEquipamento == undefined) {
+        response.status(400).send("Fk da maquina não foi encantrada!");
+    }
+    if ((idSala == null || idSala == undefined)) {
+        response.status(400).send("Dados não encontrados!");
+    } else {
+        salaModel.getqntdMaquinas(idEquipamento).then(resultado => {
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+}
 
 module.exports = {
-    cadastrar
+    cadastrar,
+    getSala,
+    getqntdMaquinas
+
 }

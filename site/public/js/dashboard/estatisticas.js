@@ -32,7 +32,7 @@ function plotKPIs(){
 
     qtd_span.innerHTML = qtd;
     span_disponibilidade.innerHTML = (100 - ((qtdMaquinasManutencao * 100) / qtd)).toFixed(0) + "%";
-    span_subtotal.innerHTML = `(${qtdMaquinasManutencao}/${qtd})`
+    span_subtotal.innerHTML = `(${qtdMaquinasManutencao}/${qtd})`;
 }
 
 function plot1(){
@@ -520,6 +520,7 @@ function getMaquinasInstituicao(){
     })
 }
 
+span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 getDadosInstituicao();
 getMediasInstituicao();
 getMaquinasMonitoradas();

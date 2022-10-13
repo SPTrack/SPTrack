@@ -89,7 +89,7 @@ CREATE TABLE manutencao(
 	idManutencao INT PRIMARY KEY AUTO_INCREMENT,
     dtInicio DATETIME NOT NULL,
     dtFim DATETIME NOT NULL,
-    situacao VARCHAR(10) CHECK (estado IN ('Aberto', 'Finalizado')) NOT NULL,
+    situacao VARCHAR(10) CHECK (situacao IN ('Aberto', 'Finalizado')) NOT NULL,
     descricao VARCHAR(128) NOT NULL,
 
     fkUsuario INT NOT NULL,
@@ -98,6 +98,15 @@ CREATE TABLE manutencao(
     fkEquipamento INT,
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
 ) AUTO_INCREMENT = 5000;
+
+CREATE TABLE disponibilidade(
+    idDisponibilidade INT PRIMARY KEY AUTO_INCREMENT,
+    valor FLOAT NOT NULL,
+    dataRegistro DATETIME NOT NULL,
+    
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
+) AUTO_INCREMENT = 1500;
 
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
@@ -176,6 +185,14 @@ INSERT INTO locacao VALUES (100003, 2, NOW());
 INSERT INTO sala VALUES (NULL, 'Sala de CCO', 1000);
 INSERT INTO locacao VALUES (100004, 3, NOW());
 INSERT INTO locacao VALUES (100005, 3, NOW());
+
+INSERT INTO disponibilidade VALUES (NULL, 89.5, '2022-10-12 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 82.1, '2022-10-11 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 77.0, '2022-10-10 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-10-09 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-10-08 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-10-07 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-10-06 10:47:41', 1000);
 
 SELECT * FROM usuario;
 

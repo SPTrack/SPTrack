@@ -99,24 +99,13 @@ CREATE TABLE manutencao(
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
 ) AUTO_INCREMENT = 5000;
 
-
-
-CREATE TABLE disponibilidade(
-    idDisponibilidade INT PRIMARY KEY AUTO_INCREMENT,
-    valor FLOAT NOT NULL,
-    dataRegistro DATETIME NOT NULL,
-    
-    fkInstituicao INT,
-    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
-) AUTO_INCREMENT = 1500;
-
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
 
 CREATE VIEW `vw_medidasEquipamento` AS
-SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, componente.capacidade, medida.valor, equipamento.idEquipamento, medida.dataRegistro AS dataRegistro
+SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, equipamento.idEquipamento, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
 
@@ -140,6 +129,13 @@ JOIN instituicao ON equipamento.fkInstituicao
 WHERE instituicao.idInstituicao = idInstituicao AND medida.dataRegistro >= DATE(NOW() - INTERVAL 1 MINUTE)
 AND medida.fkComponente = componente.idComponente AND componente.fkEquipamento = equipamento.idEquipamento AND
 equipamento.fkInstituicao = instituicao.idInstituicao ORDER BY medida.dataRegistro;
+
+CREATE VIEW `vw_manutencao_por_sala` AS
+SELECT idSala, nome, COUNT((SELECT count(manutencao.fkEquipamento) 
+FROM manutencao WHERE situacao = 'Aberto')) AS qtd FROM sala, locacao, 
+manutencao, equipamento, instituicao WHERE idEquipamento = manutencao.fkEquipamento 
+AND fkSala = idSala and manutencao.fkEquipamento = locacao.fkEquipamento
+GROUP BY idSala;
 
 -------------- ZONA DE TESTES --------------
 --------(Executar apenas após cadastro)-------
@@ -174,19 +170,13 @@ INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100
 INSERT INTO componente VALUES (NULL, 'Pente 4x0 - 16GB', 'GB', 4, 'Memória RAM', 100005);
 INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido', 100005);
 
-INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Problema com display', 
+INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Aberto', 
 'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);
 
+INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Aberto', 
+'O visor da tela da máquina Dell XP22 está ruim', 10000, 100001);
 
-INSERT INTO disponibilidade VALUES (NULL, 89.5, '2022-10-12 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 82.1, '2022-10-11 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 77.0, '2022-10-10 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-10-09 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-10-08 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-10-07 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-10-06 10:47:41', 1000);
-
-
+select * from locacao;
 INSERT INTO locacao VALUES (100000, 1, NOW());
 INSERT INTO locacao VALUES (100001, 1, NOW());
 
@@ -200,5 +190,6 @@ INSERT INTO locacao VALUES (100005, 3, NOW());
 
 SELECT * FROM usuario;
 
-SELECT COUNT(manutencao.fkEquipamento) AS qtdManutencao, idSala FROM manutencao, sala JOIN equipamento ON fkEquipamento = idEquipamento
-    JOIN instituicao ON fkInstituicao = idInstituicao WHERE situacao = 'Aberto' GROUP BY idSala;
+select * from equipamento;
+    
+select * from vw_manutencao_por_sala;

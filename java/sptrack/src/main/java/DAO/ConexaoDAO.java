@@ -17,6 +17,7 @@ public class ConexaoDAO {
     
 //   o metodo vai tentar fazer o que estiver aqui dentro
          try {
+             
              String url = "jdbc:mysql://localhost:3306/SPTrack?user=sptrackClient&password=urubu100";
 //            variavel recebera o conteudo da url
              conn = DriverManager.getConnection(url);

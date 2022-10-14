@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "localhost",
     database: "SPTrack",
     user: "sptrackClient",
-    password: "#Pipoca49",
+    password: "urubu100",
 };
 
 function executar(instrucao) {

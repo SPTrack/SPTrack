@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
+    <script src="../js/sweet.js"></script>
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
 </head>
 
@@ -125,15 +126,7 @@
                 </nav>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Perfil</h3>
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="../../bootstrap/img/dogs/image2.jpeg" width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
-                                </div>
-                            </div>
-                            <div class="card shadow mb-4"></div>
-                        </div>
+                    <div class="row mb-3" style="display:center">
                         <div class="col-lg-8">
                             <div class="row mb-3 d-none">
                                 <div class="col">
@@ -146,7 +139,8 @@
                                                 </div>
                                                 <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
                                             </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
+                                                since last month</p>
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +154,8 @@
                                                 </div>
                                                 <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
                                             </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
+                                                since last month</p>
                                         </div>
                                     </div>
                                 </div>
@@ -169,51 +164,107 @@
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Dados</p>
+                                            <p class="text-primary m-0 fw-bold text-p">Dados</p>
                                         </div>
                                         <div class="card-body">
                                             <form>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Nome</strong></label><input class="form-control" type="text" id="nome-instituicao" placeholder="Nome da Instituição" name="nome-instituicao"></div>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="razaoSocial"><strong>Razão
+                                                                    Social</strong></label><input class="form-control"
+                                                                type="text" id="razaoSocial" placeholder=""
+                                                                name="razaoSocial" ></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Responsável</strong></label><input class="form-control" type="text" id="username" placeholder="Nome do Responsável" name="username"></div>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="nomeFantasia"><strong>Nome
+                                                                    Fantasia</strong></label><input class="form-control"
+                                                                type="text" id="nomeFantasia" placeholder=""
+                                                                name="nomeFantasia"></div>
                                                         <div class="mb-3"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Razão Social</strong><br></label><input class="form-control" type="text" id="razao_social" placeholder="" name="razao_social"></div>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="first_name"><strong>CNPJ</strong><br></label><input
+                                                                class="form-control" type="number" id="cnpj"
+                                                                placeholder="" name="cnpj" disabled></div>
                                                     </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" id="cnpj" for="cnpj"><strong>CNPJ</strong><br></label><input class="form-control" type="text" id="cnpj" placeholder="" name="cnpj"></div>
-                                                    </div>
+
                                                 </div>
-                                                <div class="mb-3"></div>
-                                            </form><button class="btn btn-primary btn-sm" type="submit">Editar</button>
-                                        </div>
-                                    </div>
-                                    <div class="card shadow">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Informações de Contato</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="mb-3"><label class="form-label" for="address"><strong>Endereço</strong></label><input class="form-control" type="text" id="logradouro" placeholder="Av. das Nações Unidas, 231, 12345-678" name="logradouro"></div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="city"><strong>Telefone</strong></label><input class="form-control" type="text" id="telefone" placeholder="(11) 90000-0000" name="telefone"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="country"><strong>E-mail</strong></label><input class="form-control" type="text" id="email" placeholder="" name="email"></div>
-                                                    </div>
+                                                <div class="card-header py-3">
+                                                    <p class="text-primary m-0 fw-bold">Informações de Contato</p>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Editar</button></div>
+                                                <div class="card-body">
+                                                    <form>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>CEP</strong></label><input
+                                                                        class="form-control" type="number" id="cep"
+                                                                        placeholder="" name="cep" ></div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Estado</strong></label><input
+                                                                        class="form-control" type="text" id="estado"
+                                                                        placeholder="" name="estado"></div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Complemento</strong></label><input
+                                                                        class="form-control" type="text"
+                                                                        id="complemento" placeholder=""
+                                                                        name="complemento"></div>
+                                                            </div>
+
+
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Cidade</strong></label><input
+                                                                        class="form-control" type="text" id="cidade"
+                                                                        placeholder="" name="cidade" ></div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Bairro</strong></label><input
+                                                                        class="form-control" type="text" id="bairro"
+                                                                        placeholder="" name="bairro" ></div>
+
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Logradouro</strong></label><input
+                                                                        class="form-control" type="text" id="logradouro"
+                                                                        placeholder="" name="logradouro"></div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Número</strong></label><input
+                                                                        class="form-control" type="number" id="numero"
+                                                                        placeholder="" name="numero"></div>
+                                                            </div>
+                                                        </div>
+                                                </div>
                                             </form>
+                                            <div class="mb-3"></div>
+                                           
                                         </div>
+                                    </form><button class="btn btn-primary btn-sm" type="submit"
+                                    style="background: rgb(0,0,0);" onclick="editar()">Editar</button>
                                     </div>
+                                    
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -233,3 +284,4 @@
 </body>
 
 </html>
+

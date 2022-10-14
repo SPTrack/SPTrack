@@ -16,6 +16,11 @@
             <artifactId>looca-api</artifactId>
             <version>1.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>1234</groupId>
+            <artifactId>1234</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -1,10 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.sptrack;
 
+import DAO.UsuarioDAO;
+import DTO.Usuario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -91,6 +93,12 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
         lblPassword.setBackground(new java.awt.Color(255, 255, 255));
         lblPassword.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lblPassword.setText("Senha:");
@@ -170,26 +178,44 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-        String email = txtEmail.getText();
-        String senha = txtPassword.getText();
-        if (email.equals("") || senha.equals("")) {
-            lblError.setText("Insira um email e/ou senha válidos!");
+        try {
+                String email_usuario, senha_usuario;
+        
+        email_usuario = txtEmail.getText();
+        senha_usuario = txtPassword.getText();
+        
+        Usuario usuarioDTO = new Usuario();
+        usuarioDTO.setEmail_usuario(email_usuario);
+        usuarioDTO.setSenha_usuario(senha_usuario);
+         
+             UsuarioDAO usuarioDao = new UsuarioDAO();
+             ResultSet rsusuariodao = usuarioDao.autenticacaoUsuario(usuarioDTO);
+        
+             if (rsusuariodao.next()) {
+                 Monitoramento monitoramento = new Monitoramento();
+                 monitoramento.setVisible(true);
+                 this.dispose();
+            }else{
+              lblError.setText("Insira um email e/ou senha válidos!");
+             }
+             
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "TelaLogin" + erro);
         }
+        
+        
 
-        if (email.equals("admin") && senha.equals("admin")) {
-            Monitoramento monitoramento = new Monitoramento();
-
-            monitoramento.setVisible(true);
-
-            this.dispose();
-        }
 
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,6 +242,7 @@ public class TelaLogin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

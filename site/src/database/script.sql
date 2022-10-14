@@ -99,6 +99,17 @@ CREATE TABLE manutencao(
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
 ) AUTO_INCREMENT = 5000;
 
+
+
+CREATE TABLE disponibilidade(
+    idDisponibilidade INT PRIMARY KEY AUTO_INCREMENT,
+    valor FLOAT NOT NULL,
+    dataRegistro DATETIME NOT NULL,
+    
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
+) AUTO_INCREMENT = 1500;
+
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
@@ -165,6 +176,16 @@ INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido
 
 INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Problema com display', 
 'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);
+
+
+INSERT INTO disponibilidade VALUES (NULL, 89.5, '2022-10-12 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 82.1, '2022-10-11 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 77.0, '2022-10-10 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-10-09 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-10-08 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-10-07 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-10-06 10:47:41', 1000);
+
 
 INSERT INTO locacao VALUES (100000, 1, NOW());
 INSERT INTO locacao VALUES (100001, 1, NOW());

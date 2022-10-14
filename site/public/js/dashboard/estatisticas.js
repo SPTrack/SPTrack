@@ -1,15 +1,23 @@
 dadosInstituicao = {};
 datasetsDadosInstituicao = [];
 
+// KPIs e Gráfico 2
+mediaCPU = 0;
+mediaRAM = 0;
+qtd = 0;
+qtdMaquinasManutencao = 0;
+
 // Gráfico 1
 valoresDisp = []
 datasDisp = []
 corDisp = "";
 
-mediaCPU = 0;
-mediaRAM = 0;
-qtd = 0;
-qtdMaquinasManutencao = 0;
+// Gráfico 3
+mb = 0;
+bom = 0;
+reg = 0;
+irreg = 0;
+
 dadosCPU4 = [];
 dadosRAM4 = [];
 dadosDK4 = [];
@@ -413,7 +421,7 @@ function getDisponibilidade(){
 
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
-        
+            MediasEquipamentos
             resposta.text().then(texto => {
                 console.log(texto)
             });
@@ -424,9 +432,8 @@ function getDisponibilidade(){
 }
 
 // Auxílio - Gráfico 3
-/*function getMediasEquipamentos(){
-    fetch("/medidas/
-    ", {
+function getMedidasInstituicao(){
+    fetch("/medidas/getMedidasInstituicao", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -438,6 +445,7 @@ function getDisponibilidade(){
         if (resposta.ok) {
             resposta.json().then(json => {
                 console.log(json);
+                alert('Aqui')
             });
 
         } else {
@@ -450,10 +458,7 @@ function getDisponibilidade(){
     }).catch(function (erro) {
         console.log(erro);
     })
-}*/
-
-
-
+}
 
 // Auxílio - Gráfico 4
 function getMaquinasInstituicao(){
@@ -493,7 +498,7 @@ function getMaquinasInstituicao(){
 
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 getHistoricoDisponibilidade();
-getMediasInstituicao();
+getMedidasInstituicao();
 getMaquinasMonitoradas();
 getDisponibilidade();
 getMaquinasInstituicao();

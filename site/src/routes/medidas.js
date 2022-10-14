@@ -11,8 +11,8 @@ router.post('/getHistoricoDisponibilidade', function (request, response) {
     medidasController.getHistoricoDisponibilidade(request, response);
 });
 
-router.post('/getMediasInstituicao', function (request, response) {
-    medidasController.getMediasInstituicao(request, response);
+router.post('/getMedidasInstituicao', function (request, response) {
+    medidasController.getMedidasInstituicao(request, response);
 });
 
 router.post('/getMaquinasMonitoradas', function (request, response) {

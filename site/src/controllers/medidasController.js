@@ -35,13 +35,14 @@ function getDadosEquipamento(request, response) {
     }
 }
 
-function getMediasInstituicao(request, response){
+// Gráfico III
+function getMedidasInstituicao(request, response){
     var idInstituicao = request.body.idInstituicaoServer;
 
     if ((idInstituicao == null || idInstituicao == undefined)) {
         response.status(400).send("Requisição negada. Dados não integros!");
     } else {
-        medidasModel.getMediasInstituicao(idInstituicao).then(resultado => {
+        medidasModel.getMedidasInstituicao(idInstituicao).then(resultado => {
             response.json(resultado)
         }).catch(function (erro) {
             console.log(erro);
@@ -115,6 +116,8 @@ function setDadosG4(request, response){
     }
 }
 
+
+// Gráfico III
 function getMediasEquipamentos(request, response){
     var idInstituicao = request.body.idInstituicaoServer;
 
@@ -134,7 +137,7 @@ function getMediasEquipamentos(request, response){
 module.exports = {
     getDadosEquipamento,
     getHistoricoDisponibilidade,
-    getMediasInstituicao,
+    getMedidasInstituicao,
     getMaquinasMonitoradas,
     getDisponibilidade,
     getMaquinasInstituicao,

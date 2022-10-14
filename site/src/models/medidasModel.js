@@ -1,18 +1,20 @@
 var database = require("../database/config");
 
-function getComponentes(fkEquipamento) {
-    return database.executar(`SELECT DISTINCT tipo FROM medida JOIN componente ON componente.idComponente = medida.fkComponente AND componente.fkEquipamento = ${fkEquipamento};`);
+// Gráfico 1
+function getHistoricoDisponibilidade(idInstituicao, dias){
+    return database.executar(`SELECT valor, DATE_FORMAT(dataRegistro, '%d/%m') AS dataRegistro 
+    FROM disponibilidade JOIN instituicao ON fkInstituicao = ${idInstituicao}
+    WHERE dataRegistro >= DATE(NOW() - INTERVAL ${dias+1} DAY) ORDER BY dataRegistro DESC LIMIT ${dias};`);
 }
 
+// Gráfico 2
 function getDisponibilidade(fkInstituicao) {
     return database.executar(`SELECT COUNT(fkEquipamento) AS qtdManutencao FROM manutencao JOIN equipamento ON fkEquipamento = idEquipamento
     JOIN instituicao ON fkInstituicao = idInstituicao WHERE situacao = 'Aberto' AND idInstituicao = ${fkInstituicao};`);
 }
 
-function getMedidasInstituicao(idInstituicao){
-    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro DESC LIMIT 300;`);
-    // return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE dataRegistro = CURDATE() AND
-    // idInstituicao = ${idInstituicao} ORDER BY idMedida LIMIT 300;`); EM DESENVOLVIMENTO
+function getComponentes(fkEquipamento) {
+    return database.executar(`SELECT DISTINCT tipo FROM medida JOIN componente ON componente.idComponente = medida.fkComponente AND componente.fkEquipamento = ${fkEquipamento};`);
 }
 
 function getMediasInstituicao(idInstituicao){
@@ -61,7 +63,7 @@ function getMediasEquipamentos(idInstituicao){
 
 module.exports = {
     getComponentes,
-    getMedidasInstituicao,
+    getHistoricoDisponibilidade,
     getMediasInstituicao,
     getMaquinasMonitoradas,
     getDisponibilidade,

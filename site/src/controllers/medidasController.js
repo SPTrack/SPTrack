@@ -1,12 +1,14 @@
 var medidasModel = require('../models/medidasModel');
 
-function getDadosEquipamento(request, response) {
-    var idEquipamento = request.body.idEquipamentoServer;
+// Gráfico I
+function getHistoricoDisponibilidade(request, response){
+    var idInstituicao = request.body.idInstituicaoServer;
+    var dias = request.body.diasServer;
 
-    if ((idEquipamento == null || idEquipamento == undefined)) {
+    if ((idInstituicao == null || idInstituicao == undefined) && (dias == null || dias == undefined)) {
         response.status(400).send("Requisição negada. Dados não integros!");
     } else {
-        medidasModel.getComponentes(idEquipamento, fkInstituicao).then(resultado => {
+        medidasModel.getHistoricoDisponibilidade(idInstituicao, dias).then(resultado => {
             response.json(resultado)
         }).catch(function (erro) {
             console.log(erro);
@@ -16,13 +18,14 @@ function getDadosEquipamento(request, response) {
     }
 }
 
-function getMedidasInstituicao(request, response){
-    var idInstituicao = request.body.idInstituicaoServer;
 
-    if ((idInstituicao == null || idInstituicao == undefined)) {
+function getDadosEquipamento(request, response) {
+    var idEquipamento = request.body.idEquipamentoServer;
+
+    if ((idEquipamento == null || idEquipamento == undefined)) {
         response.status(400).send("Requisição negada. Dados não integros!");
     } else {
-        medidasModel.getMedidasInstituicao(idInstituicao).then(resultado => {
+        medidasModel.getComponentes(idEquipamento, fkInstituicao).then(resultado => {
             response.json(resultado)
         }).catch(function (erro) {
             console.log(erro);
@@ -130,7 +133,7 @@ function getMediasEquipamentos(request, response){
 
 module.exports = {
     getDadosEquipamento,
-    getMedidasInstituicao,
+    getHistoricoDisponibilidade,
     getMediasInstituicao,
     getMaquinasMonitoradas,
     getDisponibilidade,

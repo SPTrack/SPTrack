@@ -1,8 +1,11 @@
 dadosInstituicao = {};
 datasetsDadosInstituicao = [];
-dadosCPU = []
-dadosRAM = []
-dadosDK = []
+
+// Gráfico 1
+valoresDisp = []
+datasDisp = []
+corDisp = "";
+
 mediaCPU = 0;
 mediaRAM = 0;
 qtd = 0;
@@ -31,48 +34,51 @@ function plotKPIs(){
     progRAM.setAttribute("style", `width: ${mediaRAM}%`);
 
     qtd_span.innerHTML = qtd;
-    span_disponibilidade.innerHTML = (100 - ((qtdMaquinasManutencao * 100) / qtd)).toFixed(0) + "%";
+
+    disp = (100 - ((qtdMaquinasManutencao * 100) / qtd)).toFixed(0)
+    span_disponibilidade.innerHTML =   `${disp}%`;
+    if(disp < 90){
+        span_disponibilidade.style.color = 'red';
+        span_subtotal.style.color = 'red';
+        corDisp = 'red';
+    }else if(disp < 95){
+        span_disponibilidade.style.color = 'orange';
+        span_subtotal.style.color = 'orange';
+        corDisp = 'orange';
+    }else if(disp < 100){
+        span_disponibilidade.style.color = 'yellow';
+        span_subtotal.style.color = 'yellow';
+        corDisp = 'yellow';
+    }else if(disp == 100){
+        span_disponibilidade.style.color = 'green';
+        span_subtotal.style.color = 'green';
+        corDisp = 'green';
+    }
+
     span_subtotal.innerHTML = `(${qtdMaquinasManutencao}/${qtd})`;
 }
 
 function plot1(){
     grafico = document.getElementById("grafico1")
-    
-    for(i = 0; i < dadosRAM.length; i++){
-        dadosRAM[i] = (dadosRAM[i] * 100) / 8;
-    }
+    grafico.remove();
 
-    for(i = 0; i < dadosDK.length; i++){
-        dadosDK[i] = (dadosDK[i] * 100) / 100000;
-    }
-
-    xValues = [];
-    for(i = 0; i < dadosDK.length; i++){
-        xValues[i] = i+1;
-    }
+    x = document.createElement("canvas");
+    x.setAttribute("style", "width:100%;max-width:900px;");
+    x.setAttribute("id", "grafico1");
+    grafico1pai.appendChild(x)
+    grafico = document.getElementById("grafico1")
 
     chart1 = new Chart(grafico, {
         type: "line",
         data: {
-        labels: xValues,
+        labels: datasDisp,
         datasets: [{ 
-                data: dadosCPU,
-                borderColor: "red",
+                data: valoresDisp,
+                borderColor: corDisp,
+                backgroundColor: corDisp,
                 fill: false,
                 yAxisID: 'A',
-                label: 'CPU (%)'
-            }, { 
-                data: dadosRAM,
-                borderColor: "green",
-                fill: false,
-                yAxisID: 'B',
-                label: 'Memória RAM (GB)'
-            }, { 
-                data: dadosDK,
-                borderColor: "blue",
-                fill: false,
-                yAxisID: 'C',
-                label: 'Disco Rígido (GB)'
+                label: 'Disponibilidade'
             }]
         },
     
@@ -87,38 +93,11 @@ function plot1(){
                         max: 100,
                         min: 0
                     }
-                }, {
-                    id: 'B',
-                    type: 'linear',
-                    position: 'right',
-                    ticks: {
-                        max: 100,
-                        min: 0,
-                        display: false
-                    }
-                },{
-                    id: 'C',
-                    type: 'linear',
-                    position: 'right',
-                    ticks: {
-                        max: 100,
-                        min: 0,
-                        display: false
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        maxTicksLimit: 5,
-                        maxRotation: 0,
-                        minRotation: 0
-                        // autoSkip: true
-                    }
                 }]
             },
             animation: 0,
             title: {
                 display: false
-                // text: "Desempenho da máquina (Últimos 100 registros)"
             }
         }
     });
@@ -289,9 +268,9 @@ function plot4(){
     });    
 }
 
-// Auxílio - Gráfico 1 (temp)
-function getDadosInstituicao(){
-    fetch("/medidas/getMedidasInstituicao", {
+// Auxílio - KPIs
+function getMaquinasMonitoradas(){
+    fetch("/medidas/getMaquinasMonitoradas", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -302,18 +281,9 @@ function getDadosInstituicao(){
     }).then(function (resposta) {     
         if (resposta.ok) {
             resposta.json().then(json => {
-                for(i = 0; i < json.length; i++){
-                    if(json[i]['tipo'] == "Processador"){
-                        dadosCPU.push(json[i]['valor']);
-                    }else if(json[i]['tipo'] == "Memória RAM"){
-                        dadosRAM.push(json[i]['valor']);
-                    }else if(json[i]['tipo'] == "Disco Rígido"){
-                        dadosDK.push(json[i]['valor']);
-                    }else{
-                        console.log(json[i]['tipo'])
-                    }
-                }
+                qtd = json[0].qtd;
             });
+
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
         
@@ -355,51 +325,28 @@ function getMediasInstituicao(){
     })
 }
 
-// Auxílio - Gráfico 3
-/*function getMediasEquipamentos(){
-    fetch("/medidas/
-    ", {
+// Auxílio - Gráfico 1
+function getHistoricoDisponibilidade(dias = 7){
+    fetch("/medidas/getHistoricoDisponibilidade", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
+            diasServer: dias
         })
     }).then(function (resposta) {     
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json);
-            });
+                valoresDisp = [];
+                datasDisp = [];
 
-        } else {
-            console.log("Houve um erro ao tentar se comunicar!");
-        
-            resposta.text().then(texto => {
-                console.log(texto)
+                for(i = json.length-1; i >= 0; i--){
+                    valoresDisp.push(json[i]['valor']);
+                    datasDisp.push(json[i]['dataRegistro']);
+                }
             });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    })
-}*/
-
-// Auxílio - KPIs
-function getMaquinasMonitoradas(){
-    fetch("/medidas/getMaquinasMonitoradas", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
-        })
-    }).then(function (resposta) {     
-        if (resposta.ok) {
-            resposta.json().then(json => {
-                qtd = json[0].qtd;
-            });
-
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
         
@@ -410,6 +357,42 @@ function getMaquinasMonitoradas(){
     }).catch(function (erro) {
         console.log(erro);
     })   
+}
+
+// Auxílio - Gráfico 1 (onChange)
+function setDadosG1(dias){
+    fetch("/medidas/getHistoricoDisponibilidade", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
+            diasServer: dias
+        })
+    }).then(function (resposta) {     
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                valoresDisp = [];
+                datasDisp = [];
+
+                for(i = json.length-1; i >= 0; i--){
+                    valoresDisp.push(json[i]['valor']);
+                    datasDisp.push(json[i]['dataRegistro']);
+                }
+                
+                plot4();
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+    
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+        }).catch(function (erro) {
+            console.log(erro);
+    })
 }
 
 // Auxílio - KPIs e Gráfico 2
@@ -440,38 +423,23 @@ function getDisponibilidade(){
     })   
 }
 
-// Auxílio - Gráfico 4
-function setDadosG4(idEquipamento){
-    fetch("/medidas/setDadosG4", {
+// Auxílio - Gráfico 3
+/*function getMediasEquipamentos(){
+    fetch("/medidas/
+    ", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            idEquipamentoServer: idEquipamento
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
         })
-    }).then(function (resposta) {
+    }).then(function (resposta) {     
         if (resposta.ok) {
             resposta.json().then(json => {
-                dadosCPU4 = [];
-                dadosRAM4 = [];
-                dadosDK4 = [];
-
-                for(i = 0; i < json.length; i++){
-                    if(json[i]['tipo'] == "Processador"){
-                        dadosCPU4.push((json[i]['valor'] * 100) / json[i]['capacidade']);
-                    }else if(json[i]['tipo'] == "Memória RAM"){
-                        dadosRAM4.push((json[i]['valor'] * 100) / json[i]['capacidade']);
-                    }else if(json[i]['tipo'] == "Disco Rígido"){
-                        dadosDK4.push((json[i]['valor'] * 100) / (json[i]['capacidade'] * 100));
-                        console.log(json[i]['capacidade'])
-                    }else{
-                        console.log(json[i]['tipo'])
-                    }   
-                }
-
-                plot4();
+                console.log(json);
             });
+
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
         
@@ -482,7 +450,10 @@ function setDadosG4(idEquipamento){
     }).catch(function (erro) {
         console.log(erro);
     })
-}
+}*/
+
+
+
 
 // Auxílio - Gráfico 4
 function getMaquinasInstituicao(){
@@ -506,7 +477,7 @@ function getMaquinasInstituicao(){
                     selectMaquinas.appendChild(x);
                 }
                 
-                setDadosG4(idEquipamento1);
+                //setDadosG1(idEquipamento1);
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -521,22 +492,29 @@ function getMaquinasInstituicao(){
 }
 
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
-getDadosInstituicao();
+getHistoricoDisponibilidade();
 getMediasInstituicao();
 getMaquinasMonitoradas();
 getDisponibilidade();
 getMaquinasInstituicao();
 
 setTimeout(function() {
+
     setTimeout(function() {
-        plot2()
+        
         setTimeout(function() {
+            
             setTimeout(function() {
-                plotKPIs()
+                Chart.defaults.global.legend.display = false;
+                plot3();
             },100)
-            Chart.defaults.global.legend.display = false;
-            plot3()
+            
+            
+            plot2();
         },100)
+
+        plot1();
     },100)
-    plot1()
+
+    plotKPIs();
 }, 2000);

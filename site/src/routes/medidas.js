@@ -7,8 +7,8 @@ router.post('/getDadosEquipamento', function (request, response) {
     medidasController.getDadosEquipamento(request, response);
 });
 
-router.post('/getMedidasInstituicao', function (request, response) {
-    medidasController.getMedidasInstituicao(request, response);
+router.post('/getHistoricoDisponibilidade', function (request, response) {
+    medidasController.getHistoricoDisponibilidade(request, response);
 });
 
 router.post('/getMediasInstituicao', function (request, response) {

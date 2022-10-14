@@ -100,13 +100,41 @@ function cadastrar() {
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    alert("Cadastrado com sucesso!")
-                    window.location.reload()
+                   
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Cadastro realizado com sucesso',
+            showConfirmButton: false,
+            timer: 1500
+          })        
+                    
                 });
-    
+                setInterval(() => {
+                    window.location.reload()
+                  }, 3000);
             } else {
     
-                alert("Houve um erro ao tentar cadastrar");
+                throw Swal.fire({
+                    position: 'center',
+                    background: '#fff',
+                    color:'#131313',
+                    icon: 'error',
+                    title: 'Opa,<br> houve um erro ao realizar cadastro.',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
     
                 resposta.text().then(texto => {
                     console.error(texto);

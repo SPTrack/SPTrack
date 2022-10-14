@@ -174,7 +174,7 @@ INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100
 INSERT INTO componente VALUES (NULL, 'Pente 4x0 - 16GB', 'GB', 4, 'Memória RAM', 100005);
 INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido', 100005);
 
-INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Problema com display', 
+INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Aberta', 
 'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);
 
 

@@ -35,4 +35,9 @@ router.post('/getMediasEquipamentos', function (request, response) {
     medidasController.getMediasEquipamentos(request, response);
 });
 
+router.post('/getMaquinasManutencao', function (request, response) {
+    medidasController.getMaquinasManutencao(request, response);
+});
+
+
 module.exports = router;

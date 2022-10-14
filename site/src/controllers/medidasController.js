@@ -100,13 +100,13 @@ function getMaquinasInstituicao(request, response){
     }
 }
 
-function setDadosG4(request, response){
-    var idEquipamento = request.body.idEquipamentoServer;
+function getMaquinasManutencao(request, response){
+    var idInstituicao = request.body.idInstituicaoServer;
 
-    if ((idEquipamento == null || idEquipamento == undefined)) {
+    if ((idInstituicao == null || idInstituicao == undefined)) {
         response.status(400).send("Requisição negada. Dados não integros!");
     } else {
-        medidasModel.setDadosG4(idEquipamento).then(resultado => {
+        medidasModel.getMaquinasManutencao(idInstituicao).then(resultado => {
             response.json(resultado)
         }).catch(function (erro) {
             console.log(erro);
@@ -115,7 +115,6 @@ function setDadosG4(request, response){
         });
     }
 }
-
 
 // Gráfico III
 function getMediasEquipamentos(request, response){
@@ -141,6 +140,6 @@ module.exports = {
     getMaquinasMonitoradas,
     getDisponibilidade,
     getMaquinasInstituicao,
-    setDadosG4,
-    getMediasEquipamentos
+    getMediasEquipamentos,
+    getMaquinasManutencao
 }

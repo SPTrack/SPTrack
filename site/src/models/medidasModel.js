@@ -46,6 +46,10 @@ function getMaquinasInstituicao(idInstituicao){
     idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao};`);
 }
 
+function getMaquinasManutencao(idInstituicao){
+    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio FROM equipamento JOIN manutencao ON idEquipamento = fkEquipamento WHERE fkInstituicao = ${idInstituicao};`);
+}
+
 function setDadosG4(idEquipamento){
     return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro DESC LIMIT 90;`);
 }
@@ -78,6 +82,6 @@ module.exports = {
     getMaquinasMonitoradas,
     getDisponibilidade,
     getMaquinasInstituicao,
-    setDadosG4,
-    getMediasEquipamentos
+    getMediasEquipamentos,
+    getMaquinasManutencao
 }

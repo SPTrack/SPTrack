@@ -109,7 +109,7 @@ function cadastrar() {
         Swal.fire({
             position: 'center',
             icon: 'warning',
-            title: 'insira uma Nome Fantasia válido',
+            title: '  insira uma Nome Fantasia válido <br>(mais de três caracteres)',
             showConfirmButton: false,
             timer: 1500
           })
@@ -233,7 +233,7 @@ function cadastrar() {
                     background: '#fff',
                     color:'#131313',
                     icon: 'error',
-                    title: 'Opa,<br> houve um erro ao realizar cadastro.',
+                    title: '  Erro ao realizar cadastro. <br>Cheque novamente os campos inseridos.',
                     showConfirmButton: false,
                     timer: 1500
                   })

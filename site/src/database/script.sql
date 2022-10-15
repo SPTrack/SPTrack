@@ -108,6 +108,18 @@ CREATE TABLE disponibilidade(
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 1500;
 
+CREATE TABLE estadoDeUso(
+    idEstadoDeUso INT PRIMARY KEY AUTO_INCREMENT,
+    mb INT NOT NULL,
+    b INT NOT NULL,
+    r INT NOT NULL,
+    a INT NOT NULL,
+    dataRegistro DATETIME NOT NULL,
+    
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
+) AUTO_INCREMENT = 1500;
+
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
@@ -203,6 +215,17 @@ INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-10-09 10:47:41', 1000);
 INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-10-08 10:47:41', 1000);
 INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-10-07 10:47:41', 1000);
 INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-10-06 10:47:41', 1000);
+
+INSERT INTO estadoDeUso VALUES(NULL, 2, 3, 1, 0, '2022-10-05 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 3, 2, 1, 0, '2022-10-06 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 4, 2, 0, 0, '2022-10-07 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 5, 0, 1, 0, '2022-10-08 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 6, 0, 0, 0, '2022-10-09 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 4, 1, 1, 0, '2022-10-10 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 5, 1, 0, 0, '2022-10-11 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 2, 2, 1, 1, '2022-10-12 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 3, 3, 0, 0, '2022-10-13 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-10-14 04:29:11', 1000);
 
 SELECT * FROM usuario;
 

@@ -18,9 +18,12 @@ bom = 0;
 reg = 0;
 irreg = 0;
 
-dadosCPU4 = [];
-dadosRAM4 = [];
-dadosDK4 = [];
+// Gráfico 4
+mba = [];
+ba = [];
+ra = [];
+aa = [];
+xValues = [];
 
 /*
                  MÉTRICAS
@@ -33,6 +36,141 @@ dadosDK4 = [];
     | Atenção:   1     | Atenção:   >= 1    |
     -----------------------------------------
 */
+dadosCPU = [];
+dadosRAM = [];
+dadosDK = [];
+
+function pontuacaoDia(componente){
+    fetch("/medidas/pontuacaoDia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            componenteServer: componente,
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+        })
+    }).then(function (resposta) {     
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json)
+                for(i = 0; i < json.length; i++){
+                    if(json[i]['tipo'] == "Memória RAM"){
+                        dadosRAM.push(json[i]['valor'] * 100 / 8);
+                    }else if(json[i]['tipo'] == "Processador"){
+                        dadosCPU.push(json[i]["valor"]);
+                    }else if(json[i]["tipo"] == "Disco Rígido"){
+                        dadosDK.push(json[i]["valor"]);
+                    }
+                }
+            });
+
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })  
+}
+
+function plot3(){
+    grafico3 = document.getElementById("grafico3")
+    // MB - B - R - A
+    pontuacoes = [];
+    resultado = [0, 0, 0, 0];
+
+    for(i = 0; i < dadosCPU.length; i++){
+        pontuacoes[i] = 0;
+        if(dadosCPU[i] < 40){
+            pontuacoes[i] += 4;
+        }else if(dadosCPU[i] <= 60){
+            pontuacoes[i] += 3;
+        }else if(dadosCPU[i] <= 60){
+            pontuacoes[i] += 2;
+        }else{
+            pontuacoes[i] += 1;
+        }
+    }
+
+    for(i = 0; i < dadosRAM.length; i++){
+        if(dadosRAM[i] < 20){
+            pontuacoes[i] += 4;
+        }else if(dadosRAM[i] <= 50){
+            pontuacoes[i] += 3;
+        }else if(dadosRAM[i] <= 80){
+            pontuacoes[i] += 2;
+        }else{
+            pontuacoes[i] += 1;
+        }
+    }
+
+    for(i = 0; i < dadosDK.length; i++){
+        if((100000 - dadosDK[i]) > 256000){
+            pontuacoes[i] += 4;
+        }else if((100000 - dadosDK[i]) >= 64000){
+            pontuacoes[i] += 3;
+        }else if((100000 - dadosDK[i]) >= 32000){
+            pontuacoes[i] += 2;
+        }else{
+            pontuacoes[i] += 1;
+        }
+    }
+
+    for(i = 0; i < pontuacoes.length; i++){
+        if((pontuacoes[i] / 3) == 4){
+            resultado[0] += 1;
+        }else if((pontuacoes[i] / 3) >= 3){
+            resultado[1] += 1;
+        }else if((pontuacoes[i] / 2) >= 2){
+            resultado[2] += 1;
+        }else{
+            resultado[3] += 1;
+        }
+    }
+
+    chart3 = new Chart(grafico3, {
+        type: "bar",
+        data: {
+            labels: [
+                'Muito Bom',
+                'Bom',
+                'Regular',
+                'Atenção'
+            ],
+            datasets: [{
+                data: resultado,
+                backgroundColor: [
+                    '#008000',
+                    '#ff0',
+                    '#ff6600',
+                    '#f00'
+                ],
+                borderWidth: 1
+            }],
+            options: {
+                plugins:{
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            stepSize: 20
+                        }
+                    }]
+                }
+            }
+        }
+    });
+}
 
 function plotKPIs(){
     usoMedioCPU_span.innerHTML = mediaCPU.toFixed(2) + '%';
@@ -160,92 +298,49 @@ function plot2(){
     });
 }
 
-function plot3(){
-    grafico3 = document.getElementById("grafico3")
-
-    chart3 = new Chart(grafico3, {
-        type: "bar",
-        data: {
-            labels: [
-                'Muito Bom',
-                'Bom',
-                'Regular',
-                'Atenção'
-            ],
-            datasets: [{
-                data: [3, 4, 2, 0],
-                backgroundColor: [
-                  'rgba(3, 172, 19, 0.3)',
-                  'rgba(255, 205, 86, 0.3)',
-                  'rgba(255, 159, 64, 0.3)',
-                  'rgba(255, 99, 132, 0.3)'
-                ],
-                borderColor: [
-                    'rgb(3, 172, 19)',
-                    'rgb(255, 205, 86)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 99, 132)'
-                ],
-                borderWidth: 1
-            }],
-            options: {
-                plugins:{
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            max: 100,
-                            stepSize: 20
-                        }
-                    }]
-                }
-            }
-        }
-    });
-}
-
 function plot4(){
     grafico = document.getElementById("grafico4")
-    grafico.remove();
+    // grafico.remove();
 
-    x = document.createElement("canvas");
-    x.setAttribute("style", "width:100%;max-width:900px;");
-    x.setAttribute("id", "grafico4");
-    grafico4pai.appendChild(x)
-    grafico = document.getElementById("grafico4")
+    // x = document.createElement("canvas");
+    // x.setAttribute("style", "width:100%;max-width:900px;");
+    // x.setAttribute("id", "grafico4");
+    // grafico4pai.appendChild(x)
+    // grafico = document.getElementById("grafico4")
 
-    xValues = [];
-    for(i = 0; i < dadosDK4.length; i++){
-        xValues[i] = i+1;
-    }
+    // xValues = [];
+    // for(i = 0; i < dadosDK4.length; i++){
+    //     xValues[i] = i+1;
+    // }
 
     chart1 = new Chart(grafico, {
         type: "line",
         data: {
         labels: xValues,
         datasets: [{ 
-                data: dadosCPU4,
-                borderColor: "red",
-                fill: false,
-                yAxisID: 'A',
-                label: 'CPU (%)'
-            }, { 
-                data: dadosRAM4,
+                data: mba,
                 borderColor: "green",
                 fill: false,
-                yAxisID: 'B',
-                label: 'Memória RAM (GB)'
+                yAxisID: 'A',
+                label: 'Muito Bom'
             }, { 
-                data: dadosDK4,
-                borderColor: "blue",
+                data: ba,
+                borderColor: "yellow",
+                fill: false,
+                yAxisID: 'B',
+                label: 'Bom'
+            }, { 
+                data: ra,
+                borderColor: "orange",
                 fill: false,
                 yAxisID: 'C',
-                label: 'Disco Rígido (GB)'
+                label: 'Regular'
+            },{ 
+                data: aa,
+                borderColor: "red",
+                fill: false,
+                yAxisID: 'C',
+                label: 'Atenção'
             }]
         },
     
@@ -257,7 +352,7 @@ function plot4(){
                     type: 'linear',
                     position: 'left',
                     ticks: {
-                        max: 100,
+                        max: 6,
                         min: 0
                     }
                 }, {
@@ -265,7 +360,7 @@ function plot4(){
                     type: 'linear',
                     position: 'right',
                     ticks: {
-                        max: 100,
+                        max: 6,
                         min: 0,
                         display: false
                     }
@@ -274,14 +369,14 @@ function plot4(){
                     type: 'linear',
                     position: 'right',
                     ticks: {
-                        max: 100,
+                        max: 6,
                         min: 0,
                         display: false
                     }
                 }],
                 xAxes: [{
                     ticks: {
-                        maxTicksLimit: 5,
+                        maxTicksLimit: 7,
                         maxRotation: 0,
                         minRotation: 0
                         // autoSkip: true
@@ -295,6 +390,48 @@ function plot4(){
             }
         }
     });    
+}
+
+function getEstadosDeUso(){
+    fetch("/medidas/getEstadosDeUso", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+        })
+    }).then(function (resposta) {     
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                // d1 = [json[0]['mb'], json[0]['b'], json[0]['r'], json[0]['a']];
+                // d2 = [json[1]['mb'], json[1]['b'], json[1]['r'], json[1]['a']];
+                // d3 = [json[2]['mb'], json[2]['b'], json[2]['r'], json[2]['a']];
+                // d4 = [json[3]['mb'], json[3]['b'], json[3]['r'], json[3]['a']];
+                // d5 = [json[4]['mb'], json[4]['b'], json[4]['r'], json[4]['a']];
+                // d6 = [json[5]['mb'], json[5]['b'], json[5]['r'], json[5]['a']];
+                // d7 = [json[6]['mb'], json[6]['b'], json[6]['r'], json[6]['a']];
+
+                
+                for(i=0; i<json.length; i++){
+                    mba.push(json[i]['mb']);
+                    ba.push(json[i]['b']);
+                    ra.push(json[i]['r']);
+                    aa.push(json[i]['a']);
+                    xValues.push(json[i]['dataRegistro'])
+                }
+            });
+
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })   
 }
 
 // Auxílio - KPIs
@@ -496,7 +633,8 @@ function getMedidasInstituicao(){
     })
 }
 
-// Auxílio - Gráfico 4
+// Auxílio - Gráfico 4 - DEprecated
+/*
 function getMaquinasInstituicao(){
     fetch("/medidas/getMaquinasInstituicao", {
         method: "POST",
@@ -530,14 +668,18 @@ function getMaquinasInstituicao(){
     }).catch(function (erro) {
         console.log(erro);
     })
-}
+}*/
 
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 getHistoricoDisponibilidade();
 getMedidasInstituicao();
 getMaquinasMonitoradas();
 getDisponibilidade();
-getMaquinasInstituicao();
+//getMaquinasInstituicao(); Deprecated
+pontuacaoDia("Processador");
+pontuacaoDia("Memória RAM");
+pontuacaoDia("Disco Rígido");
+getEstadosDeUso();
 
 setTimeout(function() {
 
@@ -546,6 +688,11 @@ setTimeout(function() {
         setTimeout(function() {
             
             setTimeout(function() {
+                
+                setTimeout(function() {
+                    
+                    plot4();
+                },100)
                 Chart.defaults.global.legend.display = false;
                 plot3();
             },100)

@@ -54,11 +54,14 @@ function inserirNaManutencao(idEquipamento, descricao, idUsuario){
 
 // PARA SISTEMA DE PONTUAÇÃO
 function pontuacaoDia(componente, idInstituicao){
-    return database.executar(`SELECT ROUND(AVG(valor), 2) AS media FROM medida JOIN componente ON fkComponente = idComponente JOIN equipamento ON fkEquipamento = idEquipamento 
+    return database.executar(`SELECT ROUND(AVG(valor), 2) AS valor, tipo FROM medida JOIN componente ON fkComponente = idComponente JOIN equipamento ON fkEquipamento = idEquipamento 
     WHERE componente.tipo = "${componente}" AND medida.dataRegistro >= DATE(NOW() - INTERVAL 1 DAY) AND fkInstituicao = ${idInstituicao} GROUP BY idEquipamento;`);
 }
 
-
+function getEstadosDeUso(idInstituicao){
+    return database.executar(`SELECT mb, b, r, a, DATE_FORMAT(dataRegistro, '%d/%m') AS dataRegistro FROM estadoDeUso JOIN instituicao ON fkInstituicao = idInstituicao 
+    WHERE dataRegistro >= DATE(NOW() - INTERVAL 7 DAY) AND idInstituicao = ${idInstituicao};`);
+}
 
 // SELECT ROUND(cpu.valor, 2) AS mediaCPU, ROUND(ram.valor, 2) AS mediaRAM, ROUND(dk.valor, 2) AS mediaDK FROM 
 
@@ -84,5 +87,6 @@ module.exports = {
     getMaquinasManutencao,
     retirarDaManutencao,
     inserirNaManutencao,
-    pontuacaoDia
+    pontuacaoDia,
+    getEstadosDeUso
 }

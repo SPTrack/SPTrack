@@ -51,4 +51,8 @@ router.post('/pontuacaoDia', function (request, response) {
     medidasController.pontuacaoDia(request, response);
 });
 
+router.post('/getEstadosDeUso', function (request, response) {
+    medidasController.getEstadosDeUso(request, response);
+});
+
 module.exports = router;

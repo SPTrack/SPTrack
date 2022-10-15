@@ -1,5 +1,6 @@
-cnpj =  "";
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
+cnpj =  "";
+
 
 function editar() {
     fetch("/instituicoes/editar", {
@@ -24,14 +25,11 @@ function editar() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 console.log(json)
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Your work has been saved',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                  window.location.reload();
+ 
+        alert("Dados editados com sucesso")
+          setInterval(() => {
+            window.location.reload()
+          }, 3000);
                 
             });
 

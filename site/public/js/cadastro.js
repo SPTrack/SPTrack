@@ -28,7 +28,15 @@ function buscarDadosEmpresa() {
 
         })
     } else {
-        alert("CNPJ inválido")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'CNPJ Inválido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     }
 
 }
@@ -47,29 +55,123 @@ function cadastrar() {
     var cidade = document.getElementById('cidade').value
     var uf = document.getElementById('uf').value
     if(cnpj.length<13){
-        alert("Insira um CNPJ válido")
+        
+         
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'CNPJ Inválido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     }else if (nome.length <= 2) {
-        alert("insira um nome válido")
+        
+         
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'insira um nome válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (!email.includes("@")) {
-        alert('insira um email válido')
+       
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'insira um email válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (senha.length < 6) {
-        alert('Insira uma senha válida')
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'insira uma senha válida',
+            showConfirmButton: false,
+            timer: 1500
+          })
     } else if (razaoSocial.length < 3) {
-        alert("Insira a razão social")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira uma razão social',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (nomeFantasia.length < 3) {
-        alert("Insira o nome fantasia")
+         
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira uma Nome Fantasia válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
     } else if (cep.length < 8) {
-        alert("Insira em CEP")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira um CEP válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
     } else if (logradouro.length < 6) {
-        alert("Insira o Logradouro")
+         
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira um Logradouro válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (numero.length == 0) {
-        alert("Insira o número")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira um número válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (bairro.length < 2) {
-        alert("Insira o bairro")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira um bairro válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (cidade.length < 2) {
-        alert("Insira a cidade")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira uma cidade válida',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else if (uf.length < 1) {
-        alert("Insira o UF")
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'insira um UF válido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
     } else {
         fetch("/instituicoes/cadastro", {
             method: "POST",

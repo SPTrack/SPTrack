@@ -182,7 +182,7 @@ function getMaquinasInstituicao(){
                     maquinasTotal.push(json[i]['idEquipamento']);
                     maquinasTotalNP.push(json[i]['numeroPatrimonio']);
                     maquinasTotalMO.push(json[i]['modelo']);
-                    maquinasTotalSA.push(json[i]['sala']);
+                    maquinasTotalSA.push(json[i]['nomeSala']);
                 }
             });
         } else {
@@ -221,7 +221,7 @@ function getMaquinasManutencao(){
                     <div class="row align-items-center no-gutters">
                         <div class="col me-2">
                         <input type="checkbox" id="maquinaM${i}" class="changeManutencao" value="${json[i]['numeroPatrimonio']}">
-                        <label for="maquinaM${i}">Máquina ${json[i]['numeroPatrimonio']} - ${json[i]['modelo']} (${json[i]['sala']})</label><br>
+                        <label for="maquinaM${i}">Máquina ${json[i]['numeroPatrimonio']} - ${json[i]['modelo']} (${json[i]['nomeSala']})</label><br>
                         </div></li></div>`;
                 }
                 plotKPIs();
@@ -261,4 +261,4 @@ getMaquinasManutencao();
 
 setTimeout(function() {
     plotMaquinasDisponiveis();
-}, 2000)
+}, 1000)

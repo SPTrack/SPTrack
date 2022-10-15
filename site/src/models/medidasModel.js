@@ -26,15 +26,15 @@ function getMaquinasMonitoradas(idInstituicao){
 }
 
 function getMaquinasInstituicao(idInstituicao){
-    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS sala
+    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS nomeSala, sala.idSala AS sala
     FROM equipamento JOIN  instituicao ON fkInstituicao = idInstituicao JOIN locacao ON fkEquipamento = 
     idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao} ORDER BY numeroPatrimonio;`);
 }
 
 function getMaquinasManutencao(idInstituicao){
-    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS sala, manutencao.descricao, idManutencao FROM equipamento JOIN manutencao 
-    ON idEquipamento = manutencao.fkEquipamento JOIN locacao ON locacao.fkEquipamento = idEquipamento JOIN sala ON fkSala = idSala
-    WHERE sala.fkInstituicao = ${idInstituicao} AND situacao = "Aberto" ORDER BY numeroPatrimonio;`);
+    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS nomeSala, manutencao.descricao, idManutencao , sala.idSala AS idSala 
+    FROM equipamento JOIN manutencao ON idEquipamento = manutencao.fkEquipamento JOIN locacao ON locacao.fkEquipamento = idEquipamento JOIN sala 
+    ON fkSala = idSala WHERE sala.fkInstituicao = ${idInstituicao} AND situacao = "Aberto" ORDER BY numeroPatrimonio;`);
 }
 
 function getMediasEquipamentos(idInstituicao){

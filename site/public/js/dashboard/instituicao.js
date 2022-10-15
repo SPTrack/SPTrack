@@ -1,7 +1,6 @@
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 cnpj =  "";
 
-
 function editar() {
     fetch("/instituicoes/editar", {
         method: "POST",
@@ -59,16 +58,16 @@ function getInstituicao() {
             resposta.json().then(json => {
                 console.log()
                 
-                    nomeFantasia.value = json[0]['nomeFantasia'],
-                    razaoSocial.value = json[0]['razaoSocial'],
-                    // cnpj.value = json[0]['cnpj'],
-                    cnpj = json[0]['cnpj'],
-                    cep.value = json[0]['cep'],
-                    estado.value = json[0]['estado'],
-                    complemento.value = json[0]['complemento'],
-                    cidade.value = json[0]['cidade'],
-                    bairro.value = json[0]['bairro'],
-                    logradouro.value = json[0]['logradouro'],
+                    nomeFantasia.value = json[0]['nomeFantasia']
+                    razaoSocial.value = json[0]['razaoSocial']
+                    cnpj.value = json[0]['cnpj']
+                    cnpjInp.value = json[0]['cnpj'];
+                    cep.value = json[0]['cep']
+                    estado.value = json[0]['estado']
+                    complemento.value = json[0]['complemento']
+                    cidade.value = json[0]['cidade']
+                    bairro.value = json[0]['bairro']
+                    logradouro.value = json[0]['logradouro']
                     numero.value = json[0]['numero']
                     
             });
@@ -84,5 +83,7 @@ function getInstituicao() {
         console.log(erro);
     })
 }
+
+
 
 getInstituicao();

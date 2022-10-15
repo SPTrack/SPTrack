@@ -7,6 +7,11 @@ idManutencao = [];
 maquinasDescricao = [];
 manutencaoModelo = [];
 
+maquinasLivres = [];
+maquinasLivresNP = [];
+maquinasLivresMO = [];
+maquinasLivresSA = [];
+
 maquinasTotalNP = [];
 maquinasTotalMO = [];
 maquinasTotalSA = [];
@@ -23,7 +28,7 @@ function levarManutencao(){
                           <div class="card shadow mb-4"></div>
                           <div class="card shadow mb-4">
                               <div class="card-header py-3" style="padding-bottom: 8px;">
-                                  <h6 class="text-primary fw-bold m-0">Cadastrar na Manutenção (Patrimônio ${maquinasTotalNP[i]} - ${maquinasTotalMO[i]})</h6>
+                                  <h6 class="text-primary fw-bold m-0">Cadastrar na Manutenção (Patrimônio ${maquinasLivresNP[i]} - ${maquinasLivresMO[i]})</h6>
                               </div>
                               <ul class="list-group list-group-flush">
                                   <li class="list-group-item">
@@ -35,7 +40,7 @@ function levarManutencao(){
                                       </div>
                                   </li>
                               </ul>
-                          </div><button class="btn btn-primary btn-sm" type="submit" style="background: #008000;margin-left: 3px;" onclick="inserirNaManutencao(${maquinasTotal[i]}, descricao${i}.value)">Confirmar Inserção</button>
+                          </div><button class="btn btn-primary btn-sm" type="submit" style="background: #008000;margin-left: 3px;" onclick="inserirNaManutencao(${maquinasLivres[i]}, descricao${i}.value)">Confirmar Inserção</button>
                       </div>
                   </div>`;
         }
@@ -216,6 +221,11 @@ function plotMaquinasDisponiveis(){
                 <input type="checkbox" id="maquinaD${i}" class="changeDisponibilidade" value="${maquinasTotal[i]}">
                 <label for="maquinaD${i}">Máquina ${maquinasTotalNP[i]} - ${maquinasTotalMO[i]} (${maquinasTotalSA[i]})</label><br>
             `;
+
+            maquinasLivres.push(maquinasTotal[i]);
+            maquinasLivresNP.push(maquinasTotalNP[i]);
+            maquinasLivresMO.push(maquinasTotalMO[i]);
+            maquinasLivresSA.push(maquinasTotalSA[i]);
         }
     }
 }

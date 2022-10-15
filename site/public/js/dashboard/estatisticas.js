@@ -300,19 +300,7 @@ function plot2(){
 
 function plot4(){
     grafico = document.getElementById("grafico4")
-    // grafico.remove();
-
-    // x = document.createElement("canvas");
-    // x.setAttribute("style", "width:100%;max-width:900px;");
-    // x.setAttribute("id", "grafico4");
-    // grafico4pai.appendChild(x)
-    // grafico = document.getElementById("grafico4")
-
-    // xValues = [];
-    // for(i = 0; i < dadosDK4.length; i++){
-    //     xValues[i] = i+1;
-    // }
-
+    
     chart1 = new Chart(grafico, {
         type: "line",
         data: {
@@ -320,24 +308,28 @@ function plot4(){
         datasets: [{ 
                 data: mba,
                 borderColor: "green",
+                backgroundColor: "green",
                 fill: false,
                 yAxisID: 'A',
                 label: 'Muito Bom'
             }, { 
                 data: ba,
                 borderColor: "yellow",
+                backgroundColor: "yellow",
                 fill: false,
                 yAxisID: 'B',
                 label: 'Bom'
             }, { 
                 data: ra,
                 borderColor: "orange",
+                backgroundColor: "orange",
                 fill: false,
                 yAxisID: 'C',
                 label: 'Regular'
             },{ 
                 data: aa,
                 borderColor: "red",
+                backgroundColor: "red",
                 fill: false,
                 yAxisID: 'C',
                 label: 'Atenção'

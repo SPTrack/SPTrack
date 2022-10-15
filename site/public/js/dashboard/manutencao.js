@@ -1,5 +1,6 @@
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 
+
 maquinasTotal = [];
 
 maquinasEmManutencao = [];
@@ -92,8 +93,18 @@ function retirarDaManutencao(patrimonio, descricao, idMaquina){
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                alert("Máquina retirada da manutenção!");
-                window.location.reload();
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Máquina retirada da manutenção!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                  setInterval(() => {
+                    window.location.reload()
+                  }, 3000);
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -122,8 +133,19 @@ function inserirNaManutencao(idEquipamento, descricao){
         if (resposta.ok) {
             resposta.json().then(json => {
                 console.log(json);
-                alert("Máquina inserida na manutenção!");
-                window.location.reload();
+                
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Máquina inserida na manutenção!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                  setInterval(() => {
+                    window.location.reload()
+                  }, 3000);
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -195,10 +217,12 @@ function getMaquinasManutencao(){
                     manutencaoModelo.push(json[i]['modelo']);
                     idManutencao.push(json[i]['idManutencao']);
 
-                    paiMans.innerHTML += `
+                    paiMans.innerHTML += ` <li class="list-group-item">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
                         <input type="checkbox" id="maquinaM${i}" class="changeManutencao" value="${json[i]['numeroPatrimonio']}">
                         <label for="maquinaM${i}">Máquina ${json[i]['numeroPatrimonio']} - ${json[i]['modelo']} (${json[i]['sala']})</label><br>
-                    `;
+                        </div></li></div>`;
                 }
                 plotKPIs();
             });
@@ -217,15 +241,17 @@ function getMaquinasManutencao(){
 function plotMaquinasDisponiveis(){
     for(i = 0; i < maquinasTotal.length; i++){
         if(maquinasEmManutencao.indexOf(maquinasTotal[i]) === -1){
-            paiDisps.innerHTML += `
+            paiDisps.innerHTML += ` <li class="list-group-item">
+            <div class="row align-items-center no-gutters">
+                <div class="col me-2">
                 <input type="checkbox" id="maquinaD${i}" class="changeDisponibilidade" value="${maquinasTotal[i]}">
                 <label for="maquinaD${i}">Máquina ${maquinasTotalNP[i]} - ${maquinasTotalMO[i]} (${maquinasTotalSA[i]})</label><br>
-            `;
-
+            </div></li></div>`;
             maquinasLivres.push(maquinasTotal[i]);
             maquinasLivresNP.push(maquinasTotalNP[i]);
             maquinasLivresMO.push(maquinasTotalMO[i]);
             maquinasLivresSA.push(maquinasTotalSA[i]);
+            
         }
     }
 }

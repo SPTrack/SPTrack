@@ -8,7 +8,16 @@ function entrar() {
     var senhaVar = senha.value;
 
     if (emailVar == "" || senhaVar == "") {
-        alert("Email ou senha vazio!")
+       
+         
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Email ou senha inválido',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
         pararAguardar()
         return false;
     }

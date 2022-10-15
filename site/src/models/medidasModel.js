@@ -18,23 +18,8 @@ function getComponentes(fkEquipamento) {
 }
 
 function getMedidasInstituicao(idInstituicao){
-    // Task: transformar numa view
-    return database.executar(`SELECT ROUND(cpu.valor, 2) AS valorCPU, ROUND(ram.valor, 2) AS valorRAM, dk.valor AS valorDK  FROM 
-    (SELECT valor, medida.dataRegistro AS dtCPU FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento ON fkEquipamento = idEquipamento JOIN instituicao 
-        ON idInstituicao = fkInstituicao WHERE componente.tipo = "Processador" AND idInstituicao = ${idInstituicao} AND dtCPU >= DATE(NOW() - INTERVAL 1 DAY)) AS cpu,
-    (SELECT valor, medida.dataRegistro AS dtRAM FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento ON fkEquipamento = idEquipamento JOIN instituicao
-        ON idInstituicao = fkInstituicao WHERE componente.tipo = "Memória RAM" AND idInstituicao = ${idInstituicao} AND dtRAM >= DATE(NOW() - INTERVAL 1 DAY)) AS ram,
-    (SELECT valor, medida.dataRegistro AS dtDK FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento ON fkEquipamento = idEquipamento JOIN instituicao 
-        ON idInstituicao = fkInstituicao WHERE componente.tipo = "Disco Rígido" AND idInstituicao = ${idInstituicao} AND dtDK >= DATE(NOW() - INTERVAL 1 DAY)) AS dk;`);
+    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro DESC LIMIT 300;`);
 }
-
-// SELECT ROUND(cpu.valor, 2) AS valorCPU, ROUND(ram.valor, 2) AS valorRAM, dk.valor AS valorDK  FROM 
-//     (SELECT valor, medida.dataRegistro AS dtCPU FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento ON fkEquipamento = idEquipamento JOIN instituicao 
-//         ON idInstituicao = fkInstituicao WHERE componente.tipo = "Processador" AND idInstituicao = 1000 AND medida.dataRegistro >= DATE(NOW() - INTERVAL 30 DAY)) AS cpu,
-//     (SELECT valor, medida.dataRegistro AS dtRAM FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento ON fkEquipamento = idEquipamento JOIN instituicao
-//         ON idInstituicao = fkInstituicao WHERE componente.tipo = "Memória RAM" AND idInstituicao = 1000 AND medida.dataRegistro >= DATE(NOW() - INTERVAL 30 DAY)) AS ram,
-//     (SELECT valor, medida.dataRegistro AS dtDK FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento ON fkEquipamento = idEquipamento JOIN instituicao 
-//         ON idInstituicao = fkInstituicao WHERE componente.tipo = "Disco Rígido" AND idInstituicao = 1000 AND medida.dataRegistro >= DATE(NOW() - INTERVAL 30 DAY)) AS dk;
 
 function getMaquinasMonitoradas(idInstituicao){
     return database.executar(`SELECT COUNT(idEquipamento) AS qtd FROM equipamento JOIN instituicao ON fkInstituicao = idInstituicao WHERE idInstituicao = ${idInstituicao};`);
@@ -43,15 +28,13 @@ function getMaquinasMonitoradas(idInstituicao){
 function getMaquinasInstituicao(idInstituicao){
     return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS sala
     FROM equipamento JOIN  instituicao ON fkInstituicao = idInstituicao JOIN locacao ON fkEquipamento = 
-    idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao};`);
+    idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao} ORDER BY numeroPatrimonio;`);
 }
 
 function getMaquinasManutencao(idInstituicao){
-    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio FROM equipamento JOIN manutencao ON idEquipamento = fkEquipamento WHERE fkInstituicao = ${idInstituicao};`);
-}
-
-function setDadosG4(idEquipamento){
-    return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro DESC LIMIT 90;`);
+    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS sala, manutencao.descricao, idManutencao FROM equipamento JOIN manutencao 
+    ON idEquipamento = manutencao.fkEquipamento JOIN locacao ON locacao.fkEquipamento = idEquipamento JOIN sala ON fkSala = idSala
+    WHERE sala.fkInstituicao = ${idInstituicao} AND situacao = "Aberto" ORDER BY numeroPatrimonio;`);
 }
 
 function getMediasEquipamentos(idInstituicao){
@@ -60,6 +43,21 @@ function getMediasEquipamentos(idInstituicao){
     FROM equipamento JOIN  instituicao ON fkInstituicao = idInstituicao JOIN locacao ON fkEquipamento = 
     idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao};`);
 }
+
+function retirarDaManutencao(patrimonio, descricao, idManutencao){
+    return database.executar(`UPDATE manutencao SET situacao = "Finalizado", dtFim = NOW(), descricao = '${descricao}' WHERE idManutencao = ${idManutencao};`);
+}
+
+function inserirNaManutencao(idEquipamento, descricao, idUsuario){
+    return database.executar(`INSERT INTO manutencao VALUES (NULL, NOW(), NULL, 'Aberto', '${descricao}', ${idUsuario}, ${idEquipamento});`);
+}
+
+// PARA SISTEMA DE PONTUAÇÃO
+function pontuacaoDia(componente, idInstituicao){
+    return database.executar(`SELECT ROUND(AVG(valor), 2) AS media FROM medida JOIN componente ON fkComponente = idComponente JOIN equipamento ON fkEquipamento = idEquipamento 
+    WHERE componente.tipo = "${componente}" AND medida.dataRegistro >= DATE(NOW() - INTERVAL 1 DAY) AND fkInstituicao = ${idInstituicao} GROUP BY idEquipamento;`);
+}
+
 
 
 // SELECT ROUND(cpu.valor, 2) AS mediaCPU, ROUND(ram.valor, 2) AS mediaRAM, ROUND(dk.valor, 2) AS mediaDK FROM 
@@ -83,5 +81,8 @@ module.exports = {
     getDisponibilidade,
     getMaquinasInstituicao,
     getMediasEquipamentos,
-    getMaquinasManutencao
+    getMaquinasManutencao,
+    retirarDaManutencao,
+    inserirNaManutencao,
+    pontuacaoDia
 }

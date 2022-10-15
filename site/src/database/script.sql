@@ -88,7 +88,7 @@ CREATE TABLE locacao(
 CREATE TABLE manutencao(
 	idManutencao INT PRIMARY KEY AUTO_INCREMENT,
     dtInicio DATETIME NOT NULL,
-    dtFim DATETIME NOT NULL,
+    dtFim DATETIME,
     situacao VARCHAR(10) CHECK (situacao IN ('Aberto', 'Finalizado')) NOT NULL,
     descricao VARCHAR(128) NOT NULL,
 
@@ -99,6 +99,15 @@ CREATE TABLE manutencao(
     FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
 ) AUTO_INCREMENT = 5000;
 
+CREATE TABLE disponibilidade(
+    idDisponibilidade INT PRIMARY KEY AUTO_INCREMENT,
+    valor FLOAT NOT NULL,
+    dataRegistro DATETIME NOT NULL,
+    
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
+) AUTO_INCREMENT = 1500;
+
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
@@ -108,7 +117,6 @@ CREATE VIEW `vw_medidasEquipamento` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, equipamento.idEquipamento, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 
 JOIN componente ON componente.fkEquipamento = equipamento.idEquipamento JOIN medida ON medida.fkComponente = componente.idComponente;
-
 
 CREATE VIEW `vw_medidas7dias` AS
 SELECT equipamento.modelo, componente.tipo, medida.valor, componente.unidadeMedida, componente.nome, medida.dataRegistro, equipamento.idEquipamento
@@ -170,11 +178,11 @@ INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100
 INSERT INTO componente VALUES (NULL, 'Pente 4x0 - 16GB', 'GB', 4, 'Memória RAM', 100005);
 INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido', 100005);
 
-INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Problema com display', 
+INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Aberto', 
 'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);
 
-INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Aberto', 
-'O visor da tela da máquina Dell XP22 está ruim', 10000, 100001);
+INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-16 02:18:25', 'Aberto', 
+'O aluno destruiu o root', 10000, 100003);
 
 select * from locacao;
 INSERT INTO locacao VALUES (100000, 1, NOW());
@@ -187,6 +195,14 @@ INSERT INTO locacao VALUES (100003, 2, NOW());
 INSERT INTO sala VALUES (NULL, 'Sala de CCO', 1000);
 INSERT INTO locacao VALUES (100004, 3, NOW());
 INSERT INTO locacao VALUES (100005, 3, NOW());
+
+INSERT INTO disponibilidade VALUES (NULL, 89.5, '2022-10-12 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 82.1, '2022-10-11 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 77.0, '2022-10-10 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-10-09 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-10-08 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-10-07 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-10-06 10:47:41', 1000);
 
 SELECT * FROM usuario;
 

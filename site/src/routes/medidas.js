@@ -39,5 +39,16 @@ router.post('/getMaquinasManutencao', function (request, response) {
     medidasController.getMaquinasManutencao(request, response);
 });
 
+router.post('/retirarDaManutencao', function (request, response) {
+    medidasController.retirarDaManutencao(request, response);
+});
+
+router.post('/inserirNaManutencao', function (request, response) {
+    medidasController.inserirNaManutencao(request, response);
+});
+
+router.post('/pontuacaoDia', function (request, response) {
+    medidasController.pontuacaoDia(request, response);
+});
 
 module.exports = router;

@@ -134,7 +134,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col-md-11 me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="color: #ffff;background: var(--bs-success);">Funcionando</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: #ffff;">24 máquinas</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: #ffff;" id="span_qtdFuncionando">0 máquinas</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                                             <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="color: #ffff;">MANUTENÇÃO</span></div>
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span style="color: #ffff;">1 Máquinas</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span style="color: #ffff;" id="span_qtdManutencao">0 Máquinas</span></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-6 mb-4" style="width: 100%;">
                             <div class="card shadow mb-4"></div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3" style="padding-bottom: 8px;">
@@ -169,17 +169,20 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center no-gutters">
                                             <div class="col me-2">
-                                                <h6 class="mb-0"><strong><p id="idMaquina"><input type="checkbox" id="checkDisponiveis"> Máquina 0395</p></strong></h6>
+                                                <h6 class="mb-0">
+                                                    <div id="paiDisps">
+                                                    </div>
+                                                </h6>
                                             </div>
                                         </div>
                                     </li>                                   
                                 </ul>
-                            </div><button class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);margin-left: 3px;">Adicionar em Manutenção</button>
+                            </div><button class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);margin-left: 3px;" onclick="levarManutencao()">Adicionar em Manutenção</button>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-6 mb-4" style="width: 100%;">
                             <div class="card shadow mb-4"></div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3" style="padding-bottom: 8px;">
@@ -189,54 +192,24 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center no-gutters">
                                             <div class="col me-2">
-                                                <h6 class="mb-0"><strong><p id="idMaquina"><input type="checkbox" id="checkDisponiveis"> Máquina: 0398</p></strong></h6>
+                                                <h6 class="mb-0">
+                                                    <div id="paiMans">
+                                                    </div>
+                                                </h6>
                                             </div>
                                         </div>
                                     </li>                                   
                                 </ul>
-                            </div><button class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);margin-left: 3px;">Remover de Manutenção</button>
+                            </div><button class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);margin-left: 3px;" onclick="tirarManutencao()">Verificar Descrição</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="card shadow mb-4"></div>
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3" style="padding-bottom: 8px;">
-                                    <h6 class="text-primary fw-bold m-0">Registro Manutenção</h6>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Nº Patrimônio</strong></h6>
-                                            </div>
-                                        </div><input type="text" id="patrimonio" placeholder="patrimônio" style="margin-top: 9px;margin-left: 1px;border-radius: 7px;border-width: 1px;border-style: solid;">
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Descrição do Problema</strong></h6><input type="text" id="descricao" placeholder="descrição" style="margin-top: 9px;margin-left: 1px;border-radius: 7px;border-width: 1px;border-style: solid;">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Data Inicial</strong></h6><input type="text" id="inicio" placeholder="inicio manutenção" style="margin-top: 9px;margin-left: 1px;border-radius: 7px;border-width: 1px;border-style: solid;margin-bottom: 12px;"><span class="text-xs"></span>
-                                            </div>
-                                            <div class="col me-2" style="margin-left: 30px;">
-                                                <h6 class="mb-0"><strong>Data Inicial</strong></h6><input type="text" id="fim" placeholder="previsão final" style="margin-top: 9px;margin-left: 1px;border-radius: 7px;border-width: 1px;border-style: solid;margin-bottom: 12px;"><span class="text-xs"></span>
-                                            </div>
-                                            <div class="col me-2"><span class="text-xs"></span></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><button class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);margin-left: 3px;">Registrar</button>
-                        </div>
-                    </div>
-                
                 </div>
             </div>
+
+            <div id="paiForms" style="padding: 16px">
+
+            </div>
+
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
@@ -246,6 +219,7 @@
     </div>
     <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../bootstrap/js/script.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/dashboard/manutencao.js"></script>
 </body>
 

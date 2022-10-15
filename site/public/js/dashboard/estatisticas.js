@@ -35,11 +35,32 @@ dadosDK4 = [];
 */
 
 function plotKPIs(){
-    usoMedioCPU_span.innerHTML = mediaCPU + '%';
-    progCPU.setAttribute("style", `width: ${mediaCPU}%`);
+    usoMedioCPU_span.innerHTML = mediaCPU.toFixed(2) + '%';
+    color = "";
+    if(mediaCPU < 40){
+        color = "#008000";
+    }else if(mediaCPU <= 60){
+        color = "#ff0";
+    }else if(mediaCPU <= 80){
+        color = "#ff6600";
+    }else{
+        color = "#f00";
+    }
+    progCPU.setAttribute("style", `width: ${mediaCPU}%; background-color: ${color} !important`);
+    cpuIcon.setAttribute("style", `color: ${color} !important`);
 
-    usoMedioRAM_span.innerHTML = mediaRAM + '%';
-    progRAM.setAttribute("style", `width: ${mediaRAM}%`);
+    usoMedioRAM_span.innerHTML = mediaRAM.toFixed(2) + '%';
+    if(mediaRAM < 20){
+        color = "#008000";
+    }else if(mediaRAM <= 50){
+        color = "#ff0";
+    }else if(mediaRAM <= 80){
+        color = "#ff6600";
+    }else{
+        color = "#f00";
+    }
+    progRAM.setAttribute("style", `width: ${mediaRAM}%; background-color: ${color} !important;`);
+    ramIcon.setAttribute("style", `color: ${color} !important`);
 
     qtd_span.innerHTML = qtd;
 
@@ -431,7 +452,7 @@ function getDisponibilidade(){
     })   
 }
 
-// Auxílio - Gráfico 3
+// Auxílio - KPIs
 function getMedidasInstituicao(){
     fetch("/medidas/getMedidasInstituicao", {
         method: "POST",
@@ -444,8 +465,23 @@ function getMedidasInstituicao(){
     }).then(function (resposta) {     
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json);
-                alert('Aqui')
+                cpu = 0;
+                cpuQtd = 0;
+                ram = 0;
+                ramQtd = 0;
+
+                for(i = 0; i < json.length; i++){
+                    if(json[i]["tipo"] == "Processador"){
+                        cpu += json[i]["valor"];
+                        cpuQtd++;
+                    }else if(json[i]["tipo"] == "Memória RAM"){
+                        ram += json[i]["valor"];
+                        ramQtd++;
+                    }
+                }
+
+                mediaCPU = cpu / cpuQtd;
+                mediaRAM = (ram / ramQtd) * 100 / 8;
             });
 
         } else {
@@ -513,7 +549,6 @@ setTimeout(function() {
                 Chart.defaults.global.legend.display = false;
                 plot3();
             },100)
-            
             
             plot2();
         },100)

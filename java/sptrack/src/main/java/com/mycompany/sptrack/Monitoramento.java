@@ -3,6 +3,11 @@ package com.mycompany.sptrack;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.sistema.Sistema;
 import com.github.britooo.looca.api.group.processador.Processador;
+import com.github.britooo.looca.api.group.temperatura.Temperatura;
+import com.github.britooo.looca.api.group.memoria.Memoria;
+import com.github.britooo.looca.api.group.discos.Disco;
+import com.github.britooo.looca.api.group.processos.Processo;
+
 import java.awt.Color;
 import javax.swing.UIManager;
 
@@ -50,7 +55,7 @@ public class Monitoramento extends javax.swing.JFrame {
 
         int valor = processador.getUso().intValue();
 
-        lblCPU.setString(String.format("%.1f", processador.getUso()));
+        lblCPU.setString(String.format("%.1f %%", processador.getUso()));
         lblCPU.setValue(valor);
         lblCPU.setStringPainted(true);
         lblCPU.setForeground(Color.black);
@@ -58,11 +63,50 @@ public class Monitoramento extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel3.setText("MEMÓRIA RAM");
 
+        lblRam = new javax.swing.JProgressBar();
+        Memoria memoria = looca.getMemoria();
+
+        lblRam.setMinimum(0);
+
+        lblRam.setMaximum(100);
+
+        int ramValorEmUso = looca.getMemoria().getEmUso().intValue();
+        lblRam.setValue(ramValorEmUso);
+
+        Double pctUso = (looca.getMemoria().getEmUso().doubleValue()/ looca.getMemoria().getTotal()) * 100;
+        String pctUsoString = String.format("%.1f %%", pctUso);
+
+        lblRam.setString(pctUsoString);
+        lblRam.setValue(pctUso.intValue());
+        lblRam.setStringPainted(true);
+        lblRam.setForeground(Color.black);
+
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel4.setText("DISCO RÍGIDO");
 
+        //Disco grupoDeDiscos = looca.getGrupoDeDiscos().getDiscos();
+
+        //int discoValorEmUso = looca.getGrupoDeDiscos().getTamanhoTotal().intValue();
+        //lblHardDisk.setValue(discoValorEmUso);
+        //String UsoDisco = String.format("%.1f %%", discoValorEmUso);
+
+        //lblHardDisk.setString(DiscoValorEmUso);
+        //lblHardDisk.setValue(DiscoValorEmUso);
+        //lblHardDisk.setStringPainted(true);
+        //lblHardDisk.setForeground(Color.black);
+
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel5.setText("TEMPERATURA");
+
+        Temperatura temperatura = looca.getTemperatura();
+
+        int tempValor = looca.getTemperatura().getTemperatura().intValue();
+        lblTemp.setValue(tempValor);
+
+        lblTemp.setString(String.format("%.1f C", looca.getTemperatura().getTemperatura()));
+        lblTemp.setValue(tempValor);
+        lblTemp.setStringPainted(true);
+        lblTemp.setForeground(Color.black);
 
         jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel6.setText("SISTEMA OPERACIONAL");
@@ -72,8 +116,6 @@ public class Monitoramento extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel7.setText("Processos mais pesados");
-
-        lblSO.setText("Valor 1 aqui - nome processo e pct");
 
         jPanel1.setBackground(new java.awt.Color(1, 1, 1));
         jPanel1.setForeground(new java.awt.Color(254, 254, 254));

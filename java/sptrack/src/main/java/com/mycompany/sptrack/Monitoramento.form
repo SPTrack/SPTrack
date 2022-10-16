@@ -123,7 +123,7 @@
     </Component>
     <Component class="javax.swing.JProgressBar" name="lblCPU">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Processador processador = looca.getProcessador();&#xa;&#xa;int valor = processador.getUso().intValue();&#xa;&#xa;lblCPU.setString(String.format(&quot;%.1f&quot;, processador.getUso()));&#xa;lblCPU.setValue(valor);&#xa;lblCPU.setStringPainted(true);&#xa;lblCPU.setForeground(Color.black);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Processador processador = looca.getProcessador();&#xa;&#xa;int valor = processador.getUso().intValue();&#xa;&#xa;lblCPU.setString(String.format(&quot;%.1f %%&quot;, processador.getUso()));&#xa;lblCPU.setValue(valor);&#xa;lblCPU.setStringPainted(true);&#xa;lblCPU.setForeground(Color.black);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -135,6 +135,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="lblRam">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="lblRam = new javax.swing.JProgressBar();&#xa;Memoria memoria = looca.getMemoria();&#xa;&#xa;lblRam.setMinimum(0);&#xa;&#xa;lblRam.setMaximum(100);&#xa;&#xa;int ramValorEmUso = looca.getMemoria().getEmUso().intValue();&#xa;lblRam.setValue(ramValorEmUso);&#xa;&#xa;Double pctUso = (looca.getMemoria().getEmUso().doubleValue()/ looca.getMemoria().getTotal()) * 100;&#xa;String pctUsoString = String.format(&quot;%.1f %%&quot;, pctUso);&#xa;&#xa;lblRam.setString(pctUsoString);&#xa;lblRam.setValue(pctUso.intValue());&#xa;lblRam.setStringPainted(true);&#xa;lblRam.setForeground(Color.black);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -145,6 +148,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="lblHardDisk">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//Disco grupoDeDiscos = looca.getGrupoDeDiscos().getDiscos();&#xa;&#xa;//int discoValorEmUso = looca.getGrupoDeDiscos().getTamanhoTotal().intValue();&#xa;//lblHardDisk.setValue(discoValorEmUso);&#xa;//String UsoDisco = String.format(&quot;%.1f %%&quot;, discoValorEmUso);&#xa;&#xa;//lblHardDisk.setString(DiscoValorEmUso);&#xa;//lblHardDisk.setValue(DiscoValorEmUso);&#xa;//lblHardDisk.setStringPainted(true);&#xa;//lblHardDisk.setForeground(Color.black);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -155,6 +161,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="lblTemp">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Temperatura temperatura = looca.getTemperatura();&#xa;&#xa;int tempValor = looca.getTemperatura().getTemperatura().intValue();&#xa;lblTemp.setValue(tempValor);&#xa;&#xa;lblTemp.setString(String.format(&quot;%.1f C&quot;, looca.getTemperatura().getTemperatura()));&#xa;lblTemp.setValue(tempValor);&#xa;lblTemp.setStringPainted(true);&#xa;lblTemp.setForeground(Color.black);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -178,9 +187,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblSO.setText(&quot;Valor 1 aqui - nome processo e pct&quot;);"/>
-      </AuxValues>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>

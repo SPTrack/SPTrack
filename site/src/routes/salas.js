@@ -19,4 +19,12 @@ router.post('/getSalas', function (request, response) {
     salaController.getSalas(request, response);
 });
 
+router.post('/getMaquinasSala', function (request, response) {
+    salaController.getMaquinasSala(request, response);
+});
+
+router.post('/getNomeSala', function (request, response) {
+    salaController.getNomeSala(request, response);
+});
+
 module.exports = router;

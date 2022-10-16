@@ -55,4 +55,8 @@ router.post('/getEstadosDeUso', function (request, response) {
     medidasController.getEstadosDeUso(request, response);
 });
 
+router.post('/getDadosEquipamentoEspecifico', function (request, response) {
+    medidasController.getDadosEquipamentoEspecifico(request, response);
+});
+
 module.exports = router;

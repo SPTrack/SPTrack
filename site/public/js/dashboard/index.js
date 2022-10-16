@@ -56,7 +56,7 @@ function getSalas(){
                     divPai.innerHTML += 
                         `<div class="col-md-6 col-xl-3 mb-4">
                             <div class="card shadow border-start-info py-2">
-                                <div class="card-body" onclick="alert(${json[i]['idSala']})" style="cursor:pointer;">
+                                <div class="card-body" onclick="window.open('maquinas/?${json[i]['idSala']}', '_self')" style="cursor:pointer;">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="padding-right: 0px;margin-bottom: -19px;color: #000000;">${json[i]['nome']}</span></div>
@@ -161,8 +161,6 @@ function getMaquinasManutencao(){
         console.log(erro);
     })
 }
-
-
 
 getSalas();
 getMaquinasInstituicao();

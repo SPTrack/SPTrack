@@ -396,15 +396,6 @@ function getEstadosDeUso(){
     }).then(function (resposta) {     
         if (resposta.ok) {
             resposta.json().then(json => {
-                // d1 = [json[0]['mb'], json[0]['b'], json[0]['r'], json[0]['a']];
-                // d2 = [json[1]['mb'], json[1]['b'], json[1]['r'], json[1]['a']];
-                // d3 = [json[2]['mb'], json[2]['b'], json[2]['r'], json[2]['a']];
-                // d4 = [json[3]['mb'], json[3]['b'], json[3]['r'], json[3]['a']];
-                // d5 = [json[4]['mb'], json[4]['b'], json[4]['r'], json[4]['a']];
-                // d6 = [json[5]['mb'], json[5]['b'], json[5]['r'], json[5]['a']];
-                // d7 = [json[6]['mb'], json[6]['b'], json[6]['r'], json[6]['a']];
-
-                
                 for(i=0; i<json.length; i++){
                     mba.push(json[i]['mb']);
                     ba.push(json[i]['b']);

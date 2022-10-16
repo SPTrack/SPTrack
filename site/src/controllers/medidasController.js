@@ -202,6 +202,23 @@ function getEstadosDeUso(request, response){
     }
 }
 
+function getDadosEquipamentoEspecifico(request, response){
+    var idEquipamento = request.body.idEquipamentoServer;
+
+    if ((idEquipamento == null || idEquipamento == undefined)) {
+        response.status(400).send("Requisição negada. Dados não integros!");
+    } else {
+        medidasModel.getDadosEquipamentoEspecifico(idEquipamento).then(resultado => {
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
+
 module.exports = {
     getDadosEquipamento,
     getHistoricoDisponibilidade,
@@ -214,5 +231,6 @@ module.exports = {
     retirarDaManutencao,
     inserirNaManutencao,
     pontuacaoDia,
-    getEstadosDeUso
+    getEstadosDeUso,
+    getDadosEquipamentoEspecifico
 }

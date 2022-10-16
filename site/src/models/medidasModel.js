@@ -63,18 +63,9 @@ function getEstadosDeUso(idInstituicao){
     WHERE dataRegistro >= DATE(NOW() - INTERVAL 7 DAY) AND idInstituicao = ${idInstituicao};`);
 }
 
-// SELECT ROUND(cpu.valor, 2) AS mediaCPU, ROUND(ram.valor, 2) AS mediaRAM, ROUND(dk.valor, 2) AS mediaDK FROM 
-
-// (SELECT valor FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento 
-// ON fkEquipamento = idEquipamento JOIN instituicao ON idInstituicao = fkInstituicao WHERE componente.tipo = "Processador" AND idInstituicao = 1000) AS cpu,
-
-// (SELECT valor FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento 
-// ON fkEquipamento = idEquipamento JOIN instituicao ON idInstituicao = fkInstituicao WHERE componente.tipo = "Memória RAM" AND idInstituicao = 1000) AS ram,
-
-// (SELECT valor FROM medida JOIN componente ON idComponente = fkComponente JOIN equipamento 
-// ON fkEquipamento = idEquipamento JOIN instituicao ON idInstituicao = fkInstituicao WHERE componente.tipo = "Disco Rígido" AND idInstituicao = 1000) AS dk;
-
-
+function getDadosEquipamentoEspecifico(idEquipamento){
+    return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro LIMIT 90`);
+}
 
 module.exports = {
     getComponentes,
@@ -88,5 +79,6 @@ module.exports = {
     retirarDaManutencao,
     inserirNaManutencao,
     pontuacaoDia,
-    getEstadosDeUso
+    getEstadosDeUso,
+    getDadosEquipamentoEspecifico
 }

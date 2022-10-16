@@ -14,9 +14,22 @@ function getSalas(idInstituicao){
 function getqntdMaquinas(idEquipamento){
     return database.executar(`select count(distinct idEquipamento) from sala join locacao on idsala join equipamento on idequipamento where idEquipamento = ${idEquipamento};`);
 }
+
+function getMaquinasSala(idInstituicao, idSala){
+    return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS nomeSala, sala.idSala AS sala
+    FROM equipamento JOIN  instituicao ON fkInstituicao = idInstituicao JOIN locacao ON fkEquipamento = 
+    idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao} AND idSala = ${idSala} ORDER BY numeroPatrimonio;`);
+}
+
+function getNomeSala(idInstituicao, idSala){
+    return database.executar(`SELECT nome FROM sala WHERE fkInstituicao = ${idInstituicao} AND idSala = ${idSala};`);
+}
+
 module.exports = {
     cadastrar,
     getSala,
     getqntdMaquinas,
-    getSalas
+    getSalas,
+    getMaquinasSala,
+    getNomeSala
 }

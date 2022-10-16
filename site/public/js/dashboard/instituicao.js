@@ -11,7 +11,7 @@ function editar() {
             idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
             nomeFantasiaServer: nomeFantasia.value,
             razaoSocialServer: razaoSocial.value,
-            cnpjServer:cnpj,
+            cnpjServer: cnpj,
             cepServer: cep.value,
             ufServer: estado.value,
             complementoServer: complemento.value,
@@ -57,7 +57,6 @@ function getInstituicao() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 console.log()
-                
                     nomeFantasia.value = json[0]['nomeFantasia']
                     razaoSocial.value = json[0]['razaoSocial']
                     cnpj.value = json[0]['cnpj']

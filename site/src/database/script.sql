@@ -163,32 +163,32 @@ GROUP BY idSala;
 INSERT INTO equipamento VALUES (NULL, 'HP Prata', 'Windows','3892','BRG383084F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100000);
 INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 8, 'Memória RAM', 100000);
-INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000,'Disco Rígido', 100000);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 100000,'Disco Rígido', 100000);
 
 INSERT INTO equipamento VALUES (NULL, 'Dell Preto', 'Linux','3312','BRG381284F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'AMD neon Xtr', '%', 100, 'Processador', 100001);
 INSERT INTO componente VALUES (NULL, 'Pente 8x4 - 12GB', 'GB', 12, 'Memória RAM', 100001);
-INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 1000, 'Disco Rígido', 100001);
+INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 100000, 'Disco Rígido', 100001);
 
 INSERT INTO equipamento VALUES (NULL, 'Acer Prata', 'Linux','3586','BRG323283F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I7 8º Gen', '%', 100, 'Processador', 100002);
-INSERT INTO componente VALUES (NULL, 'Pente 2x2 - 4GB', 'GB', 4, 'Memória RAM', 100002);
-INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 1000, 'Disco Rígido', 100002);
+INSERT INTO componente VALUES (NULL, 'Pente 4x4 - 8GB', 'GB', 8, 'Memória RAM', 100002);
+INSERT INTO componente VALUES (NULL, 'HD SamDisk', 'MB', 100000, 'Disco Rígido', 100002);
 
 INSERT INTO equipamento VALUES (NULL, 'Samsung Diamante', 'Windows','3526','BRG323433F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 100, 'Processador', 100003);
 INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 16, 'Memória RAM', 100003);
-INSERT INTO componente VALUES (NULL, 'SSD 100GB SATA', 'MB', 1000, 'Disco Rígido', 100003);
+INSERT INTO componente VALUES (NULL, 'SSD 100GB SATA', 'MB', 100000, 'Disco Rígido', 100003);
 
 INSERT INTO equipamento VALUES (NULL, 'Acer 212', 'Windows','3516','BRG213433F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I9 11º Gen', '%', 100, 'Processador', 100004);
 INSERT INTO componente VALUES (NULL, 'Pente 8x8 - 16GB', 'GB', 16, 'Memória RAM', 100004);
-INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 256, 'Disco Rígido', 100004);
+INSERT INTO componente VALUES (NULL, 'SSD 256GB SATA', 'MB', 256000, 'Disco Rígido', 100004);
 
 INSERT INTO equipamento VALUES (NULL, 'Dell XP22', 'Linux','3515','BRG256433F', NOW(), 1000);
 INSERT INTO componente VALUES (NULL, 'I5 11º Gen', '%', 100, 'Processador', 100005);
-INSERT INTO componente VALUES (NULL, 'Pente 4x0 - 16GB', 'GB', 4, 'Memória RAM', 100005);
-INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256, 'Disco Rígido', 100005);
+INSERT INTO componente VALUES (NULL, 'Pente 8x0 - 8GB', 'GB', 8, 'Memória RAM', 100005);
+INSERT INTO componente VALUES (NULL, 'SSD 500GB SATA', 'MB', 256000, 'Disco Rígido', 100005);
 
 INSERT INTO manutencao VALUES (NULL, NOW(), '2022-10-18 02:18:25', 'Aberto', 
 'O visor da tela da máquina Dell XP22 está ruim', 10000, 100005);

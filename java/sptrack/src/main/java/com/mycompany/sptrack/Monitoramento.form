@@ -48,17 +48,7 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblHardDisk" alignment="0" min="-2" pref="458" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -66,16 +56,18 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" pref="313" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel8" min="-2" pref="313" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="168" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="71" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,21 +84,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblRam" min="-2" pref="26" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblHardDisk" min="-2" pref="26" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblTemp" min="-2" pref="26" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="lblSO" min="-2" pref="21" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel8" pref="169" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <Component id="jLabel8" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -139,19 +125,6 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="lblRam = new javax.swing.JProgressBar();&#xa;Memoria memoria = looca.getMemoria();&#xa;&#xa;lblRam.setMinimum(0);&#xa;&#xa;lblRam.setMaximum(100);&#xa;&#xa;int ramValorEmUso = looca.getMemoria().getEmUso().intValue();&#xa;lblRam.setValue(ramValorEmUso);&#xa;&#xa;Double pctUso = (looca.getMemoria().getEmUso().doubleValue()/ looca.getMemoria().getTotal()) * 100;&#xa;String pctUsoString = String.format(&quot;%.1f %%&quot;, pctUso);&#xa;&#xa;lblRam.setString(pctUsoString);&#xa;lblRam.setValue(pctUso.intValue());&#xa;lblRam.setStringPainted(true);&#xa;lblRam.setForeground(Color.black);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Liberation Sans" size="18" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="DISCO R&#xcd;GIDO"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="lblHardDisk">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//Disco grupoDeDiscos = looca.getGrupoDeDiscos().getDiscos();&#xa;&#xa;//int discoValorEmUso = looca.getGrupoDeDiscos().getTamanhoTotal().intValue();&#xa;//lblHardDisk.setValue(discoValorEmUso);&#xa;//String UsoDisco = String.format(&quot;%.1f %%&quot;, discoValorEmUso);&#xa;&#xa;//lblHardDisk.setString(DiscoValorEmUso);&#xa;//lblHardDisk.setValue(DiscoValorEmUso);&#xa;//lblHardDisk.setStringPainted(true);&#xa;//lblHardDisk.setForeground(Color.black);"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -177,14 +150,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Sistema sistema = this.looca.getSistema();&#xa;lblSO.setText(String.format(&quot;%s - %s&quot;, sistema.getFabricante(), sistema.getSistemaOperacional()));"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Liberation Sans" size="18" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Processos mais pesados"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
     </Component>

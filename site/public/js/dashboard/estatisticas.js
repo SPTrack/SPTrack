@@ -10,7 +10,7 @@ qtdMaquinasManutencao = 0;
 // Gráfico 1
 valoresDisp = []
 datasDisp = []
-corDisp = "";
+corDisp = "#000";
 
 // Gráfico 3
 mb = 0;
@@ -78,7 +78,7 @@ function pontuacaoDia(componente){
 }
 
 function plot3(){
-    grafico3 = document.getElementById("grafico3")
+    grafico3 = document.getElementById("grafico3");
     // MB - B - R - A
     pontuacoes = [];
     resultado = [0, 0, 0, 0];
@@ -142,7 +142,7 @@ function plot3(){
                 'Atenção'
             ],
             datasets: [{
-                data: resultado,
+                data: [resultado[0], resultado[1], resultado[2], resultado[3]],
                 backgroundColor: [
                     '#008000',
                     '#ff0',
@@ -207,19 +207,15 @@ function plotKPIs(){
     if(disp < 90){
         span_disponibilidade.style.color = 'red';
         span_subtotal.style.color = 'red';
-        corDisp = 'red';
     }else if(disp < 95){
         span_disponibilidade.style.color = 'orange';
         span_subtotal.style.color = 'orange';
-        corDisp = 'orange';
     }else if(disp < 100){
         span_disponibilidade.style.color = 'yellow';
         span_subtotal.style.color = 'yellow';
-        corDisp = 'yellow';
     }else if(disp == 100){
         span_disponibilidade.style.color = 'green';
         span_subtotal.style.color = 'green';
-        corDisp = 'green';
     }
 
     span_subtotal.innerHTML = `(${qtdMaquinasManutencao}/${qtd})`;
@@ -299,7 +295,7 @@ function plot2(){
 }
 
 function plot4(){
-    grafico = document.getElementById("grafico4")
+    grafico = document.getElementById("grafico4");
     
     chart1 = new Chart(grafico, {
         type: "line",
@@ -404,6 +400,10 @@ function getEstadosDeUso(){
                     xValues.push(json[i]['dataRegistro'])
                 }
             });
+            console.log(`MBA: ${mba}`);
+            console.log(`BA: ${ba}`);
+            console.log(`RA: ${ra}`);
+            console.log(`AA: ${aa}`);
 
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -446,7 +446,7 @@ function getMaquinasMonitoradas(){
 }
 
 // Auxílio - KPIs
-function getMediasInstituicao(){
+function getMediasInstituicao(){  // OVER
     fetch("/medidas/getMediasInstituicao", {
         method: "POST",
         headers: {

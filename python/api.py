@@ -61,17 +61,17 @@ while True:
 
         sleep(2)
         with conexao.cursor() as cursor:
-            sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {ct});'
+            sqlQuery = f'INSERT INTO medida VALUES(NULL, {cpu_use}, (NOW() - INTERVAL 7 DAY), {ct});'
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
             ct+=1
 
-            sqlQuery = f'INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {ct});'
+            sqlQuery = f'INSERT INTO medida VALUES(NULL, {ram_useGB}, (NOW() - INTERVAL 7 DAY), {ct});'
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
             ct+=1
 
-            sqlQuery = f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {ct});'
+            sqlQuery = f'INSERT INTO medida VALUES(NULL, {disc_useMB}, (NOW() - INTERVAL 7 DAY), {ct});'
             cursor.execute(sqlQuery)
             resposta = conexao.commit()
 

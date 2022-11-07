@@ -63,6 +63,19 @@ function getEstadosDeUso(idInstituicao){
     WHERE dataRegistro >= DATE(NOW() - INTERVAL 7 DAY) AND idInstituicao = ${idInstituicao};`);
 }
 
+// SELECT mb, b, r, a, DATE_FORMAT(dataRegistro, '%d/%m') AS dataRegistro FROM estadoDeUso JOIN instituicao ON fkInstituicao = idInstituicao 
+// WHERE dataRegistro >= DATE(NOW() - INTERVAL 7 DAY) AND idInstituicao = 1000;
+
+// INSERT INTO estadoDeUso VALUES
+// (NULL, 2, 4, 0, 0, (NOW() - INTERVAL 7 DAY), 1000),
+// (NULL, 1, 3, 1, 1, (NOW() - INTERVAL 6 DAY), 1000),
+// (NULL, 1, 4, 1, 0, (NOW() - INTERVAL 5 DAY), 1000),
+// (NULL, 0, 6, 0, 0, (NOW() - INTERVAL 4 DAY), 1000),
+// (NULL, 0, 5, 1, 0, (NOW() - INTERVAL 3 DAY), 1000),
+// (NULL, 1, 5, 0, 0, (NOW() - INTERVAL 2 DAY), 1000),
+// (NULL, 2, 4, 0, 0, (NOW() - INTERVAL 1 DAY), 1000),
+// (NULL, 0, 6, 0, 0, NOW(), 1000);
+
 function getDadosEquipamentoEspecifico(idEquipamento){
     return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro LIMIT 90`);
 }

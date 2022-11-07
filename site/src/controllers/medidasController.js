@@ -18,23 +18,6 @@ function getHistoricoDisponibilidade(request, response){
     }
 }
 
-
-function getDadosEquipamento(request, response) {
-    var idEquipamento = request.body.idEquipamentoServer;
-
-    if ((idEquipamento == null || idEquipamento == undefined)) {
-        response.status(400).send("Requisição negada. Dados não integros!");
-    } else {
-        medidasModel.getComponentes(idEquipamento, fkInstituicao).then(resultado => {
-            response.json(resultado)
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
-            response.status(500).json(erro.sqlMessage);
-        });
-    }
-}
-
 // Gráfico III
 function getMedidasInstituicao(request, response){
     var idInstituicao = request.body.idInstituicaoServer;
@@ -220,7 +203,6 @@ function getDadosEquipamentoEspecifico(request, response){
 
 
 module.exports = {
-    getDadosEquipamento,
     getHistoricoDisponibilidade,
     getMedidasInstituicao,
     getMaquinasMonitoradas,

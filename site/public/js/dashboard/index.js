@@ -164,4 +164,7 @@ function getMaquinasManutencao(){
 
 getSalas();
 getMaquinasInstituicao();
-getMaquinasManutencao();
+
+setTimeout(function() {
+    getMaquinasManutencao();
+}, 1000)

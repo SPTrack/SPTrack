@@ -19,6 +19,10 @@ CREATE TABLE instituicao(
     dataRegisto DATETIME NOT NULL
 ) AUTO_INCREMENT = 1000;
 
+INSERT INTO instituicao VALUES (NULL, 'EDUCARE - Tecnologia', 'São Paulo Tech School',
+'07165496000100', '01414001', 'São Paulo', 'Edifício Digital Building', 'São Paulo',
+'Consolação', 'Rua Haddock Lobo', '577', NOW());
+
 CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(64) NOT NULL,
@@ -33,6 +37,9 @@ CREATE TABLE usuario(
     fkGestor INT,
     FOREIGN KEY (fkGestor) REFERENCES usuario(IdUsuario)
 ) AUTO_INCREMENT = 10000;
+
+INSERT INTO usuario VALUES (NULL, 'Alessandro Goulart', 'alessandro.goulart@sptech.school',
+'12345678', 'admin', NOW(), 1000, NULL);
 
 CREATE TABLE sala(
 	idSala INT PRIMARY KEY AUTO_INCREMENT,
@@ -226,6 +233,10 @@ INSERT INTO estadoDeUso VALUES(NULL, 5, 1, 0, 0, '2022-10-11 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 2, 2, 1, 1, '2022-10-12 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 3, 3, 0, 0, '2022-10-13 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-10-14 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-10-15 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-10-16 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-10-17 04:29:11', 1000);
+
 
 SELECT * FROM usuario;
 

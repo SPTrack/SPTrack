@@ -257,8 +257,12 @@ function plotMaquinasDisponiveis(){
 }
 
 getMaquinasInstituicao();
-getMaquinasManutencao();
 
 setTimeout(function() {
-    plotMaquinasDisponiveis();
+    getMaquinasManutencao();
+
+    setTimeout(function() {
+        plotMaquinasDisponiveis();
+    }, 1000);
 }, 1000)
+

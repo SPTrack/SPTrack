@@ -1,37 +1,45 @@
 var salaModel = require('../models/salaModel');
 
-function getSala(request,response){
-    var nomeInstituicao=request.body.InstituicaoServer;
-    if (nomeInstituicao == null || nomeInstituicao == undefined) {
-        response.status(400).send("Nome da instituição não foi encantrado!");
-    }
-            salaModel.getSala(nomeInstituicao).then(resultado => {
-            response.json(resultado)
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
-            response.status(500).json(erro.sqlMessage);
-        });
-}
+function cadastrar(request, response) {
+    var nome = request.body.nomeServer;
+    var fkInstituicao = request.body.fkInstituicaoServer;
 
-function getqntdMaquinas(request,response){
-    var idEquipamento=request.body.idEquipamentoServer;
-
-    if (idEquipamento == null || idEquipamento == undefined) {
-        response.status(400).send("Fk da maquina não foi encantrada!");
-    }
-    if ((idSala == null || idSala == undefined)) {
-        response.status(400).send("Dados não encontrados!");
+    if (nome == null || nome == undefined) {
+        response.status(400).send("Nome da sala é obrigatório!");
+    } else if (fkInstituicao == null || fkInstituicao == undefined) {
+        response.status(400).send("fkInsituicao é obrigatório!");
     } else {
-        salaModel.getqntdMaquinas(idEquipamento).then(resultado => {
+        salaModel.cadastrar(nome, fkInstituicao).then(resultado => {
+            response.json(resultado)
+
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
+function getDadoSala(request,response){
+    var salaAtual = request.body.salaAtual;
+    var novaSala = request.body.novaSala;
+    var idComputador = request.body.idComputador;
+
+    if (salaAtual == null || idComputador == undefined || novaSala == undefined) {
+        response.status(400).send("dados inseridos de forma errada!");
+    }
+    else{
+        salaModel.getDadoSala(salaAtual,novaSala,idComputador).then(resultado => {
             response.json(resultado)
         }).catch(function (erro) {
             console.log(erro);
             console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
             response.status(500).json(erro.sqlMessage);
         });
+        
     }
 }
+
 
 function getSalas(request,response){
     var idInstituicao = request.body.idInstituicaoServer;
@@ -84,9 +92,9 @@ function getNomeSala(request, response){
 }
 
 module.exports = {
-    getSala,
-    getqntdMaquinas,
+    cadastrar,
     getSalas,
+    getDadoSala,
     getMaquinasSala,
     getNomeSala
 }

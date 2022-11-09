@@ -7,16 +7,12 @@ router.post('/', function (request, response) {
     salaController.cadastrar(request, response);
 });
 
-router.post('/getSala', function (request, response) {
-    salaController.getSala(request, response);
-});
-
-router.post('/getqntdMaquinas', function (request, response) {
-    salaController.getqntdMaquinas(request, response);
-});
-
 router.post('/getSalas', function (request, response) {
     salaController.getSalas(request, response);
+});
+
+router.post('/getDadoSala', function (request, response) {
+    salaController.getDadoSala(request, response);
 });
 
 router.post('/getMaquinasSala', function (request, response) {

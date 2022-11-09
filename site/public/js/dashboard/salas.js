@@ -1,16 +1,64 @@
-span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
-var sala=[];
-var qntdMaquina=[];
-var funcionamento=[];
+//span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 
-function data_sala() {
-    fetch("/salas/getqntdMaquinas", {
+function mudar_sala() {
+    idComputador = id_comp.value;
+    salaAtual = sala_atual.value;
+    novaSala = nova_sala.value;
+    idSala = [];
+    nomeSala = [];
+
+
+    fetch("/medidas/getMaquinasInstituicao", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json);
+                for(i = 0; i < json.length; i++){
+                    nomeSala.push(json[i]['nomeSala']);
+                    idSala.push(json[i]['sala']);
+
+                }
+                alert("FUNCIONOU!!!!!!")
+            
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+//pegar id da sala
+
+for (let i = 0; i < nomeSala.length; i++) {
+    if (nomeSala[i] == salaAtual) {
+        salaAtual = idSala[i]
+    }
+    if (nomeSala[i] == novaSala) {
+        novaSala = idSala[i]
+    }
+    
+}
+
+    fetch("/salas/getDadoSala", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         }, 
         body: JSON.stringify({
-            nomeInstituicaoServer: sessionStorage.usuario
+            salaAtual,
+            novaSala,
+            idComputador
         })
     }).then(function (resposta){
         if (resposta.ok){
@@ -18,12 +66,11 @@ function data_sala() {
                 console.log(json.length);
                 console.log(json);
 
-                for (var i = 0; i < json.length; i++)
-                 {
-                    //guardar no vetor
-                    qntdMaquina.push(json[i].idEquipamento);
-                    
-                }
+                alert("FUNCIONOU!!!!!!")
+                idComputador = json[0].idEquipamento;
+                salaAtual = json[0].salatual;
+                novaSala = json[0].salanova;
+
                         
             })
         }            
@@ -31,61 +78,5 @@ function data_sala() {
         console.log(erro);
     });
 
-    fetch("/salas/getSala", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idEquipamentoServer: sessionStorage.usuario
-    })
-    }).then(function (resposta){
-        if (resposta.ok){
-            resposta.json().then(json => {
-                console.log(json.length);
-                console.log(json);
 
-                for (var i = 0; i < json.length; i++){
-                    qntdMaquina.push(json[i].nome);
-                            
-                    if (json[i].situacao=='Aberto') {
-                        funcionamento.push('Manutenção');
-                    }else{
-                        funcionamento.push('OK');
-                    }
-                }            
-            })
-        }            
-    }).catch(function (erro) {
-        console.log(erro);
-    });
-
-    printarDados(0);
 }
-    
-function aba1(){
-    printarDados(0);
-}
-
-function aba2(){
-    printarDados(10);
-}
-
-function aba3(){
-    printarDados(20);
-}
-
-function printarDados(aba){
-    Datasalas.innerHTML="";
-
-    for (let i = aba; i < aba+10; i++) {
-        Datasalas.innerHTML += `<tr>
-                        <td> ${sala[i]}</td>
-                        <td> ${qntdMaquina[i]}   </td>
-                        <td> ${funcionamento[i]} </td><br>
-                        </tr>`
-        
-    }
-}
-
-data_sala()

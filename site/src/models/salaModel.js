@@ -1,15 +1,14 @@
 var database = require("../database/config");
 
-function getSala(nomeInstituicao){
-  return database.executar(`select distinct sala.nome,manutencao.situacao from sala join instituicao on sala.fkInstituicao join usuario on instituicao.idInstituicao join manutencao on usuario.idUsuario where instituicao.idInstituicao=${nomeInstituicao};`);
+function cadastrar(nome, fkInstituicao) {
+    return database.executar(`INSERT INTO sala VALUES (null, '${nome}', ${fkInstituicao});`);
 }
 
 function getSalas(idInstituicao){
     return database.executar(`SELECT * FROM sala WHERE fkInstituicao = ${idInstituicao};`)
 }
-
-function getqntdMaquinas(idEquipamento){
-    return database.executar(`select count(distinct idEquipamento) from sala join locacao on idsala join equipamento on idequipamento where idEquipamento = ${idEquipamento};`);
+function getDadoSala(salaAtual,novaSala,idComputador){
+    return database.executar(`update locacao,sala,equipamento set locacao.fkSala = ${novaSala} where idEquipamento = fkEquipamento and idSala = fkSala and sala.idSala = ${salaAtual} and equipamento.idEquipamento = ${idComputador};`)
 }
 
 function getMaquinasSala(idInstituicao, idSala){
@@ -23,9 +22,9 @@ function getNomeSala(idInstituicao, idSala){
 }
 
 module.exports = {
-    getSala,
-    getqntdMaquinas,
+    cadastrar,
     getSalas,
+    getDadoSala,
     getMaquinasSala,
     getNomeSala
 }

@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>SPTrack - Salas</title>
+    <title>Salas</title>
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+    <script src="../../js/dashboard/salas.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -20,9 +22,9 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="../"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../estatisticas/"><i class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-door-open"></i><span>Salas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../salas/"><i class="fas fa-door-open"></i><span>Salas</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../manutencao/"><i class="fas fa-tools"></i><span>Manutenção</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../equipamentos/"><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
@@ -96,18 +98,11 @@
                                                 <div class="bg-warning status-indicator"></div>
                                             </div>
                                             <div class="fw-bold">
-                                                <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
-                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
                                             </div>
                                         </a><a class="dropdown-item d-flex align-items-center" href="#">
                                             <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../bootstrap/img/avatars/avatar5.jpeg">
                                                 <div class="bg-success status-indicator"></div>
                                             </div>
-                                            <div class="fw-bold">
-                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
-                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
-                                            </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                                     </div>
                                 </div>
                                 <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
@@ -123,47 +118,61 @@
                         </ul>
                     </div>
                 </nav>
+                <div class="input-group"></div>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Salas</h3>
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Sala</th>
-                                            <th style="margin-right: 46px;">Qntd de Máquinas</th>
-                                            <th>Funcionamento</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="Datasalas">
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                    <div class="row mb-3">
+                        <div class="col-lg-10">
+                            <div class="row mb-3 d-none">
+                                
+                                <div class="col">
+                                    <div class="card text-white bg-success shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 align-self-center">
-                                </div>
-                                <div class="col-md-6">
-                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                                            <li class="page-item active"><a class="page-link" onclick="aba1()">1</a></li>
-                                            <li class="page-item active"><a class="page-link" onclick="aba2()">2</a></li>
-                                            <li class="page-item active"><a class="page-link" onclick="aba3()">3</a></li>
-                                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
-                                        </ul>
-                                    </nav>
+                                <div class="col">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">User Settings</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" ><strong>id Computador</strong></label><input class="form-control" type="text" id="id_comp" placeholder="id: 0000" style="width: 109.078px;"></div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3"><label class="form-label" ><strong>Sala Atual</strong></label><input class="form-control" type="text" id="sala_atual" placeholder="1XPTO" style="padding-right: 4px;width: 88.078px;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-right: 39px;padding-right: 10px;width: 341.156px;">
+                                                    <div class="col-lg-11">
+                                                        <div class="mb-3" style="margin-right: 198px;"><label class="form-label" ><strong >Sala nova</strong><br></label><input class="form-control" type="text" id="nova_sala" placeholder="3XPTO"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-primary btn-sm" type="submit" onclick="mudar_sala()">Alterar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card shadow"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="card shadow mb-5"></div>
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
@@ -173,8 +182,6 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../bootstrap/js/script.min.js"></script>
-    <script src="../../js/dashboard/salas.js"></script>
 </body>
+
 </html>

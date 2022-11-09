@@ -7,6 +7,7 @@ maquinasEmManutencao = [];
 idManutencao = [];
 maquinasDescricao = [];
 manutencaoModelo = [];
+patrimonioManutencao = [];
 
 maquinasLivres = [];
 maquinasLivresNP = [];
@@ -17,67 +18,67 @@ maquinasTotalNP = [];
 maquinasTotalMO = [];
 maquinasTotalSA = [];
 
-function levarManutencao(){
-    checks = document.getElementsByClassName("changeDisponibilidade");
-    paiForms.innerHTML = "";
+// function levarManutencao(){
+//     checks = document.getElementsByClassName("changeDisponibilidade");
+//     paiForms.innerHTML = "";
 
-    for(i = 0; i < checks.length; i++){
-        if(checks[i].checked){
-            paiForms.innerHTML += `
-                <div class="row">
-                      <div class="col-lg-6 mb-4">
-                          <div class="card shadow mb-4"></div>
-                          <div class="card shadow mb-4">
-                              <div class="card-header py-3" style="padding-bottom: 8px;">
-                                  <h6 class="text-primary fw-bold m-0">Cadastrar na Manutenção (Patrimônio ${maquinasLivresNP[i]} - ${maquinasLivresMO[i]})</h6>
-                              </div>
-                              <ul class="list-group list-group-flush">
-                                  <li class="list-group-item">
-                                      <div class="row align-items-center no-gutters">
-                                          <div class="col me-2">
-                                              <h6 class="mb-0"><strong>Descrição do Problema</strong></h6><input type="text" id="descricao${i}" placeholder="Descrição" 
-                                              style="margin-top: 9px;margin-left: 1px;border: none;border-bottom: 1px solid;outline: none; width: 640px">
-                                          </div>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div><button class="btn btn-primary btn-sm" type="submit" style="background: #008000;margin-left: 3px;" onclick="inserirNaManutencao(${maquinasLivres[i]}, descricao${i}.value)">Confirmar Inserção</button>
-                      </div>
-                  </div>`;
-        }
-    }
-}
+//     for(i = 0; i < checks.length; i++){
+//         if(checks[i].checked){
+//             paiForms.innerHTML += `
+//                 <div class="row">
+//                       <div class="col-lg-6 mb-4">
+//                           <div class="card shadow mb-4"></div>
+//                           <div class="card shadow mb-4">
+//                               <div class="card-header py-3" style="padding-bottom: 8px;">
+//                                   <h6 class="text-primary fw-bold m-0">Cadastrar na Manutenção (Patrimônio ${maquinasLivresNP[i]} - ${maquinasLivresMO[i]})</h6>
+//                               </div>
+//                               <ul class="list-group list-group-flush">
+//                                   <li class="list-group-item">
+//                                       <div class="row align-items-center no-gutters">
+//                                           <div class="col me-2">
+//                                               <h6 class="mb-0"><strong>Descrição do Problema</strong></h6><input type="text" id="descricao${i}" placeholder="Descrição" 
+//                                               style="margin-top: 9px;margin-left: 1px;border: none;border-bottom: 1px solid;outline: none; width: 640px">
+//                                           </div>
+//                                       </div>
+//                                   </li>
+//                               </ul>
+//                           </div><button class="btn btn-primary btn-sm" type="submit" style="background: #008000;margin-left: 3px;" onclick="inserirNaManutencao(${maquinasLivres[i]}, descricao${i}.value)">Confirmar Inserção</button>
+//                       </div>
+//                   </div>`;
+//         }
+//     }
+// }
 
-function tirarManutencao(){
-    checks = document.getElementsByClassName("changeManutencao");
-    paiForms.innerHTML = "";
+// function tirarManutencao(){
+//     checks = document.getElementsByClassName("changeManutencao");
+//     paiForms.innerHTML = "";
 
-    for(i = 0; i < checks.length; i++){
-        if(checks[i].checked){
-            paiForms.innerHTML += `
-                <div class="row">
-                      <div class="col-lg-6 mb-4">
-                          <div class="card shadow mb-4"></div>
-                          <div class="card shadow mb-4">
-                              <div class="card-header py-3" style="padding-bottom: 8px;">
-                                  <h6 class="text-primary fw-bold m-0">Retirar da Manutenção (Patrimônio ${checks[i].value} - ${manutencaoModelo[i]})</h6>
-                              </div>
-                              <ul class="list-group list-group-flush">
-                                  <li class="list-group-item">
-                                      <div class="row align-items-center no-gutters">
-                                          <div class="col me-2">
-                                              <h6 class="mb-0"><strong>Descrição do Problema</strong></h6><input type="text" id="descricao${i}" placeholder="Descrição" 
-                                              style="margin-top: 9px;margin-left: 1px;border: none;border-bottom: 1px solid;outline: none; width: 640px" value="${maquinasDescricao[i]}">
-                                          </div>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div><button class="btn btn-primary btn-sm" type="submit" style="background: #008000;margin-left: 3px;" onclick="retirarDaManutencao(${checks[i].value}, descricao${i}.value, ${idManutencao[i]})">Confirmar Retirada</button>
-                      </div>
-                  </div>`;
-        }
-    }
-}
+//     for(i = 0; i < checks.length; i++){
+//         if(checks[i].checked){
+//             paiForms.innerHTML += `
+//                 <div class="row">
+//                       <div class="col-lg-6 mb-4">
+//                           <div class="card shadow mb-4"></div>
+//                           <div class="card shadow mb-4">
+//                               <div class="card-header py-3" style="padding-bottom: 8px;">
+//                                   <h6 class="text-primary fw-bold m-0">Retirar da Manutenção (Patrimônio ${checks[i].value} - ${manutencaoModelo[i]})</h6>
+//                               </div>
+//                               <ul class="list-group list-group-flush">
+//                                   <li class="list-group-item">
+//                                       <div class="row align-items-center no-gutters">
+//                                           <div class="col me-2">
+//                                               <h6 class="mb-0"><strong>Descrição do Problema</strong></h6><input type="text" id="descricao${i}" placeholder="Descrição" 
+//                                               style="margin-top: 9px;margin-left: 1px;border: none;border-bottom: 1px solid;outline: none; width: 640px" value="${maquinasDescricao[i]}">
+//                                           </div>
+//                                       </div>
+//                                   </li>
+//                               </ul>
+//                           </div><button class="btn btn-primary btn-sm" type="submit" style="background: #008000;margin-left: 3px;" onclick="retirarDaManutencao(${checks[i].value}, descricao${i}.value, ${idManutencao[i]})">Confirmar Retirada</button>
+//                       </div>
+//                   </div>`;
+//         }
+//     }
+// }
 
 function retirarDaManutencao(patrimonio, descricao, idMaquina){
     fetch("/medidas/retirarDaManutencao", {
@@ -134,7 +135,6 @@ function inserirNaManutencao(idEquipamento, descricao){
             resposta.json().then(json => {
                 console.log(json);
                 
-
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -216,12 +216,13 @@ function getMaquinasManutencao(){
                     maquinasDescricao.push(json[i]['descricao']);
                     manutencaoModelo.push(json[i]['modelo']);
                     idManutencao.push(json[i]['idManutencao']);
+                    patrimonioManutencao.push(json[i]['numeroPatrimonio']);
 
                     paiMans.innerHTML += ` <li class="list-group-item">
                     <div class="row align-items-center no-gutters">
-                        <div class="col me-2">
-                        <input type="checkbox" id="maquinaM${i}" class="changeManutencao" value="${json[i]['numeroPatrimonio']}">
-                        <label for="maquinaM${i}">Máquina ${json[i]['numeroPatrimonio']} - ${json[i]['modelo']} (${json[i]['nomeSala']})</label><br>
+                        <div class="col me-2" onclick="verifyUnit(false)">
+                        <input type="checkbox" id="maquinaM${i}" class="changeManutencao" value="${json[i]['numeroPatrimonio']}" hidden>
+                        <label for="maquinaM${i}" class="onmouseoverclass">Máquina ${json[i]['numeroPatrimonio']} - ${json[i]['modelo']} (${json[i]['nomeSala']})</label><br>
                         </div></li></div>`;
                 }
                 plotKPIs();
@@ -243,21 +244,84 @@ function plotMaquinasDisponiveis(){
         if(maquinasEmManutencao.indexOf(maquinasTotal[i]) === -1){
             paiDisps.innerHTML += ` <li class="list-group-item">
             <div class="row align-items-center no-gutters">
-                <div class="col me-2">
-                <input type="checkbox" id="maquinaD${i}" class="changeDisponibilidade" value="${maquinasTotal[i]}">
-                <label for="maquinaD${i}">Máquina ${maquinasTotalNP[i]} - ${maquinasTotalMO[i]} (${maquinasTotalSA[i]})</label><br>
+                <div class="col me-2" onclick="verifyUnit(true)">
+                <input type="checkbox" id="maquinaD${i}" class="changeDisponibilidade" value="${maquinasTotal[i]}" hidden>
+                <label for="maquinaD${i}" class="onmouseoverclass">Máquina ${maquinasTotalNP[i]} - ${maquinasTotalMO[i]} (${maquinasTotalSA[i]})</label><br>
             </div></li></div>`;
             maquinasLivres.push(maquinasTotal[i]);
             maquinasLivresNP.push(maquinasTotalNP[i]);
             maquinasLivresMO.push(maquinasTotalMO[i]);
             maquinasLivresSA.push(maquinasTotalSA[i]);
-            
+        }
+    }
+}
+
+function verifyUnit(isDisponivel){
+    if(isDisponivel){
+        checks = document.getElementsByClassName("changeDisponibilidade");
+
+        for(i = 0; i < checks.length; i++){
+            if(checks[i].checked){
+                var idEquipamento = maquinasLivres[i];
+                btn = checks[i];
+
+                Swal.fire({
+                    title: 'Deseja inserir a máquina na manutenção?',
+                    input: 'text',
+                    inputAttributes: {
+                      autocapitalize: 'off',
+                      placeholder: 'Descrição do Problema',
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Inserir',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#1cc88a',
+                    showLoaderOnConfirm: true,
+                }).then((descricao) => {
+                    if(descricao.dismiss != 'cancel'){
+                        inserirNaManutencao(idEquipamento, descricao.value);
+                    }else{
+                        btn.checked = false;
+                    }
+                })
+            }
+        }
+    }else{
+        checks = document.getElementsByClassName("changeManutencao");
+
+        for(i = 0; i < checks.length; i++){
+            if(checks[i].checked){
+                var idMan = idManutencao[i];
+                var desc = maquinasDescricao[i];
+                var patrimonio = patrimonioManutencao[i];
+                btn = checks[i];
+
+                Swal.fire({
+                    title: 'Deseja retirar da manutenção?',
+                    input: 'text',
+                    inputAttributes: {
+                      autocapitalize: 'off',
+                      placeholder: 'Descrição da resolução',
+                    },
+                    inputValue: desc,
+                    showCancelButton: true,
+                    confirmButtonText: 'Disponibilizar',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#1cc88a',
+                    showLoaderOnConfirm: true,
+                }).then((descricao) => {
+                    if(descricao.dismiss != 'cancel'){
+                        retirarDaManutencao(patrimonio, descricao.value, idMan);
+                    }else{
+                        btn.checked = false;
+                    }
+                })
+            }
         }
     }
 }
 
 getMaquinasInstituicao();
-
 setTimeout(function() {
     getMaquinasManutencao();
 

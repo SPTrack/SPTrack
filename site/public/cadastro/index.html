@@ -102,7 +102,7 @@
             <h1 class="titulo">Primeiro cadastre a sua empresa</h1><br>
             <div class="campo">
                 <label for="">CNPJ</label>
-                <input type="text" id="cnpj" onchange="buscarDadosEmpresa()" data-mask="00.000.000/0000-00">
+                <input type="text" id="cnpj" onchange="buscarDadosEmpresa()" onkeydown="listenCNPJ(this.value)" data-mask="00.000.000/0000-00">
             </div>
             <div class="campo">
                 <label for="">Razão Social</label>

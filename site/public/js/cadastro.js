@@ -24,10 +24,8 @@ function buscarDadosEmpresa() {
                     document.getElementById('uf').value = res.uf
                 }
             },
-
-
         })
-    } else {
+    } else if(cnpj.length > 0) {
         
         Swal.fire({
             position: 'center',
@@ -36,10 +34,19 @@ function buscarDadosEmpresa() {
             showConfirmButton: false,
             timer: 1500
           })
-
+    }else{
+        razaoSocial.value = "";
+        nomeFantasia.value = "";
+        document.getElementById("cep").value = "";
+        logradouro.value = "";
+        nmr.value = "";
+        complemento.value = "";
+        bairro.value = "";
+        cidade.value = "";
+        uf.value = "";
     }
-
 }
+
 function cadastrar() {
     var cnpj = document.getElementById("cnpj").value
     var nome = document.getElementById('nome').value
@@ -247,5 +254,21 @@ function cadastrar() {
         }).catch(function (erro) {
             console.log(erro);
         })
+    }
+}
+
+// LISTENNERS DO SITE
+
+function listenCNPJ(value){
+    if(value.substr(1, value.length) == "_.___.___/____-__" || value == ""){
+        razaoSocial.value = "";
+        nomeFantasia.value = "";
+        document.getElementById("cep").value = "";
+        logradouro.value = "";
+        nmr.value = "";
+        complemento.value = "";
+        bairro.value = "";
+        cidade.value = "";
+        uf.value = "";
     }
 }

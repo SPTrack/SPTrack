@@ -1,4 +1,4 @@
-//span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
+span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 
 function mudar_sala() {
     idComputador = id_comp.value;
@@ -77,6 +77,4 @@ for (let i = 0; i < nomeSala.length; i++) {
     }).catch(function (erro) {
         console.log(erro);
     });
-
-
 }

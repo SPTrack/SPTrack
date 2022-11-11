@@ -9,7 +9,8 @@ function editar(idInstituicao, nomeFantasia, razaoSocial, cep, estado, complemen
 }
 
 function getInstituicao(idInstituicao) {
-    return database.executar(`SELECT * FROM instituicao where idInstituicao = ${idInstituicao}`);
+    return database.executar(`SELECT razaoSocial, nomeFantasia, cep, estado, complemento, cidade, bairro, logradouro, numero, CONCAT(SUBSTRING(cnpj,1,2),'.',SUBSTRING(cnpj,3,3),'.',SUBSTRING(cnpj,6,3),'/'
+    ,SUBSTRING(cnpj,9,4),'-',SUBSTRING(cnpj,13,2)) AS resultado FROM instituicao where idInstituicao = ${idInstituicao};`);
 }
 
 module.exports = {
@@ -17,4 +18,3 @@ module.exports = {
     editar,
     getInstituicao
 }
-

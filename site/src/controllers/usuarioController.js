@@ -16,7 +16,14 @@ function entrar(request, response) {
                 bcrypt.compare(senha, usuarioEncontrado[0].senha).then(isIgual => {
                     if (isIgual) {
                         delete usuarioEncontrado[0].senha;
-                        response.json(usuarioEncontrado[0])
+                        
+                        if(usuarioEncontrado[0].fkGestor == null){
+                            usuarioEncontrado[0]['nivelAcesso'] = "Admin";
+                        }else{
+                            usuarioEncontrado[0]['nivelAcesso'] = "Suporte";
+                        }
+                        
+                        response.json(usuarioEncontrado[0]);
 
                     } else {
                         response.status(400).send('Email e/ou Senha inválido(s)!');        

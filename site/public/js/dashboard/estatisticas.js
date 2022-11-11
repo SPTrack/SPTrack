@@ -10,7 +10,7 @@ qtdMaquinasManutencao = 0;
 // Gráfico 1
 valoresDisp = []
 datasDisp = []
-corDisp = "#000";
+corDisp = "#00008b";
 
 // Gráfico 3
 mb = 0;

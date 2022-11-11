@@ -59,8 +59,8 @@ function getInstituicao() {
                 console.log()
                     nomeFantasia.value = json[0]['nomeFantasia']
                     razaoSocial.value = json[0]['razaoSocial']
-                    cnpj.value = json[0]['cnpj']
-                    cnpjInp.value = json[0]['cnpj'];
+                    // cnpj.value = json[0]['cnpj']
+                    cnpjInp.value = json[0]['resultado']
                     cep.value = json[0]['cep']
                     estado.value = json[0]['estado']
                     complemento.value = json[0]['complemento']

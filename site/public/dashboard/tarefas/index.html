@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>SPTrack - Estatísticas</title>
+    <title>SPTrack - Manutenção</title>
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../../css/estatisticas.css">
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+    <link rel="stylesheet" href="../../css/manutencao.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body id="page-top">
@@ -22,12 +23,12 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="../"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../estatisticas/"><i class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../salas/"><i class="fas fa-door-open"></i><span>Salas</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../manutencao/"><i class="fas fa-tools"></i><span>Manutenção</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../equipamentos/"><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../tarefas/"><i class="far fa-clock"></i><span>Tarefas</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href=""><i class="far fa-clock"></i><span>Tarefas</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -127,158 +128,94 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Estatísticas</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Gerar Relatório</a>
+                        <h3 class="text-dark mb-0">Tarefas</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Gerar Relatório</a>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2">
+                            <div class="card shadow border-start-success py-2" style="color: var(--bs-black);background: var(--bs-green);">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Média Uso de CPU</span></div>
-                                            <div class="row g-0 align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="usoMedioCPU_span">0</span></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm">
-                                                        <div id="progCPU" class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="visually-hidden">50%</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-11 me-2">
+                                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="color: #ffff;background: var(--bs-success);">Executando</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: #ffff;" id="span_qtdFuncionando">0 Tarefas</span></div>
                                         </div>
-                                        <div class="col-auto"><i id="cpuIcon" class="fas fa-microchip fa-2x text-gray-300"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-success py-2">
+                            <div class="card shadow border-start-info py-2" style="background: #000;color: #ffff;">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Média Memória RAM</span></div>
+                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="color: #ffff;">Desligados</span></div>
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="usoMedioRAM_span">0</span></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm">
-                                                        <div id="progRAM" class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="visually-hidden">50%</span></div>
-                                                    </div>
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span style="color: #ffff;" id="span_qtdManutencao">0 Tarefas</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto"><i id="ramIcon" class="fas fa-memory fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-info py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Máquinas em Alerta</span></div>
-                                            <div class="row g-0 align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm">
-                                                        <div class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="visually-hidden">50%</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-satellite-dish fa-2x text-black-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-warning py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Máquinas Monitoradas</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span id="qtd_span">0</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-laptop fa-2x text-black-300"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gráfico I -->
-
-                    <div class="row">
-                        <div class="col-lg-7 col-xl-8">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Histórico de Disponibilidade</h6>
-                                    <select id="selectDias" onchange="setDadosG1(this.value)">
-                                        <option value="7">7 dias</option>
-                                        <option value="15">15 dias</option>
-                                        <option value="30">30 dias</option>
-                                        <option value="6">6 meses</option>
-                                        <option value="1">1 ano</option>
-                                    </select>
-                                </div>
-                                <div class="card-body">
-                                    <div id="grafico1pai"><canvas id="grafico1" style="width:100%;max-width:900px"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Gráfico II -->
-
-                        <div class="col-lg-5 col-xl-4">
-                            <div class="card shadow mb-4" style="height: 528px;">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Disponibilidade (Agora)</h6>
-                                </div>
-                                <div class="card-body" style="height: 50%; max-height: 178px;">
-                                    <div><canvas id="grafico2" style="width:100%;max-width:900px"></canvas></div>
-                                </div>
-                                <div class="kpiDisponibilidade">
-                                    <span class="percent" id="span_disponibilidade">0%</span>
-                                    <span class="subtotal" id="span_subtotal">(0/0)</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Gráfico III -->
-
-                        <div class="row">
-                            <div class="col-lg-5 col-xl-4">
-                                <div class="card shadow mb-4" style="height: 524px;">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h6 class="text-primary fw-bold m-0">Estado das Máquinas (Agora)</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div><canvas id="grafico3" style="width:100%;max-width:900px"></canvas></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Gráfico IV -->
-
-                            <div class="col-lg-7 col-xl-8">
+                    <div class="div_pai">
+                        <div class="row row_box">
+                            <div class="col-lg-6 mb-4" style="width: 100%;">
+                                <div class="card shadow mb-4"></div>
                                 <div class="card shadow mb-4">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h6 class="text-primary fw-bold m-0">HIstórico de Estado</h6>
+                                    <div class="card-header py-3" style="padding-bottom: 8px;">
+                                        <h6 class="text-primary fw-bold m-0" style="text-align: center;">Tarefas</h6>
                                     </div>
-                                    <div class="card-body">
-                                        <div id="grafico4pai"><canvas id="grafico4" style="width:100%;max-width:900px"></canvas></div>
-                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col me-2">
+                                                    <h6 class="mb-0">
+                                                        <div id="paiDisps">
+                                                        </div>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </li>                                   
+                                    </ul>
                                 </div>
+                            </div>
+                        </div>
+    
+                        <div class="row row_box">
+                            <div class="col-lg-6 mb-4" style="width: 100%;">
+                                <div class="card shadow mb-4"></div>
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3" style="padding-bottom: 8px;">
+                                        <h6 class="text-primary fw-bold m-0" style="text-align: center;">Máquinas em Manutenção</h6>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col me-2">
+                                                    <h6 class="mb-0">
+                                                        <div id="paiMans">
+                                                        </div>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </li>                                   
+                                    </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                    </div>
+                    
+
+            <div id="paiForms" style="padding: 16px">
+
             </div>
+
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
@@ -287,9 +224,9 @@
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../bootstrap/js/chart.min.js"></script>
     <script src="../../bootstrap/js/script.min.js"></script>
-    <script src="../../js/dashboard/estatisticas.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/dashboard/tarefas.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,13 @@
-CREATE USER 'sptrackClient'@'localhost' IDENTIFIED BY 'urubu100';
-GRANT ALL PRIVILEGES ON SPTrack.* TO 'sptrackClient'@'localhost';
+
+-- DESCOMENTE CASO QUEIRA USAR UM BANCO ESPECIFICO --
+
+-- CASO QUEIRA RODAR NO DOCKER --
+CREATE USER 'sptrackClient'@'%' IDENTIFIED BY 'urubu100';
+GRANT ALL PRIVILEGES ON SPTrack.* TO 'sptrackClient'@'%';
+
+----- CASO QUEIRA RODAR LOCAL ---
+--CREATE USER 'sptrackClient'@'localhost' IDENTIFIED BY 'urubu100';
+--GRANT ALL PRIVILEGES ON SPTrack.* TO 'sptrackClient'@'localhost';
 
 CREATE DATABASE SPTrack;
 USE SPTrack;
@@ -19,9 +27,7 @@ CREATE TABLE instituicao(
     dataRegisto DATETIME NOT NULL
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO instituicao VALUES (NULL, 'EDUCARE - Tecnologia', 'São Paulo Tech School',
-'07165496000100', '01414001', 'São Paulo', 'Edifício Digital Building', 'São Paulo',
-'Consolação', 'Rua Haddock Lobo', '577', NOW());
+
 
 CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -37,9 +43,6 @@ CREATE TABLE usuario(
     fkGestor INT,
     FOREIGN KEY (fkGestor) REFERENCES usuario(IdUsuario)
 ) AUTO_INCREMENT = 10000;
-
-INSERT INTO usuario VALUES (NULL, 'Alessandro Goulart', 'alessandro.goulart@sptech.school',
-'12345678', 'admin', NOW(), 1000, NULL);
 
 CREATE TABLE sala(
 	idSala INT PRIMARY KEY AUTO_INCREMENT,

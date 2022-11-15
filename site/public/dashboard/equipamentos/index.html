@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+    <link rel="stylesheet" href="../../css/equipamentos.css">
 </head>
 
 <body id="page-top">
@@ -26,7 +28,6 @@
                     <li class="nav-item"><a class="nav-link" href="../manutencao/"><i class="fas fa-tools"></i><span>Manutenção</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../tarefas/"><i class="far fa-clock"></i><span>Tarefas</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -127,14 +128,20 @@
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Informações de Máquina</h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow" style="padding-bottom: 245px;margin-bottom: -2px;">
-                                    <div class="mb-3"></div><label class="form-label" for="username"><strong>Máquina Nº 12432</strong><br></label>
-                                </div>
+                        
+                        <div class="container-fluid">
+                            <div id="lista_maquinas" class="d-sm-flex justify-content-between align-items-center mb-4">
+                               
                             </div>
-                            <div class="card shadow mb-4"></div>
+                            <div class="row" id="divPai">
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    
+                                </div>
+                              
+          
+                            </div>
                         </div>
+                        
                         <div class="col-lg-8">
                             <div class="row mb-3 d-none">
                                 <div class="col">
@@ -171,32 +178,35 @@
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Dados do Equipamento</p>
-                                        </div>
+                                        </div> 
                                         <div class="card-body">
                                             <form>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Nome da Máquina</strong><br></label><input class="form-control" type="text" id="nome_maquina" placeholder="Nome da Máquina" name="nome_maquina"></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome da Máquina</strong><br></label><input id="nomeMaquina" class="form-control" type="text"  placeholder="Nome da Máquina" ></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3" style="margin-bottom: 63px;padding-bottom: 0px;"><label class="form-label" for="email"><strong>Modelo CPU</strong><br></label><input class="form-control" type="text" id="modelo_cpu" placeholder="Modelo do Processador" name="modelo_cpu"></div>
+                                                        <div  class="mb-3" style="margin-bottom: 63px;padding-bottom: 0px;"><label class="form-label" for="email"><strong >Modelo CPU</strong><br></label><input id="modelo" class="form-control" type="text" placeholder="Modelo do Processador" name="modelo_cpu"></div>
+                                                    <input style="display: none;" id="idCpu" type="number">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Memória RAM</strong><br></label><input class="form-control" type="text" id="quantidade_memoria" placeholder="Quantidade de Memória RAM" name="quantidade_memoria"></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong >Memória RAM</strong><br></label><input id="memoria" class="form-control" type="text"  placeholder="Quantidade de Memória RAM" name="quantidade_memoria"></div>
+                                                        <input style="display: none;" id="idMemoria" type="number">
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Armazenamento</strong><br></label><input class="form-control" type="text" id="armazenamento" placeholder="Armazenamento Total" name="armazenamento"></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong >Armazenamento</strong><br></label><input id="armazenamento" class="form-control" type="text"  placeholder="Armazenamento Total" name="armazenamento"></div>
+                                                        <input style="display: none;" id="idArmazenamento" type="number">
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Sistema Operacional</strong><br></label><input class="form-control" type="text" id="sistema_operacional" placeholder="Sistema Operacional" name="sistema_operacional"></div>
+                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Sistema Operacional</strong><br></label><input  id="sistema" class="form-control" type="text"  placeholder="Sistema Operacional" name="sistema_operacional"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"></div>
-                                            </form><button class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);">Editar</button>
+                                            </form><button onclick="editarMaquinas()" class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);">Editar</button>
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div class="card shadow"></div>
                                 </div>
                             </div>
@@ -204,7 +214,7 @@
                     </div>
                     <div class="card shadow mb-5"></div>
                 </div>
-            </div>
+            </div> 
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
@@ -212,8 +222,10 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+
     <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../bootstrap/js/script.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/dashboard/equipamentos.js"></script>
 </body>
 

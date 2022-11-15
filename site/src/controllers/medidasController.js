@@ -201,6 +201,83 @@ function getDadosEquipamentoEspecifico(request, response){
     }
 }
 
+function listarMaquinas(request, response){
+    var idInstituicao = request.body.idInstituicaoServer;
+
+    if ((idInstituicao == null || idInstituicao == undefined)) {
+        response.status(400).send("Requisição negada. Dados não integros!");
+    } else {
+        medidasModel.listarMaquinas(idInstituicao).then(resultado => {
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
+function listarDadosMaquinas(request, response){
+    var idEquipamento = request.body.idEquipamentoServer;
+
+    if ((idEquipamento == null || idEquipamento == undefined)) {
+        response.status(400).send("Requisição negada. Dados não integros!");
+    } else {
+        medidasModel.listarDadosMaquinas(idEquipamento).then(resultado => {
+           console.log(resultado)
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados do equipamento! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
+function editarMaquinas(request, response) {
+    var idInstituicao = request.body.idInstituicaoServer;
+    var modelo =  request.body.modeloServer;
+    var cpu =  request.body.nomeCpuServer;
+    var memoria = request.body.memoriaRamServer;
+    var armazenamento= request.body.armazenamentoServer;
+    var idCpu =  request.body.idCpuServer;
+    var idMemoria =  request.body.idMemoriaServer;
+    var idArmazenamento = request.body.idArmazenamentoServer;
+    var idEquipamento = request.body.idEquipamentoServer;
+    var sistema = request.body.sistemaOperacionalServer;
+
+    if (modelo == null || modelo == undefined) {
+        response.status(400).send('modelo obrigatório!')
+    } else if (cpu == null || cpu == undefined) {
+        response.status(400).send('cpu é obrigatório!')
+    } else if (memoria == null || memoria == undefined) {
+        response.status(400).send('memoria é obrigatório!')
+    } else if (armazenamento == null || armazenamento == undefined) {
+        response.status(400).send('armazenamento é obrigatório!')
+    } else if (idCpu == null || idCpu == undefined) {
+        response.status(400).send('cpu é obrigatório!')
+    } else if (idMemoria == null || idMemoria == undefined) {
+        response.status(400).send('idMemoria é obrigatório!')
+    } else if (idArmazenamento == null || idArmazenamento == undefined) {
+        response.status(400).send('IdArmazenamento é obrigatório!')
+    } else if (idEquipamento == null || idEquipamento == undefined) {
+        response.status(400).send('IdEquipamento é obrigatório!')
+    } else if (sistema == null || sistema == undefined) {
+        response.status(400).send('sistema é obrigatório!')
+    } else {
+        medidasModel.editarMaquinas(idInstituicao, modelo, cpu, memoria, armazenamento, idCpu, idMemoria, idArmazenamento, idEquipamento, sistema)
+            .then(resultado => {
+                response.json(resultado);
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao editar os dados da instituição! Erro: ", erro.sqlMessage);
+                response.status(500).json(erro.sqlMessage);
+            });
+        
+    }
+}
+
+
 
 module.exports = {
     getHistoricoDisponibilidade,
@@ -214,5 +291,8 @@ module.exports = {
     inserirNaManutencao,
     pontuacaoDia,
     getEstadosDeUso,
-    getDadosEquipamentoEspecifico
+    getDadosEquipamentoEspecifico,
+    listarMaquinas,
+    listarDadosMaquinas,
+    editarMaquinas,
 }

@@ -150,12 +150,18 @@ function editarMaquinas() {
                 )                
                 setInterval(() => {
                     window.location.reload()
-                }, 2000); 
+                }, 1250); 
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
-            window.location.reload()
-            alert("Dados editados com sucesso");
+            Swal.fire(
+                'Erro!',
+                'Dados não alterados!',
+                'error'
+            )                
+            setInterval(() => {
+                window.location.reload()
+            }, 1250); 
             resposta.text().then(texto => {
                 console.log(texto)
             });

@@ -59,4 +59,16 @@ router.post('/getDadosEquipamentoEspecifico', function (request, response) {
     medidasController.getDadosEquipamentoEspecifico(request, response);
 });
 
+router.post('/listarMaquinas', function (request, response) {
+    medidasController.listarMaquinas(request, response);
+});
+
+router.post('/listarDadosMaquinas', function (request, response) {
+    medidasController.listarDadosMaquinas(request, response);
+});
+
+router.post('/editarMaquinas', function (request, response){
+    medidasController.editarMaquinas(request, response);
+});
+
 module.exports = router;

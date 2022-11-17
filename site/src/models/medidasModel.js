@@ -63,21 +63,42 @@ function getEstadosDeUso(idInstituicao){
     WHERE dataRegistro >= DATE(NOW() - INTERVAL 7 DAY) AND idInstituicao = ${idInstituicao};`);
 }
 
-// SELECT mb, b, r, a, DATE_FORMAT(dataRegistro, '%d/%m') AS dataRegistro FROM estadoDeUso JOIN instituicao ON fkInstituicao = idInstituicao 
-// WHERE dataRegistro >= DATE(NOW() - INTERVAL 7 DAY) AND idInstituicao = 1000;
-
-// INSERT INTO estadoDeUso VALUES
-// (NULL, 2, 4, 0, 0, (NOW() - INTERVAL 7 DAY), 1000),
-// (NULL, 1, 3, 1, 1, (NOW() - INTERVAL 6 DAY), 1000),
-// (NULL, 1, 4, 1, 0, (NOW() - INTERVAL 5 DAY), 1000),
-// (NULL, 0, 6, 0, 0, (NOW() - INTERVAL 4 DAY), 1000),
-// (NULL, 0, 5, 1, 0, (NOW() - INTERVAL 3 DAY), 1000),
-// (NULL, 1, 5, 0, 0, (NOW() - INTERVAL 2 DAY), 1000),
-// (NULL, 2, 4, 0, 0, (NOW() - INTERVAL 1 DAY), 1000),
-// (NULL, 0, 6, 0, 0, NOW(), 1000);
-
 function getDadosEquipamentoEspecifico(idEquipamento){
     return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro LIMIT 90`);
+}
+
+function listarMaquinas(idInstituicao){
+    return database.executar(`SELECT idEquipamento,  modelo, numeroPatrimonio, sala.nome AS nomeSala, sala.idSala AS sala
+    FROM equipamento JOIN  instituicao ON fkInstituicao = idInstituicao JOIN locacao ON fkEquipamento = 
+    idEquipamento JOIN sala ON fkSala = idSala WHERE idInstituicao = ${idInstituicao} ORDER BY numeroPatrimonio;`);
+}
+
+function listarDadosMaquinas(idEquipamento){
+   return database.executar(`select idComponente, idEquipamento, modelo, tipo, nome, sistemaOperacional from equipamento, componente where fkEquipamento = idEquipamento and idEquipamento= ${idEquipamento} ;`);
+}
+
+function editarMaquinasProc(idEquipamento, modelo,  cpu, sistemaOperacional, idCpu  ) {
+    return database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${cpu}', 
+    sistemaOperacional = '${sistemaOperacional}' 
+    where fkEquipamento = idEquipamento and idEquipamento = ${idEquipamento} and idComponente = ${idCpu } and tipo = 'processador';`);
+}
+
+function editarMaquinasMemo(idEquipamento, modelo,  memoria, sistemaOperacional, idMemoria ) {
+    database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${memoria}', 
+    sistemaOperacional = '${sistemaOperacional}' 
+    where fkEquipamento = idEquipamento and idEquipamento = ${idEquipamento} and idComponente = ${idMemoria} and tipo = 'Memória RAM';`);
+}
+
+function editarMaquinasDisc(idEquipamento, modelo,  armazenamento, sistemaOperacional,idArmazenamento ) {
+    database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${armazenamento}', 
+    sistemaOperacional = '${sistemaOperacional}' 
+    where fkEquipamento = idEquipamento and idEquipamento = ${idEquipamento} and idComponente = ${idArmazenamento} and tipo = 'Disco Rígido';`);
+}
+
+function editarMaquinas(idInstituicao ,modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema) {
+    editarMaquinasDisc(idEquipamento, modelo,  armazenamento , sistema, idArmazenamento)
+    editarMaquinasMemo(idEquipamento, modelo,  memoria , sistema, idMemoria)
+    return editarMaquinasProc(idEquipamento, modelo,  cpu , sistema, idCpu)
 }
 
 module.exports = {
@@ -93,5 +114,11 @@ module.exports = {
     inserirNaManutencao,
     pontuacaoDia,
     getEstadosDeUso,
-    getDadosEquipamentoEspecifico
+    getDadosEquipamentoEspecifico,
+    listarMaquinas,
+    listarDadosMaquinas,
+    editarMaquinasProc,
+    editarMaquinasMemo,
+    editarMaquinasDisc,
+    editarMaquinas
 }

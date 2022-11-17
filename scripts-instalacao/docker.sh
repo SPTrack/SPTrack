@@ -1,5 +1,9 @@
 ##!/bin/bash
 
+sudo docker stop ConteinerBD
+sudo docker rm ConteinerBD
+
+
 echo "$(tput setaf 10)[Assistente de instalação]:$(tput setaf 7) : Verificando se o docker está instalado"
 
 
@@ -32,9 +36,9 @@ echo "$(tput setaf 10)[Assistente de instalação]:$(tput setaf 7) Startando doc
  echo "$(tput setaf 10)[Assistente de instalação]:$(tput setaf 7) : instalando mysql no docker e criando banco com o nome do projeto"   
     
     sudo docker pull mysql:8.0.31
-    sudo docker container rm ConteinerBD
-    sudo docker run -d -p 3305:3305 --name ConteinerBD -e "MYSQL_DATABASE=SPTrack" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:8.0.31
+	sudo service mysql stop
+    sudo docker run -d -p 3306:3306 --name ConteinerBD  -e "MYSQL_DATABASE=SPTrack" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:8.0.31
 
 echo "$(tput setaf 10)[Assistente de instalação]:$(tput setaf 7) : Entrando no docker"
-clear
+
 sudo docker exec -it ConteinerBD bash

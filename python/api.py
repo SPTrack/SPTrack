@@ -21,6 +21,7 @@ elif modo == 'prod':
         conexao = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+"sptrack.database.windows.net"+';DATABASE='+"SPTrack"+';ENCRYPT=yes;UID='+"sptrackClient"+';PWD='+ "Sprint2SPTrack")
     except:
         conexao = pymysql.connect(host="localhost",user="sptrackClient", password="urubu100", database="SPTrack")
+        modo = 'dev'
 cursor = conexao.cursor()
 
 os.system(cls)

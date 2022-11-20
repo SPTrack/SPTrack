@@ -2,6 +2,7 @@ span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 
 var idInstituicaoServer = JSON.parse(sessionStorage.usuario).fkInstituicao;
 var idEquipamento;
+var idSala = 0;
 
 window.onload = () => {
     const parametrosString = window.location.search;
@@ -11,6 +12,7 @@ window.onload = () => {
 
     listarDadosMaquina();
     listarMaquinas();
+    getSalas();
 };
     
 function listarMaquinas() {
@@ -96,6 +98,7 @@ function listarDadosMaquina() {
         })
     }).then(function (resposta) {
         if (resposta.ok) {
+
             resposta.json().then(json => {
                 console.log(json);
                 idCpu.value=json[0].idComponente;
@@ -107,6 +110,7 @@ function listarDadosMaquina() {
                 memoria.value = json[1].nome;
                 armazenamento.value = json[2].nome;
                 sistema.value = json[0].sistemaOperacional;
+                idSala = json[0]['fkSala'];
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -162,6 +166,42 @@ function editarMaquinas() {
             setInterval(() => {
                 window.location.reload()
             }, 1250); 
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function getSalas(){
+    fetch("/salas/getSalas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                for(i = 0; i < json.length; i++){
+                    console.log(json[i]['idSala'], idSala)
+                    if(json[i]['idSala'] == idSala){
+                        salaSelect.innerHTML += 
+                        `<option selected value='${json[i]['idSala']}'>${json[i]['nome']} (Sala Atual)</option>`;
+                    }else{
+                        salaSelect.innerHTML += 
+                        `<option value='${json[i]['idSala']}'>${json[i]['nome']}</option>`;
+                    }
+                }
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
             resposta.text().then(texto => {
                 console.log(texto)
             });

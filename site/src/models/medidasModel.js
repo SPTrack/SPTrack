@@ -74,7 +74,8 @@ function listarMaquinas(idInstituicao){
 }
 
 function listarDadosMaquinas(idEquipamento){
-   return database.executar(`select idComponente, idEquipamento, modelo, tipo, nome, sistemaOperacional from equipamento, componente where fkEquipamento = idEquipamento and idEquipamento= ${idEquipamento} ;`);
+   return database.executar(`select idComponente, idEquipamento, modelo, tipo, nome, sistemaOperacional, fkSala from equipamento, componente, locacao
+   where componente.fkEquipamento = idEquipamento and idEquipamento= ${idEquipamento} AND locacao.fkEquipamento = ${idEquipamento};`);
 }
 
 function editarMaquinasProc(idEquipamento, modelo,  cpu, sistemaOperacional, idCpu  ) {
@@ -98,7 +99,7 @@ function editarMaquinasDisc(idEquipamento, modelo,  armazenamento, sistemaOperac
 function editarMaquinas(idInstituicao ,modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema) {
     editarMaquinasDisc(idEquipamento, modelo,  armazenamento , sistema, idArmazenamento)
     editarMaquinasMemo(idEquipamento, modelo,  memoria , sistema, idMemoria)
-    return editarMaquinasProc(idEquipamento, modelo,  cpu , sistema, idCpu)
+    return editarMaquinasProc(idEquipamento, modelo, cpu, sistema, idCpu)
 }
 
 module.exports = {

@@ -15,7 +15,7 @@ def fazerNome():
 
 def plotarWordcloud(listaChamados):
 	stopwords = set(STOPWORDS)
-	stopwords.update(["a","o","da", "meu", "em", "de", "ao", "os", "está", "não", "muito", "para", "e", "novo", "funciona", "frequentemente"])
+	stopwords.update(["a","o","da", "meu", "em", "de", "ao", "os", "está", "não", "muito", "para", "e", "novo", "funciona", "frequentemente", "na", "funcionando"])
 
 
 	lista = listaChamados.lower()

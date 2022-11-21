@@ -2,10 +2,20 @@ from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 from datetime import date
 import numpy as np
+import os
+
+def fazerNome():
+	data_atual = date.today()
+	data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
+	data_em_texto = data_em_texto.replace("/","-")
+	nome="wordlcloud-"+data_em_texto
+	nome +=".png"
+
+	return nome
 
 def plotarWordcloud(listaChamados):
 	stopwords = set(STOPWORDS)
-	stopwords.update(["a","o","da", "meu", "em", "de", "ao", "os"])
+	stopwords.update(["a","o","da", "meu", "em", "de", "ao", "os", "está", "não", "muito", "para", "e", "novo", "funciona", "frequentemente"])
 
 
 	lista = listaChamados.lower()
@@ -21,9 +31,13 @@ def plotarWordcloud(listaChamados):
 	plt.imshow(wordcloud)
 	plt.axis("off")
 	plt.tight_layout(pad = 0)
-	data_atual = date.today()
-	data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
-	data_em_texto = data_em_texto.replace("/","-")
-	nome="wordlcloud-"+data_em_texto
-	nome +=".png"
-	plt.savefig("site/public/assets/img/wordclouds/"+nome)
+	etc()
+
+	plt.savefig("site/public/assets/img/wordclouds/"+fazerNome())
+
+def etc():
+    path = "site/public/assets/img/"
+    dir = os.listdir(path)
+    for file in dir:
+        if file == fazerNome():
+            os.remove(file)

@@ -5,6 +5,7 @@ import pymysql
 import pyodbc
 import platform
 from time import sleep
+import cards
 
 cls = 'clear' if platform.system() == 'Linux' else 'cls'
 
@@ -92,6 +93,10 @@ while True:
         cpu_percent_dash.value = round(cpu_use, 2)
         cpu_percent_dash.title = f'CPU {cpu_use}%'
 
+        if(cpu_use > 80):
+            cards.abrirChamadoCPUTriagem()
+        
+
         # #memoria RAM
         ram_dash = new_dash.items[1].items[0]
         ram_percent_dash = ram_dash.items[0]
@@ -100,6 +105,9 @@ while True:
         ram_percent_dash.value = float(round(ram_use, 2))
         ram_percent_dash.title = f'RAM {ram_use}%'
 
+        if(ram_use > 80):
+            cards.abrirChamadoRAMTriagem()
+
         #DISCO
         disc_dash = new_dash.items[1].items[1]
         disc_percent_dash = disc_dash.items[0]
@@ -107,6 +115,10 @@ while True:
         disc_useMB = disk_usage('/').used/ (1024.0 ** 2)
         disc_percent_dash.value = float(round(disc_use, 2))
         disc_percent_dash.title = f'DISCO {disc_use}%'
+        disc_freeGB = disk_usage('/').free / 1024.0 ** 3
+        
+        if(disk_usage('/').free < 32.0):
+            cards.abrirChamadoHDTriagem()
 
         sleep(0.2)
         with conexao.cursor() as cursor:

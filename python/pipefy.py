@@ -3,7 +3,7 @@ from time import sleep
 import requests
 import wordc
 import json
-
+import api
 
 URL = "https://api.pipefy.com/graphql"
 headers = {
@@ -11,6 +11,7 @@ headers = {
         "content-type": "application/json",
         "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIwOTQ1MjEsImVtYWlsIjoiZGFuaWVsLnNpcXVlaXJhQHNwdGVjaC5zY2hvb2wiLCJhcHBsaWNhdGlvbiI6MzAwMjE0MDA0fX0.3A7r7ZlkoAWeGnRy77BgQT23PJwM1zvlT0y32mjH1KNiDP-JwCim4in-BqiTibA8iKzG1w_Zf6eeDpg9YHF-WQ"
     }
+
 
 def pegarChamadoTriagem():
     payload = {"query": "query{   phase(id:317370883){     cards{       edges{         node{           id  title         }       }     }   } }"}

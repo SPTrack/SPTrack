@@ -1,9 +1,19 @@
 from re import A
 from time import sleep
 import requests
+import pymysql
 import wordc
 import json
-import api
+
+
+conexao = pymysql.connect(host="localhost",user="sptrackClient", password="urubu100", database="SPTrack")
+cursor = conexao.cursor()
+
+cursor.execute(f"SELECT * FROM infoChamados;")
+retorno = cursor.fetchall()
+if len(retorno) == 0:
+    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0);")
+
 
 URL = "https://api.pipefy.com/graphql"
 headers = {
@@ -41,6 +51,8 @@ def pegarChamadoArquivado():
 
 
 def enviarWorldCloud():
+    quantidadeChamados = 0
+    quantidadeChamadosConcluidos = 0;
     listaChamados = ""
     resposta = pegarChamadoTriagem()
     objeto = json.loads(resposta)
@@ -48,6 +60,7 @@ def enviarWorldCloud():
     for card in cards:
         listaChamados += (card['node']['title'])
         listaChamados += " "
+        quantidadeChamados += 1
 
     resposta = pegarChamadoAtendimento()
     objeto = json.loads(resposta)
@@ -55,6 +68,7 @@ def enviarWorldCloud():
     for card in cards:
         listaChamados += (card['node']['title'])
         listaChamados += " "
+        quantidadeChamados += 1
     
     resposta = pegarChamadoEscalar()
     objeto = json.loads(resposta)
@@ -62,6 +76,7 @@ def enviarWorldCloud():
     for card in cards:
         listaChamados += (card['node']['title'])
         listaChamados += " "
+        quantidadeChamados += 1
 
     resposta = pegarChamadoConcluido()
     objeto = json.loads(resposta)
@@ -69,6 +84,8 @@ def enviarWorldCloud():
     for card in cards:
         listaChamados += (card['node']['title'])
         listaChamados += " "
+        quantidadeChamados += 1
+        quantidadeChamadosConcluidos += 1
 
     resposta = pegarChamadoArquivado()
     objeto = json.loads(resposta)
@@ -76,9 +93,14 @@ def enviarWorldCloud():
     for card in cards:
         listaChamados += (card['node']['title'])
         listaChamados += " "
+        quantidadeChamados += 1
 
-    
+
     wordc.plotarWordcloud(listaChamados)
+
+    with conexao.cursor() as cursor:
+                cursor.execute(f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos} WHERE idInfo = 1;")
+                conexao.commit()
 
 enviarWorldCloud()
     

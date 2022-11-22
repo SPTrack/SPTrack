@@ -130,6 +130,9 @@ CREATE TABLE estadoDeUso(
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 1500;
 
+create table infoChamados(idInfo int primary key, quantidadeChamados int, quantidadeChamadosConcluidos int);
+
+
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 

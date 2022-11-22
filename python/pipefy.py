@@ -23,85 +23,88 @@ headers = {
     }
 
 
-def pegarChamadoTriagem():
-    payload = {"query": "query{   phase(id:317370883){     cards{       edges{         node{           id  title         }       }     }   } }"}
-    response = requests.post(URL, json=payload, headers=headers)
-    return response.text
+while True:
 
-def pegarChamadoAtendimento():
-    payload = {"query": "query{   phase(id:317370884){     cards{       edges{         node{           id  title         }       }     }   } }"}
-    response = requests.post(URL, json=payload, headers=headers)
-    return response.text
+    def pegarChamadoTriagem():
+        payload = {"query": "query{   phase(id:317370883){     cards{       edges{         node{           id  title         }       }     }   } }"}
+        response = requests.post(URL, json=payload, headers=headers)
+        return response.text
 
-
-def pegarChamadoEscalar():
-    payload = {"query": "query{   phase(id:317370886){     cards{       edges{         node{           id  title         }       }     }   } }"}
-    response = requests.post(URL, json=payload, headers=headers)
-    return response.text
-
-def pegarChamadoConcluido():
-    payload = {"query": "query{   phase(id:317370885){     cards{       edges{         node{           id  title         }       }     }   } }"}
-    response = requests.post(URL, json=payload, headers=headers)
-    return response.text
-
-def pegarChamadoArquivado():
-    payload = {"query": "query{   phase(id:317370887){     cards{       edges{         node{           id  title         }       }     }   } }"}
-    response = requests.post(URL, json=payload, headers=headers)
-    return response.text
+    def pegarChamadoAtendimento():
+        payload = {"query": "query{   phase(id:317370884){     cards{       edges{         node{           id  title         }       }     }   } }"}
+        response = requests.post(URL, json=payload, headers=headers)
+        return response.text
 
 
-def enviarWorldCloud():
-    quantidadeChamados = 0
-    quantidadeChamadosConcluidos = 0;
-    listaChamados = ""
-    resposta = pegarChamadoTriagem()
-    objeto = json.loads(resposta)
-    cards = objeto['data']['phase']['cards']['edges']
-    for card in cards:
-        listaChamados += (card['node']['title'])
-        listaChamados += " "
-        quantidadeChamados += 1
+    def pegarChamadoEscalar():
+        payload = {"query": "query{   phase(id:317370886){     cards{       edges{         node{           id  title         }       }     }   } }"}
+        response = requests.post(URL, json=payload, headers=headers)
+        return response.text
 
-    resposta = pegarChamadoAtendimento()
-    objeto = json.loads(resposta)
-    cards = objeto['data']['phase']['cards']['edges']
-    for card in cards:
-        listaChamados += (card['node']['title'])
-        listaChamados += " "
-        quantidadeChamados += 1
-    
-    resposta = pegarChamadoEscalar()
-    objeto = json.loads(resposta)
-    cards = objeto['data']['phase']['cards']['edges']
-    for card in cards:
-        listaChamados += (card['node']['title'])
-        listaChamados += " "
-        quantidadeChamados += 1
+    def pegarChamadoConcluido():
+        payload = {"query": "query{   phase(id:317370885){     cards{       edges{         node{           id  title         }       }     }   } }"}
+        response = requests.post(URL, json=payload, headers=headers)
+        return response.text
 
-    resposta = pegarChamadoConcluido()
-    objeto = json.loads(resposta)
-    cards = objeto['data']['phase']['cards']['edges']
-    for card in cards:
-        listaChamados += (card['node']['title'])
-        listaChamados += " "
-        quantidadeChamados += 1
-        quantidadeChamadosConcluidos += 1
-
-    resposta = pegarChamadoArquivado()
-    objeto = json.loads(resposta)
-    cards = objeto['data']['phase']['cards']['edges']
-    for card in cards:
-        listaChamados += (card['node']['title'])
-        listaChamados += " "
-        quantidadeChamados += 1
+    def pegarChamadoArquivado():
+        payload = {"query": "query{   phase(id:317370887){     cards{       edges{         node{           id  title         }       }     }   } }"}
+        response = requests.post(URL, json=payload, headers=headers)
+        return response.text
 
 
-    wordc.plotarWordcloud(listaChamados)
+    def enviarWorldCloud():
+        quantidadeChamados = 0
+        quantidadeChamadosConcluidos = 0;
+        listaChamados = ""
+        resposta = pegarChamadoTriagem()
+        objeto = json.loads(resposta)
+        cards = objeto['data']['phase']['cards']['edges']
+        for card in cards:
+            listaChamados += (card['node']['title'])
+            listaChamados += " "
+            quantidadeChamados += 1
 
-    with conexao.cursor() as cursor:
-                cursor.execute(f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos} WHERE idInfo = 1;")
-                conexao.commit()
+        resposta = pegarChamadoAtendimento()
+        objeto = json.loads(resposta)
+        cards = objeto['data']['phase']['cards']['edges']
+        for card in cards:
+            listaChamados += (card['node']['title'])
+            listaChamados += " "
+            quantidadeChamados += 1
 
-enviarWorldCloud()
-    
+        resposta = pegarChamadoEscalar()
+        objeto = json.loads(resposta)
+        cards = objeto['data']['phase']['cards']['edges']
+        for card in cards:
+            listaChamados += (card['node']['title'])
+            listaChamados += " "
+            quantidadeChamados += 1
+
+        resposta = pegarChamadoConcluido()
+        objeto = json.loads(resposta)
+        cards = objeto['data']['phase']['cards']['edges']
+        for card in cards:
+            listaChamados += (card['node']['title'])
+            listaChamados += " "
+            quantidadeChamados += 1
+            quantidadeChamadosConcluidos += 1
+
+        resposta = pegarChamadoArquivado()
+        objeto = json.loads(resposta)
+        cards = objeto['data']['phase']['cards']['edges']
+        for card in cards:
+            listaChamados += (card['node']['title'])
+            listaChamados += " "
+            quantidadeChamados += 1
+
+
+        wordc.plotarWordcloud(listaChamados)
+
+        with conexao.cursor() as cursor:
+                    cursor.execute(f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos} WHERE idInfo = 1;")
+                    conexao.commit()
+
+    enviarWorldCloud()
+    sleep(10)
+
 

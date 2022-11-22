@@ -1,124 +1,191 @@
-
+<script>
+    try {
+        JSON.parse(sessionStorage.usuario).nome;
+    } catch (error) {
+        window.location = window.origin + '/login';
+    }
+</script>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <script src="../../js/funcoes.js"></script>
     <title>SPTrack - Equipamentos</title>
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
     <link rel="stylesheet" href="../../css/equipamentos.css">
+
 </head>
 
 <body id="page-top">
     <div id="wrapper">
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: var(--bs-accordion-color);padding-bottom: 131px;">
-            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+            style="background: var(--bs-accordion-color);padding-bottom: 131px;">
+            <div class="container-fluid d-flex flex-column p-0"><a
+                    class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
                     <div class="sidebar-brand-icon rotate-n-15"></div>
-                    <div class="sidebar-brand-text mx-3"><img style="max-width: 80%;padding: 8px 8px 8px 8px;" src="../../assets/img/logo.png" alt=""></div>
+                    <div class="sidebar-brand-text mx-3"><img style="max-width: 80%;padding: 8px 8px 8px 8px;"
+                            src="../../assets/img/logo.png" alt=""></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="../"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../estatisticas/"><i class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../salas/"><i class="fas fa-door-open"></i><span>Salas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../manutencao/"><i class="fas fa-tools"></i><span>Manutenção</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../"><i
+                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../estatisticas/"><i
+                                class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../salas/"><i
+                                class="fas fa-door-open"></i><span>Salas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../manutencao/"><i
+                                class="fas fa-tools"></i><span>Manutenção</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href=""><i
+                                class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../instituicao/"><i
+                                class="fas fa-building"></i><span>Instituição</span></a></li>
+                    
                 </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3"
+                            id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <ul class="navbar-nav flex-nowrap ms-auto">
-                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
-                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
+                                    aria-expanded="false" data-bs-toggle="dropdown" href="#"><i
+                                        class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
+                                    aria-labelledby="searchDropdown">
                                     <form class="me-auto navbar-search w-100">
-                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        <div class="input-group"><input class="bg-light form-control border-0 small"
+                                                type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0"
+                                                    type="button"><i class="fas fa-search"></i></button></div>
                                         </div>
                                     </form>
                                 </div>
                             </li>
                             <li class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><!--<span class="badge bg-danger badge-counter">3+</span>--><i class="fas fa-bell fa-fw"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                        <!--<span class="badge bg-danger badge-counter">3+</span>--><i
+                                            class="fas fa-bell fa-fw"></i>
+                                    </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                        <h6 class="dropdown-header">alerts center</h6><a
+                                            class="dropdown-item d-flex align-items-center" href="#">
                                             <div class="me-3">
-                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                                <div class="bg-primary icon-circle"><i
+                                                        class="fas fa-file-alt text-white"></i></div>
                                             </div>
                                             <div><span class="small text-gray-500">December 12, 2019</span>
                                                 <p>A new monthly report is ready to download!</p>
                                             </div>
                                         </a><a class="dropdown-item d-flex align-items-center" href="#">
                                             <div class="me-3">
-                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
+                                                <div class="bg-success icon-circle"><i
+                                                        class="fas fa-donate text-white"></i></div>
                                             </div>
                                             <div><span class="small text-gray-500">December 7, 2019</span>
                                                 <p>$290.29 has been deposited into your account!</p>
                                             </div>
                                         </a><a class="dropdown-item d-flex align-items-center" href="#">
                                             <div class="me-3">
-                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
+                                                <div class="bg-warning icon-circle"><i
+                                                        class="fas fa-exclamation-triangle text-white"></i></div>
                                             </div>
                                             <div><span class="small text-gray-500">December 2, 2019</span>
-                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
+                                                <p>Spending Alert: We've noticed unusually high spending for your
+                                                    account.</p>
                                             </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                            Alerts</a>
                                     </div>
                                 </div>
                             </li>
                             <li class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><!--<span class="badge bg-danger badge-counter">7</span>--><i class="fas fa-envelope fa-fw"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                        <!--<span class="badge bg-danger badge-counter">7</span>--><i
+                                            class="fas fa-envelope fa-fw"></i>
+                                    </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../bootstrap/img/avatars/avatar4.jpeg">
+                                        <h6 class="dropdown-header">alerts center</h6><a
+                                            class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../bootstrap/img/avatars/avatar4.jpeg">
                                                 <div class="bg-success status-indicator"></div>
                                             </div>
                                             <div class="fw-bold">
-                                                <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
+                                                <div class="text-truncate"><span>Hi there! I am wondering if you can
+                                                        help me with a problem I've been having.</span></div>
                                                 <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
                                             </div>
                                         </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../bootstrap/img/avatars/avatar2.jpeg">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../bootstrap/img/avatars/avatar2.jpeg">
                                                 <div class="status-indicator"></div>
                                             </div>
                                             <div class="fw-bold">
-                                                <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
+                                                <div class="text-truncate"><span>I have the photos that you ordered last
+                                                        month!</span></div>
                                                 <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
                                             </div>
                                         </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../bootstrap/img/avatars/avatar3.jpeg">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../bootstrap/img/avatars/avatar3.jpeg">
                                                 <div class="bg-warning status-indicator"></div>
                                             </div>
                                             <div class="fw-bold">
-                                                <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
+                                                <div class="text-truncate"><span>Last month's report looks great, I am
+                                                        very happy with the progress so far, keep up the good
+                                                        work!</span></div>
                                                 <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
                                             </div>
                                         </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../bootstrap/img/avatars/avatar5.jpeg">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../bootstrap/img/avatars/avatar5.jpeg">
                                                 <div class="bg-success status-indicator"></div>
                                             </div>
                                             <div class="fw-bold">
-                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
+                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is
+                                                        because someone told me that people say this to all dogs, even
+                                                        if they aren't good...</span></div>
                                                 <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
                                             </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                            Alerts</a>
                                     </div>
                                 </div>
-                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="alertsDropdown"></div>
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small" id="span_usuario">Usuário</span><img class="border rounded-circle img-profile" src="../../bootstrap/img/avatars/avatar1.png"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
+                                            class="d-none d-lg-inline me-2 text-gray-600 small"
+                                            id="span_usuario">Usuário</span><img
+                                            class="border rounded-circle img-profile"
+                                            src="../../bootstrap/img/avatars/avatar1.png"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
+                                            class="dropdown-item" href="#"><i
+                                                class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a
+                                            class="dropdown-item" href="#"><i
+                                                class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a
+                                            class="dropdown-item" href="#"><i
+                                                class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity
+                                            log</a>
+                                        <div class="dropdown-divider"></div><a onclick="limparSessao()"
+                                            class="dropdown-item" href="#"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
                             </li>
@@ -128,20 +195,20 @@
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Informações de Máquina</h3>
                     <div class="row mb-3">
-                        
+
                         <div class="container-fluid">
                             <div id="lista_maquinas" class="d-sm-flex justify-content-between align-items-center mb-4">
-                               
+
                             </div>
                             <div class="row" id="divPai">
                                 <div class="col-md-6 col-xl-3 mb-4">
-                                    
+
                                 </div>
-                              
-          
+
+
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-8">
                             <div class="row mb-3 d-none">
                                 <div class="col">
@@ -154,7 +221,8 @@
                                                 </div>
                                                 <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
                                             </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
+                                                since last month</p>
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +236,8 @@
                                                 </div>
                                                 <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
                                             </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
+                                                since last month</p>
                                         </div>
                                     </div>
                                 </div>
@@ -177,43 +246,71 @@
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Dados do Equipamento</p>
-                                        </div> 
+                                            <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Dados do
+                                                Equipamento</p>
+                                        </div>
                                         <div class="card-body">
                                             <form>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome da Máquina</strong><br></label><input id="nomeMaquina" class="form-control" type="text"  placeholder="Nome da Máquina" ></div>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="username"><strong>Nome da
+                                                                    Máquina</strong><br></label><input id="nomeMaquina"
+                                                                class="form-control" type="text"
+                                                                placeholder="Nome da Máquina"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div  class="mb-3" style="margin-bottom: 63px;padding-bottom: 0px;"><label class="form-label" for="email"><strong >Modelo CPU</strong><br></label><input id="modelo" class="form-control" type="text" placeholder="Modelo do Processador" name="modelo_cpu"></div>
-                                                    <input style="display: none;" id="idCpu" type="number">
+                                                        <div class="mb-3"
+                                                            style="margin-bottom: 63px;padding-bottom: 0px;"><label
+                                                                class="form-label" for="email"><strong>Modelo
+                                                                    CPU</strong><br></label><input id="modelo"
+                                                                class="form-control" type="text"
+                                                                placeholder="Modelo do Processador" name="modelo_cpu">
+                                                        </div>
+                                                        <input style="display: none;" id="idCpu" type="number">
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong >Memória RAM</strong><br></label><input id="memoria" class="form-control" type="text"  placeholder="Quantidade de Memória RAM" name="quantidade_memoria"></div>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="first_name"><strong>Memória
+                                                                    RAM</strong><br></label><input id="memoria"
+                                                                class="form-control" type="text"
+                                                                placeholder="Quantidade de Memória RAM"
+                                                                name="quantidade_memoria"></div>
                                                         <input style="display: none;" id="idMemoria" type="number">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong >Armazenamento</strong><br></label><input id="armazenamento" class="form-control" type="text"  placeholder="Armazenamento Total" name="armazenamento"></div>
-                                                        <input style="display: none;" id="idArmazenamento" type="number">
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="first_name"><strong>Armazenamento</strong><br></label><input
+                                                                id="armazenamento" class="form-control" type="text"
+                                                                placeholder="Armazenamento Total" name="armazenamento">
+                                                        </div>
+                                                        <input style="display: none;" id="idArmazenamento"
+                                                            type="number">
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Sistema Operacional</strong><br></label><input  id="sistema" class="form-control" type="text"  placeholder="Sistema Operacional" name="sistema_operacional"></div>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="last_name"><strong>Sistema
+                                                                    Operacional</strong><br></label><input id="sistema"
+                                                                class="form-control" type="text"
+                                                                placeholder="Sistema Operacional"
+                                                                name="sistema_operacional"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong >Sala</strong><br></label>
+                                                        <div class="mb-3"><label class="form-label"
+                                                                for="first_name"><strong>Sala</strong><br></label>
                                                             <select id="salaSelect" class="form-control">
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"></div>
-                                            </form><button onclick="editarMaquinas()" class="btn btn-primary btn-sm" type="submit" style="background: rgb(0,0,0);">Editar</button>
+                                            </form><button onclick="editarMaquinas()" class="btn btn-primary btn-sm"
+                                                type="submit" style="background: rgb(0,0,0);">Editar</button>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="card shadow"></div>
                                 </div>
                             </div>
@@ -221,7 +318,7 @@
                     </div>
                     <div class="card shadow mb-5"></div>
                 </div>
-            </div> 
+            </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>

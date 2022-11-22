@@ -71,4 +71,8 @@ router.post('/editarMaquinas', function (request, response){
     medidasController.editarMaquinas(request, response);
 });
 
+router.post('/pegarInfoChamado', function (request, response){
+    medidasController.pegarInfoChamado(request, response);
+});
+
 module.exports = router;

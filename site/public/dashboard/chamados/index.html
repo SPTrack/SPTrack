@@ -11,6 +11,7 @@
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
     <link rel="stylesheet" href="../../css/manutencao.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/dashboard/chamados.js"></script>
 </head>
 
 <body id="page-top">
@@ -29,7 +30,7 @@
                     <li class="nav-item"><a class="nav-link" href="../equipamentos/"><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../tarefas/"><i class="far fa-clock"></i><span>Tarefas</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href=""><i class="far fa-clock"></i><span>Info Chamados</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-info-circle"></i><span>Chamados</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -138,7 +139,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col-md-11 me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="color: #ffff;background: var(--bs-success);">Total</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: #ffff;" id="span_qtdFuncionando">0 Chamados</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span style="color: #ffff;" id="span_qtdTotal">0 Chamados</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +154,7 @@
                                             <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="color: #ffff;">Concluidos</span></div>
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span style="color: #ffff;" id="span_qtdManutencao">0 Chamados</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span style="color: #ffff;" id="span_qtdConcluidos">0 Chamados</span></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,6 +174,7 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
+                                                <div id="imagem-wordcloud"></div>
                                                 <div class="col me-2">
                                                     <h6 class="mb-0">
                                                         <div id="paiDisps">

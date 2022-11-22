@@ -277,6 +277,19 @@ function editarMaquinas(request, response) {
     }
 }
 
+function pegarInfoChamado(request, response){
+        console.log('Cheguei aqui!')
+        medidasModel.pegarInfoChamado().then(resultado => {
+           console.log(resultado)
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados do infoChamado! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+
+
 
 
 module.exports = {
@@ -295,4 +308,5 @@ module.exports = {
     listarMaquinas,
     listarDadosMaquinas,
     editarMaquinas,
+    pegarInfoChamado,
 }

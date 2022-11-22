@@ -102,6 +102,10 @@ function editarMaquinas(idInstituicao ,modelo, cpu ,memoria ,armazenamento ,idCp
     return editarMaquinasProc(idEquipamento, modelo, cpu, sistema, idCpu)
 }
 
+function pegarInfoChamado(){
+    return database.executar(`SELECT * FROM infoChamados;`);
+}
+
 module.exports = {
     getComponentes,
     getHistoricoDisponibilidade,
@@ -121,5 +125,6 @@ module.exports = {
     editarMaquinasProc,
     editarMaquinasMemo,
     editarMaquinasDisc,
-    editarMaquinas
+    editarMaquinas,
+    pegarInfoChamado,
 }

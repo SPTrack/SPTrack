@@ -105,6 +105,6 @@ while True:
                     conexao.commit()
 
     enviarWorldCloud()
-    sleep(10)
+    sleep(5)
 
 

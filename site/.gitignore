@@ -1,5 +1,5 @@
 #python cache ao gerar wordcloud
-__pycache__/
+.__pycache__/
 
 # Compiled class file
 *.class

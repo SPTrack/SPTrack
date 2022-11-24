@@ -1,6 +1,7 @@
 function buscarDadosEmpresa() {
     var cnpj = document.getElementById('cnpj')
-    cnpj = (cnpj.value).replaceAll("/", "").replaceAll(".", "").replaceAll("-", "")
+    cnpj = (cnpj.value).replaceAll("/", "").replaceAll(".", "").replaceAll("-", "");
+
     if (cnpj.length == 14) {
         $.ajax({
             'url': 'https://www.receitaws.com.br/v1/cnpj/' + cnpj,
@@ -26,7 +27,6 @@ function buscarDadosEmpresa() {
             },
         })
     } else if(cnpj.length > 0) {
-        
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -34,7 +34,7 @@ function buscarDadosEmpresa() {
             showConfirmButton: false,
             timer: 1500
           })
-    }else{
+    } else {
         razaoSocial.value = "";
         nomeFantasia.value = "";
         document.getElementById("cep").value = "";
@@ -61,9 +61,8 @@ function cadastrar() {
     var bairro = document.getElementById('bairro').value
     var cidade = document.getElementById('cidade').value
     var uf = document.getElementById('uf').value
-    if(cnpj.length<13){
-        
-         
+    
+    if (cnpj.length<13) {     
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -72,9 +71,7 @@ function cadastrar() {
             timer: 1500
           })
 
-    }else if (nome.length <= 2) {
-        
-         
+    } else if (nome.length <= 2) {   
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -82,9 +79,7 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else if (!email.includes("@")) {
-       
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -92,7 +87,6 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else if (senha.length < 6) {
         Swal.fire({
             position: 'center',
@@ -102,7 +96,6 @@ function cadastrar() {
             timer: 1500
           })
     } else if (razaoSocial.length < 3) {
-        
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -110,9 +103,7 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else if (nomeFantasia.length < 3) {
-         
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -121,7 +112,6 @@ function cadastrar() {
             timer: 1500
           })
     } else if (cep.length < 8) {
-        
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -130,7 +120,6 @@ function cadastrar() {
             timer: 1500
           })
     } else if (logradouro.length < 6) {
-         
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -138,9 +127,7 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else if (numero.length == 0) {
-        
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -158,9 +145,7 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else if (cidade.length < 2) {
-        
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -168,9 +153,7 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else if (uf.length < 1) {
-        
         Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -178,7 +161,6 @@ function cadastrar() {
             showConfirmButton: false,
             timer: 1500
           })
-
     } else {
         fetch("/instituicoes/cadastro", {
             method: "POST",
@@ -199,17 +181,11 @@ function cadastrar() {
                 bairroServer: bairro,
                 cidadeServer: cidade,
                 ufServer: uf
-
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-    
             if (resposta.ok) {
                 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                   
+                resposta.json().then(json => {                   
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -231,10 +207,9 @@ function cadastrar() {
                     
                 });
                 setInterval(() => {
-                    window.location.reload()
+                    window.location = window.origin + '/login'
                   }, 3000);
             } else {
-    
                 throw Swal.fire({
                     position: 'center',
                     background: '#fff',
@@ -256,8 +231,6 @@ function cadastrar() {
         })
     }
 }
-
-// LISTENNERS DO SITE
 
 function listenCNPJ(value){
     if(value.substr(1, value.length) == "_.___.___/____-__" || value == ""){

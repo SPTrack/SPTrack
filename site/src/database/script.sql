@@ -1,4 +1,3 @@
-
 -- DESCOMENTE CASO QUEIRA USAR UM BANCO ESPECIFICO --
 
 -- CASO QUEIRA RODAR NO DOCKER --
@@ -26,8 +25,6 @@ CREATE TABLE instituicao(
     numero CHAR(6) NOT NULL,
     dataRegisto DATETIME NOT NULL
 ) AUTO_INCREMENT = 1000;
-
-
 
 CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -130,7 +127,33 @@ CREATE TABLE estadoDeUso(
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 1500;
 
-create table infoChamados(idInfo int primary key, quantidadeChamados int, quantidadeChamadosConcluidos int);
+CREATE TABLE infoChamados(
+    idInfo INT PRIMARY KEY AUTO_INCREMENT,
+    quantidadeChamados INT NOT NULL,
+    quantidadeChamadosConcluidos INT NOT NULL
+) AUTO_INCREMENT = 3000;
+
+CREATE TABLE tarefa(
+    idTarefa INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(64) NOT NULL,
+    descricao VARCHAR(256) NOT NULL,
+    dataInicio DATE NOT NULL,
+    dataFim DATE,
+    horarioInicio DATETIME NOT NULL,
+    horarioFim DATETIME NOT NULL,
+
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
+) AUTO_INCREMENT = 4000;
+
+CREATE TABLE medidaTarefa(
+    idMedida INT PRIMARY KEY AUTO_INCREMENT,
+    valor FLOAT NOT NULL,
+    dataRegistro DATETIME NOT NULL,
+    
+    fkComponente INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+) AUTO_INCREMENT = 600000;
 
 
 CREATE VIEW `vw_medidasInstituicao` AS

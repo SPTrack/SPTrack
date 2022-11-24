@@ -1,6 +1,7 @@
 function aguardar(){
     carregando.style.display = "flex"
 }
+
 function entrar() {
     aguardar();
 
@@ -38,28 +39,16 @@ function entrar() {
             senhaServer: senhaVar
         })
     }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
 
         if (resposta.ok) {
             console.log(resposta);
 
             resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
-
-                // Dessa forma conseguimos ter todos os dados em único local
                 sessionStorage.usuario = JSON.stringify(json);
-
-                setTimeout(function () {
-                    window.location = "../dashboard/";
-                }, 1000); // apenas para exibir o loading
-
+                window.location = "../dashboard/";
             });
 
         } else {
-
-            console.log("Houve um erro ao tentar realizar o login!");
-
             resposta.text().then(texto => {
                 console.error(texto);
                 erro(texto);
@@ -72,9 +61,11 @@ function entrar() {
 
     return false;
 }
+
 function pararAguardar(){
     carregando.style.display = "none"
 }
+
 function erro(texto){
     erroResposta.innerHTML = texto;
     pararAguardar()

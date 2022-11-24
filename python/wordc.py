@@ -6,7 +6,7 @@ import os
 
 def plotarWordcloud(listaChamados):
 	stopwords = set(STOPWORDS)
-	stopwords.update(["a","o","da", "meu", "em", "de", "ao", "os", "está", "não", "muito", "para", "e", "novo", "funciona", "frequentemente", "na", "funcionando", "funcionar", "pouco", "aula", "parou"])
+	stopwords.update(["pegou","sala","notebook","computador","sem","a","o","da", "meu", "em", "de", "ao", "os", "está", "não", "muito", "para", "e", "novo", "funciona", "frequentemente", "na", "funcionando", "funcionar", "pouco", "aula", "parou"])
 
 
 	lista = listaChamados.lower()

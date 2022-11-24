@@ -38,7 +38,6 @@ var i = 1;
 
 function myLoop() {
   setTimeout(function() {
-    console.log('Atualizei');
     get();
     i++;
     if (i < 99999999999) {
@@ -48,3 +47,7 @@ function myLoop() {
 }
 
 myLoop();   
+
+function teste(){
+    document.getElementById("wordcloud").innerHTML = "<img src='../../assets/img/wordclouds/wordcloudChamados.png' alt='wordcloudChamados'>"
+}

@@ -15,3 +15,10 @@
 .onmouseoverclass:hover{
     font-weight: 700;
 }
+
+#wordcloud{
+   
+    text-align: center;
+    overflow: auto;
+
+}

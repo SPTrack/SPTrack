@@ -130,7 +130,10 @@ CREATE TABLE estadoDeUso(
 CREATE TABLE infoChamados(
     idInfo INT PRIMARY KEY AUTO_INCREMENT,
     quantidadeChamados INT NOT NULL,
-    quantidadeChamadosConcluidos INT NOT NULL
+    quantidadeChamadosConcluidos INT NOT NULL,
+    
+    fkInstituicao INT,
+    FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 3000;
 
 CREATE TABLE tarefa(
@@ -192,6 +195,12 @@ FROM manutencao WHERE situacao = 'Aberto')) AS qtd FROM sala, locacao,
 manutencao, equipamento, instituicao WHERE idEquipamento = manutencao.fkEquipamento 
 AND fkSala = idSala and manutencao.fkEquipamento = locacao.fkEquipamento
 GROUP BY idSala;
+
+ALTER TABLE infoChamados
+ADD fkInstituicao INT;
+
+ALTER TABLE infoChamados ADD CONSTRAINT fkInstituicao
+FOREIGN KEY(fkInstituicao) REFERENCES instituicao (idInstituicao);
 
 -------------- ZONA DE TESTES --------------
 --------(Executar apenas após cadastro)-------
@@ -280,26 +289,19 @@ select * from vw_manutencao_por_sala;
 
 
 
-INSERT INTO disponibilidade VALUES (NULL, 89.5, '2022-11- 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 82.1, '2022-11-11 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 77.0, '2022-11-10 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-11-09 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-11-08 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-11-07 10:47:41', 1000);
-INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-11-06 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 89.5, '2022-11-18 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 82.1, '2022-11-19 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 77.0, '2022-11-20 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 73.6, '2022-11-21 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.7, '2022-11-22 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 75.5, '2022-11-23 10:47:41', 1000);
+INSERT INTO disponibilidade VALUES (NULL, 81.5, '2022-11-24 10:47:41', 1000);
 
-INSERT INTO estadoDeUso VALUES(NULL, 2, 3, 1, 0, '2022-11-05 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 3, 2, 1, 0, '2022-11-06 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 4, 2, 0, 0, '2022-11-07 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 5, 0, 1, 0, '2022-11-08 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 6, 0, 0, 0, '2022-11-09 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 4, 1, 1, 0, '2022-11-10 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 5, 1, 0, 0, '2022-11-11 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 2, 2, 1, 1, '2022-11-12 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 3, 3, 0, 0, '2022-11-13 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-14 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-15 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-16 04:29:11', 1000);
-INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-17 04:29:11', 1000);
-
-INSERT INTO infoChamados VALUES(1,0,0);
+INSERT INTO estadoDeUso VALUES(NULL, 4, 1, 1, 0, '2022-11-18 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 5, 1, 0, 0, '2022-11-19 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 2, 2, 1, 1, '2022-11-20 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 3, 3, 0, 0, '2022-11-21 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-22 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-23 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-24 04:29:11', 1000);
+INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-25 04:29:11', 1000);

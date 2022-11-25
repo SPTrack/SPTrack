@@ -74,32 +74,37 @@ function listarMaquinas(idInstituicao){
 }
 
 function listarDadosMaquinas(idEquipamento){
-   return database.executar(`select idComponente, idEquipamento, modelo, tipo, nome, sistemaOperacional, fkSala from equipamento, componente, locacao
-   where componente.fkEquipamento = idEquipamento and idEquipamento= ${idEquipamento} AND locacao.fkEquipamento = ${idEquipamento};`);
+   return database.executar(`SELECT idComponente, idEquipamento, modelo, tipo, nome, sistemaOperacional, fkSala from equipamento, componente, locacao
+   WHERE componente.fkEquipamento = idEquipamento AND idEquipamento= ${idEquipamento} AND locacao.fkEquipamento = ${idEquipamento};`);
 }
 
 function editarMaquinasProc(idEquipamento, modelo,  cpu, sistemaOperacional, idCpu  ) {
     return database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${cpu}', 
     sistemaOperacional = '${sistemaOperacional}' 
-    where fkEquipamento = idEquipamento and idEquipamento = ${idEquipamento} and idComponente = ${idCpu } and tipo = 'processador';`);
+    WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idCpu } AND tipo = 'processador';`);
 }
 
 function editarMaquinasMemo(idEquipamento, modelo,  memoria, sistemaOperacional, idMemoria ) {
     database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${memoria}', 
     sistemaOperacional = '${sistemaOperacional}' 
-    where fkEquipamento = idEquipamento and idEquipamento = ${idEquipamento} and idComponente = ${idMemoria} and tipo = 'Memória RAM';`);
+    WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idMemoria} AND tipo = 'Memória RAM';`);
 }
 
 function editarMaquinasDisc(idEquipamento, modelo,  armazenamento, sistemaOperacional,idArmazenamento ) {
     database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${armazenamento}', 
     sistemaOperacional = '${sistemaOperacional}' 
-    where fkEquipamento = idEquipamento and idEquipamento = ${idEquipamento} and idComponente = ${idArmazenamento} and tipo = 'Disco Rígido';`);
+    WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idArmazenamento} AND tipo = 'Disco Rígido';`);
 }
 
-function editarMaquinas(idInstituicao ,modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema) {
-    editarMaquinasDisc(idEquipamento, modelo,  armazenamento , sistema, idArmazenamento)
-    editarMaquinasMemo(idEquipamento, modelo,  memoria , sistema, idMemoria)
-    return editarMaquinasProc(idEquipamento, modelo, cpu, sistema, idCpu)
+function editarLocacao(idEquipamento, idSala) {
+    database.executar(`UPDATE locacao SET fkSala = ${idSala} WHERE fkEquipamento = ${idEquipamento};`);
+}
+
+function editarMaquinas(idInstituicao ,modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema, idSala) {
+    editarLocacao(idEquipamento, idSala);
+    editarMaquinasMemo(idEquipamento, modelo,  memoria , sistema, idMemoria);
+    editarMaquinasProc(idEquipamento, modelo, cpu, sistema, idCpu);
+    return editarMaquinasDisc(idEquipamento, modelo,  armazenamento , sistema, idArmazenamento);
 }
 
 function pegarInfoChamado(){

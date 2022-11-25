@@ -9,7 +9,7 @@ function setDash(){
         percent = 100 - (salasObj[key]['qtdManutencao'] * 100) / salasObj[key]['qtdMaquinas'];
 
         x = document.getElementById(`span_percent${salasObj[key]["id"]}`)
-        x.innerHTML = `${percent}%`;
+        x.innerHTML = `${percent.toFixed(0)}%`;
 
         y = document.getElementById(`progBar${salasObj[key]['id']}`);
         z = document.getElementById(`icon${salasObj[key]['id']}`);

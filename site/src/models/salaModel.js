@@ -1,14 +1,22 @@
 var database = require("../database/config");
 
 function cadastrar(nome, fkInstituicao) {
-    return database.executar(`INSERT INTO sala VALUES (null, '${nome}', ${fkInstituicao});`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`INSERT INTO sala VALUES (NULL, '${nome}', ${fkInstituicao});`);
+    }else if (process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`INSERT INTO sala (nome, fkInstituicao)
+        VALUES ('${nome}', ${fkInstituicao});`);
+    }
 }
 
 function getSalas(idInstituicao){
     return database.executar(`SELECT * FROM sala WHERE fkInstituicao = ${idInstituicao};`)
 }
 function getDadoSala(salaAtual,novaSala,idComputador){
-    return database.executar(`update locacao,sala,equipamento set locacao.fkSala = ${novaSala} where idEquipamento = fkEquipamento and idSala = fkSala and sala.idSala = ${salaAtual} and equipamento.idEquipamento = ${idComputador};`)
+    return database.executar(`UPDATE locacao, sala, equipamento 
+    SET locacao.fkSala = ${novaSala} 
+    WHERE idEquipamento = fkEquipamento and idSala = fkSala and sala.idSala = ${salaAtual} 
+    AND equipamento.idEquipamento = ${idComputador};`)
 }
 
 function getMaquinasSala(idInstituicao, idSala){

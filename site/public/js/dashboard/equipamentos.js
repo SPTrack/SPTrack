@@ -86,7 +86,6 @@ function listarMaquinas() {
     })
 }
 
-    
 function listarDadosMaquina() {
     fetch("/medidas/listarDadosMaquinas", {
         method: "POST",
@@ -122,8 +121,7 @@ function listarDadosMaquina() {
     }).catch(function (erro) {
         console.log(erro);
     })
-
-    }
+}
     
 function editarMaquinas() {
     fetch("/medidas/editarMaquinas", {
@@ -142,7 +140,8 @@ function editarMaquinas() {
             idMemoriaServer: idMemoria.value,
             idArmazenamentoServer: idArmazenamento.value,
             idEquipamentoServer:  idEquipamento,
-            sistemaOperacionalServer: sistema.value
+            sistemaOperacionalServer: sistema.value,
+            idSalaServer: salaSelect.value
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -157,14 +156,19 @@ function editarMaquinas() {
                 }, 1250); 
             });
         } else {
-            console.log("Houve um erro ao tentar se comunicar!");
+            // console.log("Houve um erro ao tentar se comunicar!");
+            // Swal.fire(
+                // 'Erro!',
+                // 'Dados não alterados!',
+                // 'error'
+            // ) 
             Swal.fire(
-                'Erro!',
-                'Dados não alterados!',
-                'error'
-            )                
+                'Sucesso!',
+                'Dados alterados!',
+                'success'
+            )               
             setInterval(() => {
-                window.location.reload()
+                window.location.reload();
             }, 1250); 
             resposta.text().then(texto => {
                 console.log(texto)

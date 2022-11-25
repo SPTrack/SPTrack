@@ -245,6 +245,7 @@ function editarMaquinas(request, response) {
     var idArmazenamento = request.body.idArmazenamentoServer;
     var idEquipamento = request.body.idEquipamentoServer;
     var sistema = request.body.sistemaOperacionalServer;
+    var idSala = request.body.idSalaServer;
 
     if (modelo == null || modelo == undefined) {
         response.status(400).send('modelo obrigatório!')
@@ -264,16 +265,21 @@ function editarMaquinas(request, response) {
         response.status(400).send('IdEquipamento é obrigatório!')
     } else if (sistema == null || sistema == undefined) {
         response.status(400).send('sistema é obrigatório!')
+    } else if (idSala == null || idSala == undefined) {
+        response.status(400).send('Sala é obrigatório!')
     } else {
-        medidasModel.editarMaquinas(idInstituicao, modelo, cpu, memoria, armazenamento, idCpu, idMemoria, idArmazenamento, idEquipamento, sistema)
+        medidasModel.editarMaquinas(idInstituicao, modelo, cpu, memoria, armazenamento, idCpu, idMemoria, idArmazenamento, idEquipamento, sistema, idSala)
             .then(resultado => {
-                response.json(resultado);
+                if(resultado == undefined){
+                    response.json({'status': 'success'});
+                }else{
+                    response.json(resultado);
+                }
             }).catch(function (erro) {
                 console.log(erro);
                 console.log("\nHouve um erro ao editar os dados da instituição! Erro: ", erro.sqlMessage);
                 response.status(500).json(erro.sqlMessage);
             });
-        
     }
 }
 

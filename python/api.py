@@ -19,66 +19,75 @@ print('\033[1mSPTrack\033[0m\n\nloading...')
 modo = 'prod'
 
 if modo == 'dev':
-    conexao = pymysql.connect(host="localhost",user="sptrackClient", password="urubu100", database="SPTrack")
+    conexao = pymysql.connect(
+        host="localhost", user="sptrackClient", password="urubu100", database="SPTrack")
 elif modo == 'prod':
     try:
-        conexao = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+"sptrack.database.windows.net"+';DATABASE='+"SPTrack"+';ENCRYPT=yes;UID='+"sptrackClient"+';PWD='+ "Sprint2SPTrack")
+        conexao = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+"sptrack.database.windows.net" +
+                                 ';DATABASE='+"SPTrack"+';ENCRYPT=yes;UID='+"sptrackClient"+';PWD=' + "Sprint2SPTrack")
     except:
-        conexao = pymysql.connect(host="localhost",user="sptrackClient", password="urubu100", database="SPTrack")
+        conexao = pymysql.connect(
+            host="localhost", user="sptrackClient", password="urubu100", database="SPTrack")
         modo = 'dev'
 cursor = conexao.cursor()
 
 try:
-    cursor.execute(f"SELECT enderecoMac, idEquipamento FROM equipamento WHERE enderecoMac = '{getmac.get_mac_address()}'")
+    cursor.execute(
+        f"SELECT enderecoMac, idEquipamento FROM equipamento WHERE enderecoMac = '{getmac.get_mac_address()}'")
     dados = cursor.fetchone()
 
     enderecoMac = dados[0]
     idEquipamento = dados[1]
 except:
     os.system(cls)
-    print("\033[1mSPTrack\033[0m\n\nMáquina não encontrada. Entre em contato com o suporte!")
+    print(
+        "\033[1mSPTrack\033[0m\n\nMáquina não encontrada. Entre em contato com o suporte!")
     sleep(3)
     exit()
 
 idCPU = idRAM = idDK = 0
 
 try:
-    cursor.execute(f"SELECT idComponente FROM componente WHERE fkEquipamento = {idEquipamento} AND tipo = 'Processador';")
+    cursor.execute(
+        f"SELECT idComponente FROM componente WHERE fkEquipamento = {idEquipamento} AND tipo = 'Processador';")
     idCPU = cursor.fetchone()[0]
-    
-    cursor.execute(f"SELECT idComponente FROM componente WHERE fkEquipamento = {idEquipamento} AND tipo = 'Memória RAM';")
+
+    cursor.execute(
+        f"SELECT idComponente FROM componente WHERE fkEquipamento = {idEquipamento} AND tipo = 'Memória RAM';")
     idRAM = cursor.fetchone()[0]
-     
-    cursor.execute(f"SELECT idComponente FROM componente WHERE fkEquipamento = {idEquipamento} AND tipo = 'Disco Rígido';")
+
+    cursor.execute(
+        f"SELECT idComponente FROM componente WHERE fkEquipamento = {idEquipamento} AND tipo = 'Disco Rígido';")
     idDK = cursor.fetchone()[0]
 except:
     os.system(cls)
-    print("\033[1mSPTrack\033[0m\n\Componentes não encontrados. Entre em contato com o suporte!")   
+    print(
+        "\033[1mSPTrack\033[0m\n\Componentes não encontrados. Entre em contato com o suporte!")
     os.system(cls)
     sleep(3)
     exit()
 
 while True:
     os.system(cls)
-    
+
     new_dash = VSplit(
         HSplit(
             HGauge(),
             title='CPU',
             border_color=4
-        ),            
+        ),
         HSplit(
             HSplit(
                 HGauge(),
                 title='MEMÓRIA',
-                border_color=3        
+                border_color=3
             ),
             HSplit(
                 HGauge(),
                 title='DISCO',
-                border_color=5        
+                border_color=5
             )
-        )            
+        )
     )
 
     os.system(cls)
@@ -92,7 +101,7 @@ while True:
 
         if cpu_use > 80:
             cards.abrirChamadoCPUTriagem()
-        
+
         ram_dash = new_dash.items[1].items[0]
         ram_percent_dash = ram_dash.items[0]
         ram_use = virtual_memory().percent
@@ -106,34 +115,40 @@ while True:
         disc_dash = new_dash.items[1].items[1]
         disc_percent_dash = disc_dash.items[0]
         disc_use = disk_usage('/').percent
-        disc_useMB = disk_usage('/').used/ (1024.0 ** 2)
+        disc_useMB = disk_usage('/').used / (1024.0 ** 2)
         disc_percent_dash.value = float(round(disc_use, 2))
         disc_percent_dash.title = f'DISCO {disc_use}%'
         disc_freeGB = disk_usage('/').free / 1024.0 ** 3
-        
+
         if disk_usage('/').free < 32.0:
             cards.abrirChamadoHDTriagem()
 
         sleep(0.2)
         with conexao.cursor() as cursor:
             if modo == 'dev':
-                cursor.execute(f"INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {idCPU});")
+                cursor.execute(
+                    f"INSERT INTO medida VALUES(NULL, {cpu_use}, NOW(), {idCPU});")
                 conexao.commit()
 
-                cursor.execute(f"INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {idRAM});")
+                cursor.execute(
+                    f"INSERT INTO medida VALUES(NULL, {ram_useGB}, NOW(), {idRAM});")
                 conexao.commit()
 
-                cursor.execute(f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {idDK});')
+                cursor.execute(
+                    f'INSERT INTO medida VALUES(NULL, {disc_useMB}, NOW(), {idDK});')
                 conexao.commit()
 
             elif modo == 'prod':
-                cursor.execute(f"INSERT INTO medida VALUES({cpu_use}, GETDATE(), {idCPU});")
+                cursor.execute(
+                    f"INSERT INTO medida VALUES({cpu_use}, GETDATE(), {idCPU});")
                 conexao.commit()
 
-                cursor.execute(f"INSERT INTO medida VALUES({ram_useGB}, GETDATE(), {idRAM});")
+                cursor.execute(
+                    f"INSERT INTO medida VALUES({ram_useGB}, GETDATE(), {idRAM});")
                 conexao.commit()
 
-                cursor.execute(f'INSERT INTO medida VALUES({disc_useMB}, GETDATE(), {idDK});')
+                cursor.execute(
+                    f'INSERT INTO medida VALUES({disc_useMB}, GETDATE(), {idDK});')
                 conexao.commit()
 
         try:

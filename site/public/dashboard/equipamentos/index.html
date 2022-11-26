@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="../../js/funcoes.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>SPTrack - Equipamentos</title>
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -44,7 +45,7 @@
                     <li class="nav-item"><a class="nav-link" href="../chamados/"><i class="fas fa-info-circle"></i><span>Chamados</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
-                        id="sidebarToggle" type="button"></button></div>
+                        id="sidebarToggle" type="button" onclick="movaNav()"></button></div>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
@@ -315,3 +316,7 @@
 </body>
 
 </html>
+
+<script>
+    verifyNav();
+</script>

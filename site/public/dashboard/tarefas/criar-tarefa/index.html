@@ -14,6 +14,7 @@
 <head>
     <meta charset="utf-8">
     <script src="../../../js/funcoes.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>SPTrack - Criar Tarefa</title>
     <link rel="stylesheet" href="../../../bootstrap/bootstrap/css/bootstrap.min.css">
@@ -48,7 +49,7 @@
                     <li class="nav-item"><a class="nav-link" href="../../chamados/"><i class="fas fa-info-circle"></i><span>Chamados</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
-                        id="sidebarToggle" type="button"></button></div>
+                        id="sidebarToggle" type="button" onclick="movaNav()"></button></div>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
@@ -378,25 +379,38 @@
                                                             <div class="col">
                                                                 <div class="mb-3">
                                                                     <span>
-                                                                        <abbrtitle title="Data em que a tarefa deverá ser iniciada. Por exemplo: A partir do dia 27/10 a tarefa deverá iniciar suas coletas.">
+                                                                        <abbrtitle title="Como você desejar selecionar as máquinas?">
                                                                             <label class="form-label"
-                                                                            for="address"><strong>Quando a tarefa deverá ser criada?</strong></label><br>
-                                                                            <fieldset id="dataInicio">
-                                                                                <input type="radio" id="dataInicioAgora" name="dataInicio" value="true" onclick="updateDate(0, this.value)">
-                                                                                <label for="dataInicioAgora">Imediatamente</label><br>
-                                                                                <input type="radio" id="dataInicioEscolha" name="dataInicio" value="false" onclick="updateDate(0, this.value)">
-                                                                                <label for="dataInicioEscolha">Escolher Data</label><br>
+                                                                            for="address"><strong>Agrupar por</strong></label><br>
+                                                                            <fieldset id="agrupamento">
+                                                                                <input type="radio" id="agruparSala" name="agrupamento" value="true" onclick="updateGroup(this.value)">
+                                                                                <label for="agruparSala">Salas</label><br>
+                                                                                <input type="radio" id="agruparPersonalizado" name="agrupamento" value="false" onclick="updateGroup(this.value)">
+                                                                                <label for="agruparPersonalizado">Personalizado</label><br>
                                                                             </fieldset>
                                                                         </abbrtitle>
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                             <div class="col">
-                                                                <div class="mb-3" id="dataInicioInput" style="display: none"><label class="form-label"
-                                                                        for="address"><strong>Dia e Horário</strong></label><br>
-                                                                        <input type="datetime-local" id="dateTimeInicio">
+                                                                <div class="mb-3" id="salasSelecionadasField" style="display: none"><label class="form-label"
+                                                                        for="address"><strong>Escolha as Salas</strong></label><br>
+                                                                        <fieldset id="salasSelecionadas"></fieldset>
                                                             </div>
-
+                                                        </div>
+                                                        <div class="row" id="equipamentosSelecionados" style="display: none">
+                                                            <div class="col">
+                                                                <div class="mb-3">
+                                                                    <span>
+                                                                        <abbrtitle title="Selecione as Máquinas">
+                                                                            <label class="form-label"
+                                                                            for="address"><strong>Selecione as Máquinas</strong></label><br>
+                                                                            <fieldset id="agrupamentoPersonalizado">
+                                                                                
+                                                                            </fieldset>
+                                                                        </abbrtitle>
+                                                                    </span>
+                                                                </div>
                                                         </div>
                                         </form><button class="btn btn-primary btn-sm" type="submit"
                                             style="background: rgb(0,0,0);" onclick="editar()">Editar</button>
@@ -423,3 +437,7 @@
 </body>
 
 </html>
+
+<script>
+    verifyNav();
+</script>

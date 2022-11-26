@@ -1,30 +1,21 @@
-// sessão
 function validarSessao() {
-    // aguardar();
-
     var email = sessionStorage.EMAIL_USUARIO;
     var nome = sessionStorage.NOME_USUARIO;
-
     var b_usuario = document.getElementById("b_usuario");
 
     if (email != null && nome != null) {
-        // window.alert(`Seja bem-vindo, ${nome}!`);
         b_usuario.innerHTML = nome;
 
-        // finalizarAguardar();
     } else {
         window.location = "../login.html";
     }
 }
 
 function limparSessao() {
-    // aguardar();
     sessionStorage.clear();
-    // finalizarAguardar();
     window.location = window.origin + '/login';
 }
 
-// carregamento (loading)
 function aguardar() {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "flex";
@@ -40,8 +31,6 @@ function finalizarAguardar(texto) {
     }
 }
 
-
-// modal
 function mostrarModal() {
     var divModal = document.getElementById("div_modal");
     divModal.style.display = "flex";
@@ -52,3 +41,20 @@ function fecharModal() {
     divModal.style.display = "none";
 }
 
+function movaNav(){
+    console.log(localStorage.getItem("mode"))
+    if(localStorage.getItem("mode") != "aberto" && localStorage.getItem("mode") != "fechado"){
+        localStorage.setItem("mode", "fechado");
+    }else if(localStorage.getItem("mode") == "aberto"){
+        localStorage.setItem("mode", "fechado");
+    }else if(localStorage.getItem("mode") == "fechado"){
+        localStorage.setItem("mode", "aberto");
+    }
+}
+
+function verifyNav(){
+    if(localStorage.getItem("mode") == "aberto"){
+        $("#sidebarToggle").click();
+        localStorage.setItem("mode", "aberto");
+    }
+}

@@ -36,17 +36,15 @@ function verificarDia(dia){
 }
 
 function setDayDate(day){
-    if(day == '1'){
+    if(day == '0'){
         isAtivo = verificarDia(domingoTimeBox);
-        console.log(isAtivo)
 
         if(isAtivo){
             domingoTimeBox.style.display = 'none';
         }else if(!isAtivo){
-            console.log(isAtivo)
             domingoTimeBox.style.display = 'block';
         }
-    }else if(day == '2'){
+    }else if(day == '1'){
         isAtivo = verificarDia(segundaTimeBox);
 
         if(isAtivo){
@@ -54,7 +52,7 @@ function setDayDate(day){
         }else{
             segundaTimeBox.style.display = 'block';
         }
-    }else if(day == '3'){
+    }else if(day == '2'){
         isAtivo = verificarDia(tercaTimeBox);
 
         if(isAtivo){
@@ -62,7 +60,7 @@ function setDayDate(day){
         }else{
             tercaTimeBox.style.display = 'block';
         }
-    }else if(day == '4'){
+    }else if(day == '3'){
         isAtivo = verificarDia(quartaTimeBox);
 
         if(isAtivo){
@@ -70,7 +68,7 @@ function setDayDate(day){
         }else{
             quartaTimeBox.style.display = 'block';
         }
-    }else if(day == '5'){
+    }else if(day == '4'){
         isAtivo = verificarDia(quintaTimeBox);
 
         if(isAtivo){
@@ -78,7 +76,7 @@ function setDayDate(day){
         }else{
             quintaTimeBox.style.display = 'block';
         }
-    }else if(day == '6'){
+    }else if(day == '5'){
         isAtivo = verificarDia(sextaTimeBox);
 
         if(isAtivo){
@@ -86,7 +84,7 @@ function setDayDate(day){
         }else{
             sextaTimeBox.style.display = 'block';
         }
-    }else if(day == '7'){
+    }else if(day == '6'){
         isAtivo = verificarDia(sabadoTimeBox);
 
         if(isAtivo){
@@ -227,19 +225,144 @@ function getMaquinasInstituicao(){
     })
 }
 
-function enviarRequisicao(){
+function setTarefasXequipamentos(idTarefa, maquinas){
+    fetch("/tarefas/setTarefaXequipamentos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
+            idTarefaServer: idTarefa,
+            maquinasServer: maquinas,
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json)
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function getLastTarefa(maquinas){
+    fetch("/tarefas/getLastTarefa", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
+            maquinasServer: maquinas
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                setTarefasXequipamentos(json[0]['idTarefa'], maquinas);
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function enviarRequisicao(nomeTarefa, descricao, dtInicio, dtFim, diasOperacoes, inicioOperacoes, fimOperacoes, maquinas){
+    isDomingo = "0"; isSegunda = "0"; isTerca = "0"; isQuarta = "0"; isQuinta = "0"; isSexta = "0"; isSabado = "0"; horarioInicioDomingo = "NULL";
+    horarioFimDomingo = "NULL"; horarioInicioSegunda = "NULL"; horarioFimSegunda = "NULL"; horarioInicioTerca = "NULL"; horarioFimTerca = "NULL"; horarioInicioQuarta = "NULL";
+    horarioFimQuarta = "NULL"; horarioInicioQuinta = "NULL"; horarioFimQuinta = "NULL"; horarioInicioSexta = "NULL"; horarioFimSexta = "NULL"; horarioInicioSabado = "NULL"; horarioFimSabado = "NULL";
+
+    for(i = 0; i < diasOperacoes.length; i++){
+        if(diasOperacoes[i] == '0'){
+            isDomingo = "1";
+            horarioInicioDomingo = `'${inicioOperacoes[i]}'`;
+            horarioFimDomingo = `'${fimOperacoes[i]}'`;
+        }else if(diasOperacoes[i] == '1'){
+            isSegunda = "1";
+            horarioInicioSegunda = `'${inicioOperacoes[i]}'`;
+            horarioFimSegunda = `'${fimOperacoes[i]}'`;
+        }else if(diasOperacoes[i] == '2'){
+            isTerca = "1";
+            horarioInicioTerca = `'${inicioOperacoes[i]}'`;
+            horarioFimTerca = `'${fimOperacoes[i]}'`;
+        }else if(diasOperacoes[i] == '3'){
+            isQuarta = "1";
+            horarioInicioQuarta = `'${inicioOperacoes[i]}'`;
+            horarioFimQuarta = `'${fimOperacoes[i]}'`;
+        }else if(diasOperacoes[i] == '4'){
+            isQuinta = "1";
+            horarioInicioQuinta = `'${inicioOperacoes[i]}'`;
+            horarioFimQuinta = `'${fimOperacoes[i]}'`;
+        }else if(diasOperacoes[i] == '5'){
+            isSexta = "1";
+            horarioInicioSexta = `'${inicioOperacoes[i]}'`;
+            horarioFimSexta = `'${fimOperacoes[i]}'`;
+        }else if(diasOperacoes[i] == '6'){
+            isSabado = "1";
+            horarioInicioSabado = `'${inicioOperacoes[i]}'`;
+            horarioFimSabado = `'${fimOperacoes[i]}'`;
+        }
+    }
+
     fetch("/tarefas/insertTarefa", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
+            nomeTarefaServer: nomeTarefa,
+            descricaoServer: descricao,
+            dtInicioServer: dtInicio,
+            dtFimServer: dtFim,
+            isDomingoServer: isDomingo,
+            isSegundaServer: isSegunda,
+            isTercaServer: isTerca,
+            isQuartaServer: isQuarta,
+            isQuintaServer: isQuinta,
+            isSextaServer: isSexta,
+            isSabadoServer: isSabado,
+            horarioInicioDomingoServer: horarioInicioDomingo,
+            horarioFimDomingoServer: horarioFimDomingo,
+            horarioInicioSegundaServer: horarioInicioSegunda,
+            horarioFimSegundaServer: horarioFimSegunda,
+            horarioInicioTercaServer: horarioInicioTerca,
+            horarioFimTercaServer: horarioFimTerca,
+            horarioInicioQuartaServer: horarioInicioQuarta,
+            horarioFimQuartaServer: horarioFimQuarta,
+            horarioInicioQuintaServer: horarioInicioQuinta,
+            horarioFimQuintaServer: horarioFimQuinta,
+            horarioInicioSextaServer: horarioInicioSexta,
+            horarioFimSextaServer: horarioFimSexta,
+            horarioInicioSabadoServer: horarioInicioSabado,
+            horarioFimSabadoServer: horarioFimSabado
         })
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
                 console.log(json)
+                getLastTarefa(maquinas);
+                Swal.fire(
+                    'Sucesso!',
+                    'Tarefa criada com sucesso!',
+                    'success'
+                )                
+                setInterval(() => {
+                    window.location = window.location.href = "../";
+                }, 2000); 
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -290,13 +413,13 @@ function criarTarefa(){
     }
     
     // Revalidar teste depois
-    if(isDataInicioNull != undefined && isDataFimNull != undefined){
-        if(!isDataInicioNull && !isDataFimNull){
-            if(dateTimeInicio.value >= dateTimeInicio.value){
-                erros.push("Datas incorretas para início das tarefas!")
-            }
-        }
-    }
+    // if(isDataInicioNull != undefined && isDataFimNull != undefined){
+    //     if(!isDataInicioNull && !isDataFimNull){
+    //         if(dateTimeInicio.value >= dateTimeInicio.value){
+    //             erros.push("Datas incorretas para início das tarefas!")
+    //         }
+    //     }
+    // }
 
     if(isImediatamente == undefined){
         erros.push("Escolha uma opção para o início da tarefa!");
@@ -335,27 +458,43 @@ function criarTarefa(){
     }
 
     if(erros.length == 0){
-        console.log("Nome: " + nomeTarefa.value);
-        console.log("Descrição: " + descricao.value);
+        dtInicio = '';
+        dtFim = '';
+
+        console.log('Nome: ' + nomeTarefa.value);
+        console.log('Descrição: ' + descricao.value);
         
         if(isDataInicioNull){
-            console.log("Data Início: NOW()");
+            dtInicio = 'NOW()';
+            console.log('Data Início: NOW()');
         }else{
-            console.log("Data Início: " + dateTimeInicio.value);
+            dtInicio = dateTimeInicio.value;
+            console.log('Data Início: ' + dateTimeInicio.value);
         }
 
         if(isDataFimNull){
+            dtFim = 'NULL';
             console.log("Data Fim: NULL");
         }else{
+            dtFim = dateTimeFim.value;
             console.log("Data Fim: " + dateTimeFim.value);
         }
 
-        console.log("Dias: " + diasOperacoes);
-        console.log("Horários Iniciais: " + inicioOperacoes);
-        console.log("Horários Finais: " + fimOperacoes);
-        console.log("Máquinas Participantes: " + maquinas);
-
-        enviarRequisicao();
+        console.log('Dias: ' + diasOperacoes);
+        console.log('Horários Iniciais: ' + inicioOperacoes);
+        console.log('Horários Finais: ' + fimOperacoes);
+        console.log('Máquinas Participantes: ' + maquinas);
+        enviarRequisicao(nomeTarefa.value, descricao.value, dtInicio, dtFim, diasOperacoes, inicioOperacoes, fimOperacoes, maquinas);
+    }else{
+        mensagem = '';
+        for(i = 0; i < erros.length; i++){
+            mensagem += erros[i] + '<br>';
+        }
+        Swal.fire(
+            'Erro!',
+            mensagem,
+            'error'
+        )
     }
 }
 

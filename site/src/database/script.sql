@@ -140,14 +140,43 @@ CREATE TABLE tarefa(
     idTarefa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(64) NOT NULL,
     descricao VARCHAR(256) NOT NULL,
-    dataInicio DATE NOT NULL,
-    dataFim DATE,
-    horarioInicio DATETIME NOT NULL,
-    horarioFim DATETIME NOT NULL,
+    dataInicio DATETIME NOT NULL,
+    dataFim DATETIME,
+    isDomingo TINYINT CHECK (isDomingo IN (0, 1)) NOT NULL,
+    isSegunda TINYINT CHECK (isSegunda IN (0, 1)) NOT NULL,
+    isTerca TINYINT CHECK (isTerca IN (0, 1)) NOT NULL,
+    isQuarta TINYINT CHECK (isQuarta IN (0, 1)) NOT NULL,
+    isQuinta TINYINT CHECK (isQuinta IN (0, 1)) NOT NULL,
+    isSexta TINYINT CHECK (isSexta IN (0, 1)) NOT NULL,
+    isSabado TINYINT CHECK (isSabado IN (0, 1)) NOT NULL,
+
+    horarioInicioDomingo TIME,
+    horarioFimDomingo TIME,
+    horarioInicioSegunda TIME,
+    horarioFimSegunda TIME,
+    horarioInicioTerca TIME,
+    horarioFimTerca TIME,
+    horarioInicioQuarta TIME,
+    horarioFimQuarta TIME,
+    horarioInicioQuinta TIME,
+    horarioFimQuinta TIME,
+    horarioInicioSexta TIME,
+    horarioFimSexta TIME,
+    horarioInicioSabado TIME,
+    horarioFimSabado TIME,
 
     fkInstituicao INT,
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 4000;
+
+CREATE TABLE tarefaXequipamento(
+    fkTarefa INT NOT NULL,
+    fkEquipamento INT NOT NULL,
+    PRIMARY KEY(fkTarefa, fkEquipamento),
+
+    FOREIGN KEY (fkTarefa) REFERENCES tarefa(idTarefa),
+    FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento)
+) AUTO_INCREMENT = 50000;
 
 CREATE TABLE medidaTarefa(
     idMedida INT PRIMARY KEY AUTO_INCREMENT,
@@ -157,7 +186,6 @@ CREATE TABLE medidaTarefa(
     fkComponente INT,
     FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
 ) AUTO_INCREMENT = 600000;
-
 
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro

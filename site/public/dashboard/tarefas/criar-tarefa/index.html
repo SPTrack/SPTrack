@@ -15,6 +15,7 @@
     <meta charset="utf-8">
     <script src="../../../js/funcoes.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>SPTrack - Criar Tarefa</title>
     <link rel="stylesheet" href="../../../bootstrap/bootstrap/css/bootstrap.min.css">
@@ -303,19 +304,19 @@
                                                                 <div class="mb-3"><label class="form-label"
                                                                         for="address"><strong>Dias</strong></label>
                                                                     <fieldset id="diasSemana">
-                                                                        <input type="checkbox" id="domingoBox" name="diasSemana" value="1" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="domingoBox" name="diasSemana" value="0" onclick="setDayDate(this.value)">
                                                                         <label for="domingoBox"> Domingo</label><br>
-                                                                        <input type="checkbox" id="segundaBox" name="diasSemana" value="2" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="segundaBox" name="diasSemana" value="1" onclick="setDayDate(this.value)">
                                                                         <label for="segundaBox"> Segunda-Feira</label><br>
-                                                                        <input type="checkbox" id="tercaBox" name="diasSemana" value="3" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="tercaBox" name="diasSemana" value="2" onclick="setDayDate(this.value)">
                                                                         <label for="tercaBox"> Terça-Feira</label><br>
-                                                                        <input type="checkbox" id="quartaBox" name="diasSemana" value="4" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="quartaBox" name="diasSemana" value="3" onclick="setDayDate(this.value)">
                                                                         <label for="quartaBox"> Quarta-Feira</label><br>
-                                                                        <input type="checkbox" id="quintaBox" name="diasSemana" value="5" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="quintaBox" name="diasSemana" value="4" onclick="setDayDate(this.value)">
                                                                         <label for="quintaBox"> Quinta-Feira</label><br>
-                                                                        <input type="checkbox" id="sextaBox" name="diasSemana" value="6" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="sextaBox" name="diasSemana" value="5" onclick="setDayDate(this.value)">
                                                                         <label for="sextaBox"> Sexta-Feira</label><br>
-                                                                        <input type="checkbox" id="sabadoBox" name="diasSemana" value="7" onclick="setDayDate(this.value)">
+                                                                        <input type="checkbox" id="sabadoBox" name="diasSemana" value="6" onclick="setDayDate(this.value)">
                                                                         <label for="sabadoBox"> Sábado</label>
                                                                     </fieldset>
                                                                 </div>

@@ -102,7 +102,6 @@ function getMaquinasInstituicao(){
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json);
                 
                 for (var key in salasObj) {                
                     for(i = 0; i < json.length; i++){

@@ -13,6 +13,7 @@ var instituicaoRouter = require('./src/routes/instituicoes');
 var usuarioRouter = require('./src/routes/usuarios');
 var salaRouter = require('./src/routes/salas');
 var medidasRouter = require('./src/routes/medidas');
+var tarefasRouter = require('./src/routes/tarefas');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,6 +26,7 @@ app.use("/instituicoes", instituicaoRouter);
 app.use("/usuarios", usuarioRouter);
 app.use('/salas', salaRouter);
 app.use('/medidas', medidasRouter);
+app.use('/tarefas', tarefasRouter);
 
 app.listen(PORTA, function () {
     console.log(`Link: http://localhost:${PORTA}\nAmbiente: ${process.env.AMBIENTE_PROCESSO}`);

@@ -269,12 +269,12 @@
                                                             <div class="col">
                                                                 <div class="mb-3" id="dataInicioInput" style="display: none"><label class="form-label"
                                                                         for="address"><strong>Dia e Horário</strong></label><br>
-                                                                        <input type="datetime-local" id="dateTimeInicio">
+                                                                        <input type="datetime-local" id="dateTimeFim">
                                                             </div>
 
                                                         </div>
 
-                                                        <div class="row">
+                                                        <fo class="row">
                                                             <div class="col">
                                                                 <div class="mb-3">
                                                                     <span>
@@ -327,49 +327,49 @@
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de domingo</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="domingoTimeInicio"> até <input type="time" id="domingoTimeFim">
+                                                                    <input type="time" id="domingoTimeInicio" name="timeInicio"> até <input type="time" id="domingoTimeFim" name="timeFim">
                                                                 </div>
                                                                 <div class="mb-3" style="display: none;" id="segundaTimeBox">
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de segunda-feira</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="segundaTimeInicio"> até <input type="time" id="segundaTimeFim">
+                                                                    <input type="time" id="segundaTimeInicio" name="timeInicio"> até <input type="time" id="segundaTimeFim" name="timeFim">
                                                                 </div>
                                                                 <div class="mb-3" style="display: none;" id="tercaTimeBox">
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de terça-feira</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="tercaTimeInicio"> até <input type="time" id="tercaTimeFim">
+                                                                    <input type="time" id="tercaTimeInicio" name="timeInicio"> até <input type="time" id="tercaTimeFim" name="timeFim">
                                                                 </div>
                                                                 <div class="mb-3" style="display: none;" id="quartaTimeBox">
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de quarta-feira</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="quartaTimeInicio"> até <input type="time" id="quartaTimeFim">
+                                                                    <input type="time" id="quartaTimeInicio" name="timeInicio"> até <input type="time" id="quartaTimeFim" name="timeFim">
                                                                 </div>
                                                                 <div class="mb-3" style="display: none;" id="quintaTimeBox">
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de quinta-feira</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="quintaTimeInicio"> até <input type="time" id="quintaTimeFim">
+                                                                    <input type="time" id="quintaTimeInicio" name="timeInicio"> até <input type="time" id="quintaTimeFim" name="timeFim">
                                                                 </div>
                                                                 <div class="mb-3" style="display: none;" id="sextaTimeBox">
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de sexta-feira</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="sextaTimeInicio"> até <input type="time" id="sextaTimeFim">
+                                                                    <input type="time" id="sextaTimeInicio" name="timeInicio"> até <input type="time" id="sextaTimeFim" name="timeFim">
                                                                 </div>
                                                                 <div class="mb-3" style="display: none;" id="sabadoTimeBox">
                                                                     <label class="form-label" for="address">
                                                                         <strong>Defina o horário de início/fim da captura de sábado</strong>
                                                                     </label><br>
-                                                                    <input type="time" id="sabadoTimeInicio"> até <input type="time" id="sabadoTimeInicio">
+                                                                    <input type="time" id="sabadoTimeInicio" name="timeInicio"> até <input type="time" id="sabadoTimeFim" name="timeFim">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </form>
                                                 </div>
-                                            </form>
-                                        </div><br>
+                                            </form><br>
                                             <div class="card-header py-3">
                                                 <p class="text-primary m-0 fw-bold">Grupo de Equipamentos</p>
                                             </div>
@@ -394,7 +394,7 @@
                                                             </div>
                                                             <div class="col">
                                                                 <div class="mb-3" id="salasSelecionadasField" style="display: none"><label class="form-label"
-                                                                        for="address"><strong>Escolha as Salas</strong></label><br>
+                                                                        for="address"><strong>Selecione as Salas</strong></label><br>
                                                                         <fieldset id="salasSelecionadas"></fieldset>
                                                             </div>
                                                         </div>
@@ -406,18 +406,18 @@
                                                                             <label class="form-label"
                                                                             for="address"><strong>Selecione as Máquinas</strong></label><br>
                                                                             <fieldset id="agrupamentoPersonalizado">
-                                                                                
                                                                             </fieldset>
                                                                         </abbrtitle>
                                                                     </span>
                                                                 </div>
-                                                        </div>
-                                        </form><button class="btn btn-primary btn-sm" type="submit"
-                                            style="background: rgb(0,0,0);" onclick="editar()">Editar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        <input class="btn btn-primary btn-sm" type="button"
+                                            style="background: rgb(0,0,0);" value="Criar Tarefa" onclick="criarTarefa()">
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>

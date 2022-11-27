@@ -42,7 +42,6 @@ function fecharModal() {
 }
 
 function movaNav(){
-    console.log(localStorage.getItem("mode"))
     if(localStorage.getItem("mode") != "aberto" && localStorage.getItem("mode") != "fechado"){
         localStorage.setItem("mode", "fechado");
     }else if(localStorage.getItem("mode") == "aberto"){

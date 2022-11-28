@@ -1,4 +1,8 @@
+import pymysql
+import pyodbc
 import requests
+import getmac
+import os
 URL = "https://api.pipefy.com/graphql"
 headers = {
 
@@ -7,6 +11,33 @@ headers = {
     "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIwNzc1MzAsImVtYWlsIjoibWFyaWEubmV2ZXNAc3B0ZWNoLnNjaG9vbCIsImFwcGxpY2F0aW9uIjozMDAyMTQwNzN9fQ.y2SAHLixTf8FwwoXb7lXvPAIWXmw7rYwqlbFuDMqpaRk3iiq81x04i9BeX-dHWzE6jNS-21VG_SH_oBBqoOSpg"
 }
 
+modo = 'dev'
+# modo = 'prod'
+
+if modo == 'dev':
+    conexao = pymysql.connect(
+        host="localhost", user="sptrackClient", password="urubu100", database="SPTrack")
+elif modo == 'prod':
+    try:
+        conexao = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+"sptrack.database.windows.net" +
+                                 ';DATABASE='+"SPTrack"+';ENCRYPT=yes;UID='+"sptrackClient"+';PWD=' + "Sprint2SPTrack")
+    except:
+        conexao = pymysql.connect(
+            host="localhost", user="sptrackClient", password="urubu100", database="SPTrack")
+        modo = 'dev'
+cursor = conexao.cursor()
+
+try:
+    cursor.execute(
+        f"SELECT enderecoMac, idEquipamento FROM equipamento WHERE enderecoMac = '{getmac.get_mac_address()}'")
+    dados = cursor.fetchone()
+
+    enderecoMac = dados[0]
+    idEquipamento = dados[1]
+except:
+    os.system(cls)
+    print(
+        "Máquina não registrada, entre em contato com o suporte")
 
 def abrirChamadoCPUTriagem():
     payload = {

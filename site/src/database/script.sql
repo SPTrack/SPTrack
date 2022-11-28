@@ -190,6 +190,16 @@ CREATE TABLE medidaTarefa(
     FOREIGN KEY (fkTarefa) REFERENCES tarefa (idTarefa)
 ) AUTO_INCREMENT = 600000;
 
+CREATE TABLE chamado(
+	idChamado INT PRIMARY KEY AUTO_INCREMENT,
+	titulo VARCHAR(100),
+	tipoProblema INT,
+	dataChamado DATETIME,
+	fkEquipamento INT,
+	
+	FOREIGN KEY (fkEquipamento) REFERENCES equipamento (idEquipamento)
+) AUTO_INCREMENT = 2000000;
+
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 

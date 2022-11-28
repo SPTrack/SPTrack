@@ -184,7 +184,10 @@ CREATE TABLE medidaTarefa(
     dataRegistro DATETIME NOT NULL,
     
     fkComponente INT,
-    FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+    FOREIGN KEY (fkComponente) REFERENCES componente (idComponente),
+
+    fkTarefa INT,
+    FOREIGN KEY (fkTarefa) REFERENCES tarefa (idTarefa)
 ) AUTO_INCREMENT = 600000;
 
 CREATE VIEW `vw_medidasInstituicao` AS

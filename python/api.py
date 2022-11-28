@@ -7,6 +7,8 @@ import platform
 import getmac
 import cards
 from time import sleep
+from threading import Thread
+from tarefa import run
 
 cls = 'clear' if platform.system() == 'Linux' else 'cls'
 enderecoMac = ''
@@ -15,8 +17,8 @@ idEquipamento = 0
 os.system(cls)
 print('\033[1mSPTrack\033[0m\n\nloading...')
 
-# modo = 'dev'
-modo = 'prod'
+modo = 'dev'
+# modo = 'prod'
 
 if modo == 'dev':
     conexao = pymysql.connect(
@@ -65,6 +67,13 @@ except:
         "\033[1mSPTrack\033[0m\n\Componentes não encontrados. Entre em contato com o suporte!")
     os.system(cls)
     sleep(3)
+    exit()
+
+try:
+    thread = Thread(target = run, args=[cursor, conexao, idEquipamento, idCPU, idRAM, idDK])
+    thread.start()
+except:
+    print('Ocorreu um erro ao rodar as tarefas!')
     exit()
 
 while True:
@@ -123,7 +132,7 @@ while True:
         if disk_usage('/').free < 32.0:
             cards.abrirChamadoHDTriagem()
 
-        sleep(0.2)
+        sleep(1)
         with conexao.cursor() as cursor:
             if modo == 'dev':
                 cursor.execute(
@@ -153,6 +162,6 @@ while True:
 
         try:
             new_dash.display()
-            sleep(0.5)
+            sleep(1)
         except KeyboardInterrupt:
             break

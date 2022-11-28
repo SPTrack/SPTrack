@@ -283,7 +283,6 @@ function editarMaquinas(request, response) {
     }
 }
 
-
 function cadastrarMaquinas(request, response) {
     var nomeMaquinaCadastro = request.body.modeloServer;
     var sistemaCadastro =  request.body.sistemaOperacionalServer;
@@ -291,7 +290,6 @@ function cadastrarMaquinas(request, response) {
     var enderecoMac = request.body.enderecoMacServer;
     var numeroSerial =  request.body.numeroSerialServer;
     var idInstituicao = request.body.idInstituicaoServer;
-    
 
     if (nomeMaquinaCadastro == null || nomeMaquinaCadastro == undefined) {
         response.status(400).send('nomeMaquinaCadastro obrigatório!')

@@ -119,25 +119,21 @@ function cadastrarComponentes(idSala, nomeProcessador, capacidadeProcessador, no
     cadastrarComponenteProcessador(nomeProcessador, capacidadeProcessador, idEquipamento);
     cadastrarComponenteMemoria(nomeMemoria, capacidadeMemoria, idEquipamento);
     cadastrarComponenteDisco(nomeDisco, capacidadeDisco, idEquipamento);
-   return alocarMaquina(idEquipamento, idSala);
+    return alocarMaquina(idEquipamento, idSala);
 }
 
 function cadastrarComponenteProcessador(nomeProcessador, capacidadeProcessador, idEquipamento) {
-    print("cadastroProcessador")
     database.executar(`INSERT INTO componente VALUES (NULL, '${nomeProcessador}', '%', ${capacidadeProcessador}, 'Processador', ${idEquipamento});`);
 }
 
 function cadastrarComponenteMemoria(nomeMemoria, capacidadeMemoria, idEquipamento) {
-    print("cadastroMemo")
     database.executar(`INSERT INTO componente VALUES (NULL, '${nomeMemoria}', '%', ${capacidadeMemoria}, 'Memória RAM', ${idEquipamento});`);
 }
 function cadastrarComponenteDisco(nomeDisco, capacidadeDisco, idEquipamento) {
-    print("cadastroDisc")
     database.executar(`INSERT INTO componente VALUES (NULL, '${nomeDisco}', '%', ${capacidadeDisco}, 'Disco Rígido', ${idEquipamento});`);
 }
 
 function alocarMaquina(idEquipamento, idSala) {
-    print("AlocarMa")
    return database.executar(`INSERT INTO locacao VALUES(${idEquipamento},${idSala}, NOW());`);
 }
 

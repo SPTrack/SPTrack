@@ -177,18 +177,11 @@
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Equipamentos</h3>
                     <div class="row mb-3">
-
-                        <div class="container-fluid">
-                            <div id="lista_maquinas" class="d-sm-flex justify-content-between align-items-center mb-4">
-
-                            </div>
-                            <div class="row" id="divPai">
-                                <div class="col-md-6 col-xl-3 mb-4">
-
-                                </div>
-
-
-                            </div>
+                        <div style="text-align: center; padding: 24px;">
+                            <button class="btn btn-primary btn-sm" style="padding: 10px 16px; margin-right: 16px; 
+                            font-size: 16px; width: 130px;" onclick="hide(0)" id="cadButton">Cadastrar</button>
+                            <button class="btn btn-primary btn-sm" style="background-color: #858796; color: black; border: 1px solid #858796; 
+                            padding: 10px 16px; margin-left: 16px; font-size: 16px; width: 130px;" onclick="hide(1)" id="editButton">Editar</button>
                         </div>
 
                         <div class="col-lg-8">
@@ -226,7 +219,19 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-3">
+                                    <div class="card shadow mb-3" id="hideEditar" style="display: none">
+                                        <div class="container-fluid">
+                                            <div id="lista_maquinas" class="d-sm-flex justify-content-between align-items-center mb-4">
+                
+                                            </div>
+                                            <div class="row" id="divPai">
+                                                <div class="col-md-6 col-xl-3 mb-4">
+                
+                                                </div>
+                
+                
+                                            </div>
+                                        </div>
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Dados do
                                                 Equipamento</p>
@@ -299,7 +304,7 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-3">
+                                    <div class="card shadow mb-3" id="hideCadastrar">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Formulário de Cadastro de
                                                 Equipamento</p>
@@ -335,7 +340,7 @@
                                                         <div class="mb-3"><label class="form-label"
                                                                 for="first_name"><strong>Endereço MAC</strong><br></label><input
                                                                 id="enderecoMac" class="form-control" type="text"
-                                                                placeholder="b0:e1:02:c3" name="endereco_mac">
+                                                                placeholder="0a:b1:2c:3e:d4:5e" name="endereco_mac">
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -360,9 +365,9 @@
                                                         <div class="row">
                                                         <div class="col">
                                                             <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Nome do Processador</strong><br></label><input id="nomeProcessador"
+                                                                    for="last_name"><strong>Modelo</strong><br></label><input id="nomeProcessador"
                                                                     class="form-control" type="text"
-                                                                    placeholder="I5 11 Gen"
+                                                                    placeholder="Exemplo: Intel I5 11 Gen"
                                                                     name="nome_processador"></div>
                                                         </div>
 
@@ -370,10 +375,10 @@
 
                                                         <div class="col">
                                                             <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Capacidade</strong><br></label><input id="capacidadeProcessador"
+                                                                    for="last_name"><strong>Capacidade (em %)</strong><br></label><input id="capacidadeProcessador"
                                                                     class="form-control" type="number"
-                                                                    placeholder="16"
-                                                                    name="capacidade_processador"></div>
+                                                                    placeholder="100"
+                                                                    name="capacidade_processador" disabled></div>
                                                         </div>
                                                         <div class="card-header py-3"></div>
                                                         <div class="card-header py-3">
@@ -383,9 +388,9 @@
                                                         <div class="row">
                                                         <div class="col">
                                                             <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Nome da Memória</strong><br></label><input id="nomeMemoria"
+                                                                    for="last_name"><strong>Modelo da Memória</strong><br></label><input id="nomeMemoria"
                                                                     class="form-control" type="text"
-                                                                    placeholder="Pente 4x4 - 8GB"
+                                                                    placeholder="Exemplo: Pente 4x4"
                                                                     name="nome_memória"></div>
                                                         </div>
 
@@ -393,9 +398,9 @@
 
                                                         <div class="col">
                                                             <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Capacidade</strong><br></label><input id="capacidadeMemoria"
+                                                                    for="last_name"><strong>Quantidade (em GB)</strong><br></label><input id="capacidadeMemoria"
                                                                     class="form-control" type="number"
-                                                                    placeholder="16"
+                                                                    placeholder="Exemplo: 8"
                                                                     name="capacidade_memoria"></div>
                                                         </div>
 
@@ -410,7 +415,7 @@
                                                             <div class="mb-3"><label class="form-label"
                                                                     for="last_name"><strong>Nome do Disco Rígido</strong><br></label><input id="nomeDisco"
                                                                     class="form-control" type="text"
-                                                                    placeholder="SSD 256GB SATA"
+                                                                    placeholder="Exemplo: SSD SATA 256GB"
                                                                     name="nome_disco"></div>
                                                         </div>
 
@@ -418,9 +423,9 @@
 
                                                         <div class="col">
                                                             <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Capacidade</strong><br></label><input id="capacidadeDisco"
+                                                                    for="last_name"><strong>Capacidade (em GB)</strong><br></label><input id="capacidadeDisco"
                                                                     class="form-control" type="number"
-                                                                    placeholder="16"
+                                                                    placeholder="Exemplo: 512"
                                                                     name="capacidade_disco"></div>
                                                         </div>
 
@@ -440,7 +445,7 @@
                         </div>
                     </form><button onclick="cadastrarMaquinas()" class="btn btn-primary btn-sm"
                     type="submit" style="background: rgb(0,0,0);">Cadastrar</button>
-                    </div>
+                </div>
 
             </div>
             <footer class="bg-white sticky-footer">

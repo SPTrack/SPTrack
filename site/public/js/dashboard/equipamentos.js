@@ -15,7 +15,29 @@ window.onload = () => {
     listarMaquinas();
     getSalas();
 };
-    
+
+function hide(mode){
+    if(mode == 0){
+        hideCadastrar.style.display = 'block';
+        hideEditar.style.display = 'none';
+        cadButton.style.backgroundColor = 'black';
+        editButton.style.backgroundColor = '#858796';
+        cadButton.style.border = '1px solid black';
+        editButton.style.border = '1px solid #858796';
+        cadButton.style.color = 'white';
+        editButton.style.color = 'black';
+    }else{
+        hideEditar.style.display = 'block';
+        hideCadastrar.style.display = 'none';
+        editButton.style.backgroundColor = 'black';
+        cadButton.style.backgroundColor = '#858796';
+        editButton.style.border = '1px solid black';
+        cadButton.style.border = '1px solid #858796';
+        editButton.style.color = 'white';
+        cadButton.style.color = 'black';
+    }
+}
+
 function listarMaquinas() {
     fetch("/medidas/listarMaquinas", {
         method: "POST",
@@ -195,7 +217,6 @@ function cadastrarMaquinas() {
             enderecoMacServer: enderecoMac.value,
             numeroSerialServer: numeroSerial.value,
             idInstituicaoServer: idInstituicaoServer,
-            
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -241,11 +262,11 @@ function cadastrarComponentes(idMaquina) {
             idEquipamentoServer: idMaquina,
             idSalaCadastroServer: salaSelectCadastro.value,
             nomeProcessadorServer: nomeProcessador.value,
-            capacidadeProcessadorServer: capacidadeProcessador.value,
+            capacidadeProcessadorServer: 100,
             nomeMemoriaServer: nomeMemoria.value,
             capacidadeMemoriaServer: capacidadeMemoria.value,
             nomeDiscoServer: nomeDisco.value,
-            capacidadeDiscoServer: capacidadeDisco.value
+            capacidadeDiscoServer: capacidadeDisco.value * 1000
         })
     }).then(function (resposta) {
 
@@ -288,10 +309,7 @@ function pegarIdNovaMaquina(){
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-
-                print(json[0]['idEquipamento']);
                return json[0]['idEquipamento'];
-              
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
@@ -304,8 +322,6 @@ function pegarIdNovaMaquina(){
         console.log(erro);
     })
 }
-
-
 
 function getSalas(){
     fetch("/salas/getSalas", {

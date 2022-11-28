@@ -277,14 +277,90 @@ function editarMaquinas(request, response) {
                 }
             }).catch(function (erro) {
                 console.log(erro);
-                console.log("\nHouve um erro ao editar os dados da instituição! Erro: ", erro.sqlMessage);
+                console.log("\nHouve um erro ao editar os dados da Maquina! Erro: ", erro.sqlMessage);
                 response.status(500).json(erro.sqlMessage);
             });
     }
 }
 
-function pegarInfoChamado(request, response){
-        console.log('Cheguei aqui!')
+
+function cadastrarMaquinas(request, response) {
+    var nomeMaquinaCadastro = request.body.modeloServer;
+    var sistemaCadastro =  request.body.sistemaOperacionalServer;
+    var numeroPatrimonio = request.body.numeroPatrimonioServer;
+    var enderecoMac = request.body.enderecoMacServer;
+    var numeroSerial =  request.body.numeroSerialServer;
+    var idInstituicao = request.body.idInstituicaoServer;
+    
+
+    if (nomeMaquinaCadastro == null || nomeMaquinaCadastro == undefined) {
+        response.status(400).send('nomeMaquinaCadastro obrigatório!')
+    } else if (sistemaCadastro == null || sistemaCadastro == undefined) {
+        response.status(400).send('sistemaCadastro é obrigatório!')
+    } else if (numeroPatrimonio == null || numeroPatrimonio == undefined) {
+        response.status(400).send('Numero Patrimonio é obrigatório!')
+    } else {
+        medidasModel.cadastrarMaquinas(nomeMaquinaCadastro, sistemaCadastro, numeroPatrimonio, enderecoMac, numeroSerial, idInstituicao)
+            .then(resultado => {
+                    response.json(resultado);
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao cadastrar Maquina! Erro: ", erro.sqlMessage);
+                response.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
+function cadastrarComponentes(request, response) {
+    var idSala =  request.body.idSalaCadastroServer;
+    var nomeProcessador = request.body.nomeProcessadorServer;
+    var capacidadeProcessador = request.body.capacidadeProcessadorServer;
+    var nomeMemoria = request.body.nomeMemoriaServer;
+    var capacidadeMemoria = request.body.capacidadeMemoriaServer;
+    var nomeDisco = request.body.nomeDiscoServer;
+    var capacidadeDisco = request.body.capacidadeDiscoServer;
+    var idEquipamento = request.body.idEquipamentoServer;
+
+    if (idSala == null || idSala == undefined) {
+        response.status(400).send('Sala é obrigatório!')
+    } else if (nomeProcessador == null || nomeProcessador == undefined) {
+        response.status(400).send('nomeProcessador é obrigatório!')
+    }  else if (capacidadeProcessador == null || capacidadeProcessador == undefined) {
+        response.status(400).send('capacidadeProcessador é obrigatório!')
+    } else if (nomeMemoria == null || nomeMemoria == undefined) {
+        response.status(400).send('nome Memoria é obrigatório!')
+    } else if (capacidadeMemoria == null || capacidadeMemoria == undefined) {
+        response.status(400).send('capacidadeMemoria é obrigatório!')
+    } else if (nomeDisco == null || nomeDisco == undefined) {
+        response.status(400).send('nome Disco é obrigatório!')
+    } else if (capacidadeDisco == null || capacidadeDisco == undefined) {
+        response.status(400).send('capacidadeDisco é obrigatório!')
+    } else {
+        medidasModel.cadastrarComponentes(idSala, nomeProcessador, capacidadeProcessador, nomeMemoria, capacidadeMemoria, nomeDisco, capacidadeDisco, idEquipamento)
+            .then(resultado => {
+                    response.json(resultado);
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao editar os dados do Componente! Erro: ", erro.sqlMessage);
+                response.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
+function pegarIdNovaMaquina(request, response){
+
+        medidasModel.pegarIdNovaMaquina().then(resultado => {
+           console.log("pegar id nova maquina")
+            response.json(resultado)
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados da nova maquina! Erro: ", erro.sqlMessage);
+            response.status(500).json(erro.sqlMessage);
+        });
+    }
+
+    function pegarInfoChamado(request, response){
+
         medidasModel.pegarInfoChamado().then(resultado => {
            console.log(resultado)
             response.json(resultado)
@@ -314,5 +390,8 @@ module.exports = {
     listarMaquinas,
     listarDadosMaquinas,
     editarMaquinas,
+    cadastrarMaquinas,
+    cadastrarComponentes,
+    pegarIdNovaMaquina,
     pegarInfoChamado,
 }

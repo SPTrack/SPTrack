@@ -100,11 +100,45 @@ function editarLocacao(idEquipamento, idSala) {
     database.executar(`UPDATE locacao SET fkSala = ${idSala} WHERE fkEquipamento = ${idEquipamento};`);
 }
 
-function editarMaquinas(idInstituicao ,modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema, idSala) {
+function editarMaquinas(idInstituicao, modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema, idSala) {
     editarLocacao(idEquipamento, idSala);
     editarMaquinasMemo(idEquipamento, modelo,  memoria , sistema, idMemoria);
     editarMaquinasProc(idEquipamento, modelo, cpu, sistema, idCpu);
     return editarMaquinasDisc(idEquipamento, modelo,  armazenamento , sistema, idArmazenamento);
+}
+
+function cadastrarMaquinas(nomeMaquinaCadastro, sistemaCadastro, numeroPatrimonio, enderecoMac, numeroSerial, idInstituicao){
+    return database.executar(`INSERT INTO equipamento VALUES(NULL, '${nomeMaquinaCadastro}', '${sistemaCadastro}','${numeroPatrimonio}', '${enderecoMac}', '${numeroSerial}', NOW(), ${idInstituicao});`);
+}
+
+function pegarIdNovaMaquina() {
+    return database.executar(`SELECT idEquipamento FROM equipamento ORDER BY dataRegistro DESC`);
+}
+
+function cadastrarComponentes(idSala, nomeProcessador, capacidadeProcessador, nomeMemoria, capacidadeMemoria, nomeDisco, capacidadeDisco, idEquipamento){
+    cadastrarComponenteProcessador(nomeProcessador, capacidadeProcessador, idEquipamento);
+    cadastrarComponenteMemoria(nomeMemoria, capacidadeMemoria, idEquipamento);
+    cadastrarComponenteDisco(nomeDisco, capacidadeDisco, idEquipamento);
+   return alocarMaquina(idEquipamento, idSala);
+}
+
+function cadastrarComponenteProcessador(nomeProcessador, capacidadeProcessador, idEquipamento) {
+    print("cadastroProcessador")
+    database.executar(`INSERT INTO componente VALUES (NULL, '${nomeProcessador}', '%', ${capacidadeProcessador}, 'Processador', ${idEquipamento});`);
+}
+
+function cadastrarComponenteMemoria(nomeMemoria, capacidadeMemoria, idEquipamento) {
+    print("cadastroMemo")
+    database.executar(`INSERT INTO componente VALUES (NULL, '${nomeMemoria}', '%', ${capacidadeMemoria}, 'Memória RAM', ${idEquipamento});`);
+}
+function cadastrarComponenteDisco(nomeDisco, capacidadeDisco, idEquipamento) {
+    print("cadastroDisc")
+    database.executar(`INSERT INTO componente VALUES (NULL, '${nomeDisco}', '%', ${capacidadeDisco}, 'Disco Rígido', ${idEquipamento});`);
+}
+
+function alocarMaquina(idEquipamento, idSala) {
+    print("AlocarMa")
+   return database.executar(`INSERT INTO locacao VALUES(${idEquipamento},${idSala}, NOW());`);
 }
 
 function pegarInfoChamado(){
@@ -131,5 +165,8 @@ module.exports = {
     editarMaquinasMemo,
     editarMaquinasDisc,
     editarMaquinas,
+    cadastrarMaquinas,
+    pegarIdNovaMaquina,
+    cadastrarComponentes,
     pegarInfoChamado,
 }

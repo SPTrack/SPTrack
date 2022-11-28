@@ -2,6 +2,7 @@ span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 
 var idInstituicaoServer = JSON.parse(sessionStorage.usuario).fkInstituicao;
 var idEquipamento;
+var idNovaMaquina;
 var idSala = 0;
 
 window.onload = () => {
@@ -179,6 +180,133 @@ function editarMaquinas() {
     })
 }
 
+function cadastrarMaquinas() {
+    fetch("/medidas/cadastrarMaquinas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+       
+        body: JSON.stringify({
+            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao,
+            modeloServer: nomeMaquinaCadastro.value,
+            sistemaOperacionalServer: sistemaCadastro.value, 
+            numeroPatrimonioServer: numeroPatrimonio.value,
+            enderecoMacServer: enderecoMac.value,
+            numeroSerialServer: numeroSerial.value,
+            idInstituicaoServer: idInstituicaoServer,
+            
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => { 
+                console.log("pegar id nova maquina")
+                cadastrarComponentes(pegarIdNovaMaquina());       
+                Swal.fire(
+                    'Sucesso!',
+                    'Dados alterados!',
+                    'success'
+                )                
+                setInterval(() => {
+                    //window.location.reload()
+                }, 1250); 
+            });
+        } else {
+         Swal.fire(
+             'Erro!',
+             'Dados não alterados!',
+             'error'
+         )              
+            setInterval(() => {
+                //window.location.reload();
+            }, 1250); 
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+
+function cadastrarComponentes(idMaquina) {
+    fetch("/medidas/cadastrarComponentes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+       
+        body: JSON.stringify({
+            idEquipamentoServer: idMaquina,
+            idSalaCadastroServer: salaSelectCadastro.value,
+            nomeProcessadorServer: nomeProcessador.value,
+            capacidadeProcessadorServer: capacidadeProcessador.value,
+            nomeMemoriaServer: nomeMemoria.value,
+            capacidadeMemoriaServer: capacidadeMemoria.value,
+            nomeDiscoServer: nomeDisco.value,
+            capacidadeDiscoServer: capacidadeDisco.value
+        })
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {        
+                Swal.fire(
+                    'Sucesso!',
+                    'Dados alterados!',
+                    'success'
+                )                
+                setInterval(() => {
+                   // window.location.reload()
+                }, 1250); 
+            });
+        } else {
+            console.log("erro ao cadastrar componentes")             
+            setInterval(() => {
+                //window.location.reload();
+            }, 1250); 
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function pegarIdNovaMaquina(){
+
+    console.log("pegar id nova maquina js")
+
+    fetch("/medidas/pegarIdNovaMaquina", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                print(json[0]['idEquipamento']);
+               return json[0]['idEquipamento'];
+              
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+
+
 function getSalas(){
     fetch("/salas/getSalas", {
         method: "POST",
@@ -197,8 +325,12 @@ function getSalas(){
                     if(json[i]['idSala'] == idSala){
                         salaSelect.innerHTML += 
                         `<option selected value='${json[i]['idSala']}'>${json[i]['nome']} (Sala Atual)</option>`;
+                        salaSelectCadastro.innerHTML += 
+                        `<option selected value='${json[i]['idSala']}'>${json[i]['nome']} (Sala Atual)</option>`;
                     }else{
                         salaSelect.innerHTML += 
+                        `<option value='${json[i]['idSala']}'>${json[i]['nome']}</option>`;
+                        salaSelectCadastro.innerHTML += 
                         `<option value='${json[i]['idSala']}'>${json[i]['nome']}</option>`;
                     }
                 }
@@ -214,3 +346,4 @@ function getSalas(){
         console.log(erro);
     })
 }
+

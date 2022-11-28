@@ -71,6 +71,18 @@ router.post('/editarMaquinas', function (request, response){
     medidasController.editarMaquinas(request, response);
 });
 
+router.post('/cadastrarMaquinas', function (request, response){
+    medidasController.cadastrarMaquinas(request, response);
+});
+
+router.post('/cadastrarComponentes', function (request, response){
+    medidasController.cadastrarComponentes(request, response);
+});
+
+router.post('/pegarIdNovaMaquina', function (request, response){
+    medidasController.pegarIdNovaMaquina(request, response);
+});
+
 router.post('/pegarInfoChamado', function (request, response){
     medidasController.pegarInfoChamado(request, response);
 });

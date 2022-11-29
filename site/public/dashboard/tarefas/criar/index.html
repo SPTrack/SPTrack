@@ -1,0 +1,444 @@
+<script>
+    try {
+        JSON.parse(sessionStorage.usuario).nome;
+    } catch (error) {
+        window.location = window.origin + '/login';
+    }
+</script>
+
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="../../../js/funcoes.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SPTrack - Criar Tarefa</title>
+    <link rel="stylesheet" href="../../../bootstrap/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="../../../bootstrap/fonts/fontawesome-all.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="../../../js/sweet.js"></script>
+    <link rel="icon" type="image/x-icon" href="../../../assets/img/favicon.ico">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+            style="background: var(--bs-accordion-color);padding-bottom: 131px;">
+            <div class="container-fluid d-flex flex-column p-0"><a
+                    class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"></div>
+                    <div class="sidebar-brand-text mx-3"><img style="max-width: 80%;padding: 8px 8px 8px 8px;"
+                            src="../../../assets/img/logo.png" alt=""></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../estatisticas/"><i class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../manutencao/"><i class="fas fa-tools"></i><span>Manutenção</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../equipamentos/"><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../..instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../../tarefas/"><i class="far fa-clock"></i><span>Tarefas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../chamados/"><i class="fas fa-info-circle"></i><span>Chamados</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button" onclick="movaNav()"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3"
+                            id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
+                                    aria-expanded="false" data-bs-toggle="dropdown" href="#"><i
+                                        class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
+                                    aria-labelledby="searchDropdown">
+                                    <form class="me-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small"
+                                                type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0"
+                                                    type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                        <!--<span class="badge bg-danger badge-counter">3+</span>--><i
+                                            class="fas fa-bell fa-fw"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a
+                                            class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-primary icon-circle"><i
+                                                        class="fas fa-file-alt text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 12, 2019</span>
+                                                <p>A new monthly report is ready to download!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-success icon-circle"><i
+                                                        class="fas fa-donate text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 7, 2019</span>
+                                                <p>$290.29 has been deposited into your account!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-warning icon-circle"><i
+                                                        class="fas fa-exclamation-triangle text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 2, 2019</span>
+                                                <p>Spending Alert: We've noticed unusually high spending for your
+                                                    account.</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                            Alerts</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                        <!--<span class="badge bg-danger badge-counter">7</span>--><i
+                                            class="fas fa-envelope fa-fw"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a
+                                            class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../../bootstrap/img/avatars/avatar4.jpeg">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Hi there! I am wondering if you can
+                                                        help me with a problem I've been having.</span></div>
+                                                <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../../bootstrap/img/avatars/avatar2.jpeg">
+                                                <div class="status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>I have the photos that you ordered last
+                                                        month!</span></div>
+                                                <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../../bootstrap/img/avatars/avatar3.jpeg">
+                                                <div class="bg-warning status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Last month's report looks great, I am
+                                                        very happy with the progress so far, keep up the good
+                                                        work!</span></div>
+                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                    src="../../../bootstrap/img/avatars/avatar5.jpeg">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is
+                                                        because someone told me that people say this to all dogs, even
+                                                        if they aren't good...</span></div>
+                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                            Alerts</a>
+                                    </div>
+                                </div>
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small" id="span_usuario">Usuário</span><img class="border rounded-circle img-profile" src="../../../bootstrap/img/avatars/avatar1.png"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in" onclick="limparSessao()">
+                                        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Sair</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Criar Tarefa</h3>
+                    <div class="row mb-3" style="display:center">
+                        <div class="col-lg-8">
+                            <div class="row mb-3 d-none">
+                                <div class="col">
+                                    <div class="card text-white bg-primary shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
+                                                since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card text-white bg-success shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
+                                                since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold text-p">Tarefa</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="razaoSocial">
+                                                                <strong>Nome da Tarefa</strong>
+                                                            </label>
+                                                            <input class="form-control"
+                                                                type="text" id="nomeTarefa" placeholder="Leitura de dados da sala..."
+                                                                name="nomeTarefa">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="descricao">
+                                                                <strong>Descrição da Tarefa</strong>
+                                                            </label>
+                                                            <textarea class="form-control" type="text" id="descricao" placeholder="Realizar uma análise..." name="descricao"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div><br>
+                                                <div class="card-header py-3">
+                                                    <p class="text-primary m-0 fw-bold">Configurações da Tarefa</p>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3">
+                                                                    <span>
+                                                                        <abbrtitle title="Data em que a tarefa deverá ser iniciada. Por exemplo: A partir do dia 27/10 a tarefa deverá iniciar suas coletas.">
+                                                                            <label class="form-label"
+                                                                            for="address"><strong>Quando a tarefa deverá ser criada?</strong></label><br>
+                                                                            <fieldset id="dataInicio">
+                                                                                <input type="radio" id="dataInicioAgora" name="dataInicio" value="true" onclick="updateDate(0, this.value)">
+                                                                                <label for="dataInicioAgora">Imediatamente</label><br>
+                                                                                <input type="radio" id="dataInicioEscolha" name="dataInicio" value="false" onclick="updateDate(0, this.value)">
+                                                                                <label for="dataInicioEscolha">Escolher Data</label><br>
+                                                                            </fieldset>
+                                                                        </abbrtitle>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="mb-3" id="dataInicioInput" style="display: none"><label class="form-label"
+                                                                        for="address"><strong>Dia e Horário</strong></label><br>
+                                                                        <input type="datetime-local" id="dateTimeInicio">
+                                                            </div>
+
+                                                        </div>
+
+                                                        <fo class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3">
+                                                                    <span>
+                                                                        <abbrtitle title="Data em que a tarefa deverá parar de ser executada">
+                                                                            <label class="form-label"
+                                                                            for="address"><strong>Quando a tarefa deverá parar de ser executada?</strong></label><br>
+                                                                            <fieldset id="dateFim">
+                                                                                <input type="radio" id="dataFimAgora" name="dateFim" value="true" onclick="updateDate(1, this.value)">
+                                                                                <label for="dataFimAgora">Sem Data Prevista</label><br>
+                                                                                <input type="radio" id="dataFimEscolha" name="dateFim" value="false" onclick="updateDate(1, this.value)">
+                                                                                <label for="dataFimEscolha">Escolher Data</label><br>
+                                                                            </fieldset>
+                                                                        </abbrtitle>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="mb-3" id="dataFimInput" style="display: none"><label class="form-label"
+                                                                        for="address"><strong>Dia e Horário</strong></label><br>
+                                                                        <input type="datetime-local" id="dateTimeFim">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="address"><strong>Dias</strong></label>
+                                                                    <fieldset id="diasSemana">
+                                                                        <input type="checkbox" id="domingoBox" name="diasSemana" value="0" onclick="setDayDate(this.value)">
+                                                                        <label for="domingoBox"> Domingo</label><br>
+                                                                        <input type="checkbox" id="segundaBox" name="diasSemana" value="1" onclick="setDayDate(this.value)">
+                                                                        <label for="segundaBox"> Segunda-Feira</label><br>
+                                                                        <input type="checkbox" id="tercaBox" name="diasSemana" value="2" onclick="setDayDate(this.value)">
+                                                                        <label for="tercaBox"> Terça-Feira</label><br>
+                                                                        <input type="checkbox" id="quartaBox" name="diasSemana" value="3" onclick="setDayDate(this.value)">
+                                                                        <label for="quartaBox"> Quarta-Feira</label><br>
+                                                                        <input type="checkbox" id="quintaBox" name="diasSemana" value="4" onclick="setDayDate(this.value)">
+                                                                        <label for="quintaBox"> Quinta-Feira</label><br>
+                                                                        <input type="checkbox" id="sextaBox" name="diasSemana" value="5" onclick="setDayDate(this.value)">
+                                                                        <label for="sextaBox"> Sexta-Feira</label><br>
+                                                                        <input type="checkbox" id="sabadoBox" name="diasSemana" value="6" onclick="setDayDate(this.value)">
+                                                                        <label for="sabadoBox"> Sábado</label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3" style="display: none;" id="domingoTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de domingo</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="domingoTimeInicio" name="timeInicio"> até <input type="time" id="domingoTimeFim" name="timeFim">
+                                                                </div>
+                                                                <div class="mb-3" style="display: none;" id="segundaTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de segunda-feira</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="segundaTimeInicio" name="timeInicio"> até <input type="time" id="segundaTimeFim" name="timeFim">
+                                                                </div>
+                                                                <div class="mb-3" style="display: none;" id="tercaTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de terça-feira</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="tercaTimeInicio" name="timeInicio"> até <input type="time" id="tercaTimeFim" name="timeFim">
+                                                                </div>
+                                                                <div class="mb-3" style="display: none;" id="quartaTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de quarta-feira</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="quartaTimeInicio" name="timeInicio"> até <input type="time" id="quartaTimeFim" name="timeFim">
+                                                                </div>
+                                                                <div class="mb-3" style="display: none;" id="quintaTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de quinta-feira</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="quintaTimeInicio" name="timeInicio"> até <input type="time" id="quintaTimeFim" name="timeFim">
+                                                                </div>
+                                                                <div class="mb-3" style="display: none;" id="sextaTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de sexta-feira</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="sextaTimeInicio" name="timeInicio"> até <input type="time" id="sextaTimeFim" name="timeFim">
+                                                                </div>
+                                                                <div class="mb-3" style="display: none;" id="sabadoTimeBox">
+                                                                    <label class="form-label" for="address">
+                                                                        <strong>Defina o horário de início/fim da captura de sábado</strong>
+                                                                    </label><br>
+                                                                    <input type="time" id="sabadoTimeInicio" name="timeInicio"> até <input type="time" id="sabadoTimeFim" name="timeFim">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </form><br>
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Grupo de Equipamentos</p>
+                                            </div>
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3">
+                                                                    <span>
+                                                                        <abbrtitle title="Como você desejar selecionar as máquinas?">
+                                                                            <label class="form-label"
+                                                                            for="address"><strong>Agrupar por</strong></label><br>
+                                                                            <fieldset id="agrupamento">
+                                                                                <input type="radio" id="agruparSala" name="agrupamento" value="true" onclick="updateGroup(this.value)">
+                                                                                <label for="agruparSala">Salas</label><br>
+                                                                                <input type="radio" id="agruparPersonalizado" name="agrupamento" value="false" onclick="updateGroup(this.value)">
+                                                                                <label for="agruparPersonalizado">Personalizado</label><br>
+                                                                            </fieldset>
+                                                                        </abbrtitle>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="mb-3" id="salasSelecionadasField" style="display: none"><label class="form-label"
+                                                                        for="address"><strong>Selecione as Salas</strong></label><br>
+                                                                        <fieldset id="salasSelecionadas"></fieldset>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" id="equipamentosPersonalizados" style="display: none">
+                                                            <div class="col">
+                                                                <div class="mb-3">
+                                                                    <span>
+                                                                        <abbrtitle title="Selecione as Máquinas">
+                                                                            <label class="form-label"
+                                                                            for="address"><strong>Selecione as Máquinas</strong></label><br>
+                                                                            <fieldset id="agrupamentoPersonalizado">
+                                                                            </fieldset>
+                                                                        </abbrtitle>
+                                                                    </span>
+                                                                </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        <input class="btn btn-primary btn-sm" type="button"
+                                            style="background: rgb(0,0,0);" value="Criar Tarefa" onclick="criarTarefa()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-5"></div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="../../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../../bootstrap/js/script.min.js"></script>
+    <script src="../../../js/dashboard/criarTarefa.js"></script>
+</body>
+
+</html>
+
+<script>
+    verifyNav();
+</script>

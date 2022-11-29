@@ -68,4 +68,41 @@ function getTarefa(){
     });
 }
 
+function deleteTarefa(){
+    fetch("/tarefas/deleteTarefa", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idTarefaServer: idTarefa
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                Swal.fire(
+                    'Sucesso!',
+                    'Tarefa excluída com sucesso!',
+                    'success'
+                )                
+                setInterval(() => {
+                    window.location = window.location.href = "../";
+                }, 2000); 
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+function editarTarefa(){
+    window.location = window.location.origin + window.location.pathname + 'editar/?' + idTarefa;
+}
+
 getTarefa();

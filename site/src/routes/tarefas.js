@@ -27,4 +27,13 @@ router.post('/getMedidasTarefa', function (request, response) {
     tarefaController.getMedidasTarefa(request, response);
 });
 
+router.post('/deleteTarefa', function (request, response) {
+    tarefaController.deleteTarefa(request, response);
+});
+
+router.post('/getTarefaXequipamento', function (request, response) {
+    tarefaController.getTarefaXequipamento(request, response);
+});
+
+
 module.exports = router;

@@ -68,7 +68,7 @@ function getTarefas(){
                                 <div class="col me-2" onclick="window.location = window.location.href + 'dados/?${json[i]['idTarefa']}'">
                                     <span class="nomeTarefa"> ${json[i]['nome']} </span><br>
                                     <span class="descricaoTarefa"> ${json[i]['descricao']} </span><br>
-                                    <span class="fimAtivdade"> Iniciará em: ${("0" + inicio.getDate()).slice(-2)}/${("0" + inicio.getMonth()).slice(-2)}/${inicio.getFullYear()} </span>
+                                    <span class="fimAtividade"> Iniciará em: ${("0" + inicio.getDate()).slice(-2)}/${("0" + inicio.getMonth()).slice(-2)}/${inicio.getFullYear()} </span>
                                 </div>
                             </div>
                         </li>`;

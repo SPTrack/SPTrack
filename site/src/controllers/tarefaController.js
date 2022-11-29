@@ -151,11 +151,35 @@ function getMedidasTarefa(request, response){
     });    
 }
 
+function deleteTarefa(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.deleteTarefa(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    });    
+}
+
+function getTarefaXequipamento(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getTarefaXequipamento(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
     setTarefaXequipamentos,
     getTarefas,
     getTarefa,
-    getMedidasTarefa
+    getMedidasTarefa,
+    deleteTarefa,
+    getTarefaXequipamento
 }

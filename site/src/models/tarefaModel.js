@@ -149,11 +149,23 @@ function getMedidasTarefa(fkInstituicao, idTarefa){
     return database.executar(`SELECT * FROM tarefa WHERE idTarefa = ${idTarefa};`)
 }
 
+function deleteTarefa(idTarefa){
+    database.executar(`DELETE FROM medidaTarefa WHERE fkTarefa = ${idTarefa}`);
+    database.executar(`DELETE FROM tarefaXequipamento WHERE fkTarefa = ${idTarefa}`);
+    return database.executar(`DELETE FROM tarefa WHERE idTarefa = ${idTarefa};`);
+}
+
+function getTarefaXequipamento(idTarefa){
+    return database.executar(`SELECT * FROM tarefaXequipamento WHERE fkTarefa = ${idTarefa};`);
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
     setTarefaXequipamento,
     getTarefas,
     getTarefa,
-    getMedidasTarefa
+    getMedidasTarefa,
+    deleteTarefa,
+    getTarefaXequipamento
 };

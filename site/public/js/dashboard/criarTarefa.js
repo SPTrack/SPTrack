@@ -353,7 +353,6 @@ function enviarRequisicao(nomeTarefa, descricao, dtInicio, dtFim, diasOperacoes,
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json)
                 getLastTarefa(maquinas);
                 Swal.fire(
                     'Sucesso!',

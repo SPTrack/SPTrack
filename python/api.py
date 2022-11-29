@@ -109,7 +109,7 @@ while True:
         cpu_percent_dash.title = f'CPU {cpu_use}%'
 
         if cpu_use > 80:
-            cards.abrirChamadoCPUTriagem()
+            cards.abrirChamadoCPUTriagem(modo)
 
         ram_dash = new_dash.items[1].items[0]
         ram_percent_dash = ram_dash.items[0]
@@ -119,7 +119,7 @@ while True:
         ram_percent_dash.title = f'RAM {ram_use}%'
 
         if ram_use > 80:
-            cards.abrirChamadoRAMTriagem()
+            cards.abrirChamadoRAMTriagem(modo)
 
         disc_dash = new_dash.items[1].items[1]
         disc_percent_dash = disc_dash.items[0]
@@ -130,7 +130,7 @@ while True:
         disc_freeGB = disk_usage('/').free / 1024.0 ** 3
 
         if disk_usage('/').free < 32.0:
-            cards.abrirChamadoHDTriagem()
+            cards.abrirChamadoHDTriagem(modo)
 
         sleep(1)
         with conexao.cursor() as cursor:

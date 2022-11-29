@@ -38,13 +38,22 @@ except:
     os.system(cls)
     print(
         "Máquina não registrada, entre em contato com o suporte")
+        
 
-def abrirChamadoCPUTriagem():
+def abrirChamadoCPUTriagem(modo):
     payload = {
         "query": "mutation { createCard(input: { pipe_id: 302793571, title: \"Uso de CPU acima da média\",fields_attributes:[ {field_id: \"qual_o_assunto_do_seu_pedido\", field_value: \"O computador está esquentando pouco\"}]}) {card {title}}}"}
     response = requests.post(URL, json=payload, headers=headers)
     print(response.text)
-
+    
+    if modo == 'dev':
+        cursor.execute(
+            f"INSERT INTO chamado NULL, 'Uso de CPU muito alto', 1, NOW(), '{idEquipamento}'")
+        cursor.commit()
+    elif modo == 'prod':
+        cursor.execute(
+            f"INSERT INTO chamado 'Uso de CPU muito alto', 1, GETDATE(), '{idEquipamento}'")
+        cursor.commit()
 
 def abrirChamadoRAMTriagem():
     payload = {
@@ -53,8 +62,3 @@ def abrirChamadoRAMTriagem():
     print(response.text)
 
 
-def abrirChamadoHDTriagem():
-    payload = {
-        "query": "mutation { createCard(input: { pipe_id: 302793571, title: \"Disco Rígido está sem espaço\",fields_attributes:[ {field_id: \"qual_o_assunto_do_seu_pedido\", field_value: \"Disco Rígido está sem espaço\"}]}) {card {title}}}"}
-    response = requests.post(URL, json=payload, headers=headers)
-    print(response.text)

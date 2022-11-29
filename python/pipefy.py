@@ -13,7 +13,7 @@ cursor = conexao.cursor()
 cursor.execute(f"SELECT * FROM infoChamados;")
 retorno = cursor.fetchall()
 if len(retorno) == 0:
-    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0, NULL);")
+    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0, 1000);")
 
 
 URL = "https://api.pipefy.com/graphql"

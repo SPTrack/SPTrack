@@ -400,11 +400,6 @@ function getEstadosDeUso(){
                     xValues.push(json[i]['dataRegistro'])
                 }
             });
-            console.log(`MBA: ${mba}`);
-            console.log(`BA: ${ba}`);
-            console.log(`RA: ${ra}`);
-            console.log(`AA: ${aa}`);
-
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
         
@@ -616,49 +611,11 @@ function getMedidasInstituicao(){
     })
 }
 
-// Auxílio - Gráfico 4 - DEprecated
-/*
-function getMaquinasInstituicao(){
-    fetch("/medidas/getMaquinasInstituicao", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idInstituicaoServer: JSON.parse(sessionStorage.usuario).fkInstituicao
-        })
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
-                idEquipamento1 = json[0].idEquipamento;
-
-                for(i = 0; i < json.length; i++){
-                    x = document.createElement("option");
-                    x.setAttribute("value", json[i].idEquipamento);
-                    x.innerHTML = `${json[i].numeroPatrimonio} (${json[i].sala}) - ${json[i].modelo}`;
-                    selectMaquinas.appendChild(x);
-                }
-                
-                //setDadosG1(idEquipamento1);
-            });
-        } else {
-            console.log("Houve um erro ao tentar se comunicar!");
-        
-            resposta.text().then(texto => {
-                console.log(texto)
-            });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    })
-}*/
-
 span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
 getHistoricoDisponibilidade();
 getMedidasInstituicao();
 getMaquinasMonitoradas();
 getDisponibilidade();
-//getMaquinasInstituicao(); Deprecated
 pontuacaoDia("Processador");
 pontuacaoDia("Memória RAM");
 pontuacaoDia("Disco Rígido");

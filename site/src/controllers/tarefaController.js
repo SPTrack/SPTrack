@@ -128,9 +128,34 @@ function getTarefas(request, response){
     });    
 }
 
+function getTarefa(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getTarefa(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    });    
+}
+
+function getMedidasTarefa(request, response){
+    var idInstituicao = request.body.idInstituicaoServer;
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getMedidasTarefa(idInstituicao, idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    });    
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
     setTarefaXequipamentos,
-    getTarefas
+    getTarefas,
+    getTarefa,
+    getMedidasTarefa
 }

@@ -19,4 +19,12 @@ router.post('/getTarefas', function (request, response) {
     tarefaController.getTarefas(request, response);
 });
 
+router.post('/getTarefa', function (request, response) {
+    tarefaController.getTarefa(request, response);
+});
+
+router.post('/getMedidasTarefa', function (request, response) {
+    tarefaController.getMedidasTarefa(request, response);
+});
+
 module.exports = router;

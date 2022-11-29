@@ -140,9 +140,20 @@ function getTarefas(fkInstituicao){
     return database.executar(`SELECT * FROM tarefa WHERE fkInstituicao = ${fkInstituicao};`);
 }
 
+function getTarefa(idTarefa){
+    return database.executar(`SELECT * FROM tarefa WHERE idTarefa = ${idTarefa};`);
+}
+
+function getMedidasTarefa(fkInstituicao, idTarefa){
+    // Atenção, desenvolvedor: Query provisória, será desenvolvida depois
+    return database.executar(`SELECT * FROM tarefa WHERE idTarefa = ${idTarefa};`)
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
     setTarefaXequipamento,
-    getTarefas
+    getTarefas,
+    getTarefa,
+    getMedidasTarefa
 };

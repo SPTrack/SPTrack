@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="../../css/manutencao.css">
     <link rel="stylesheet" href="../../css/chamados.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../js/dashboard/chamados.js"></script>
 </head>
 
 <body id="page-top" onload="teste();">
@@ -167,9 +166,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
 
                         <div class="row row_box div_pai">
+                           
                             <div class="col-lg-6 mb-4" style="width: 100%;">
                                 <div class="card shadow mb-4"></div>
                                 <div class="card shadow mb-4">
@@ -179,30 +179,35 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters position-relative">
-                                             
-                                            </div>
-                                        </li>                                   
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 mb-4" style="width: 100%;">
-                                <div class="card shadow mb-4"></div>
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3" style="padding-bottom: 8px;">
-                                        <h6 class="text-primary fw-bold m-0" style="text-align: center;">WordCloud</h6>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <div class="row align-items-center no-gutters position-relative">
-                                                <div id="wordcloud">
-                                                    <img src="../../assets/img/wordclouds/wordcloudChamados.png" alt="wordcloudChamados">
+                                                <div id="wordcloud" class="wordcloud">
+                                                    <img src="../../assets/img/wordclouds/wordcloudChamados.png" alt="wordcloudChamados" >
                                                 </div>
                                             </div>
                                         </li>                                   
                                     </ul>
                                 </div>
                             </div>
+                           
+                            <div class="col-lg-6 mb-4" style="width: 100%;">
+                                <div class="card shadow mb-4"></div>
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3" style="padding-bottom: 8px;">
+                                        <h6 class="text-primary fw-bold m-0" style="text-align: center;">WordCloud</h6>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters position-relative">
+                                                <div class="grafico">
+                                                    <canvas id="myChart"></canvas>
+                                                </div>
+                                                
+                                            </div>
+                                        </li>                                   
+                                    </ul>
+                                </div>
+                            </div>
+
+                           
 
                         </div>
                     </div>
@@ -219,9 +224,12 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../bootstrap/js/script.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/dashboard/chamados.js"></script>
+    
 </body>
 
 </html>

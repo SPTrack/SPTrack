@@ -3,3 +3,15 @@
     grid-template-columns: auto auto;
     padding: 32px;
 }
+
+#wordcloud img{
+
+    max-width: 100%;
+
+}
+
+#grafico img{
+
+    max-width: 100%;
+
+}

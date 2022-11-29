@@ -33,7 +33,8 @@ CREATE TABLE usuario(
     senha VARCHAR(65) NOT NULL,
     tipoUsuario VARCHAR(45) CHECK (tipoUsuario IN ('admin', 'analista')) NOT NULL,
     dataRegisto DATETIME NOT NULL,
-
+    nivelAcesso INT NOT NULL,
+    
     fkInstituicao INT NOT NULL,
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao),
     

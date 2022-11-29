@@ -46,6 +46,23 @@ function entrar(request, response) {
     }
 }
 
+function cadastrar(request, response){
+    var nome = request.body.nomeServer;
+    var email = request.body.emailServer;
+    var senha = request.body.senhaServer;
+    var tipoUsuario = request.body.tipoUsuarioServer;
+    var nivelAcesso = request.body.nivelAcessoServer;
+    var fkInstituicao = request.body.fkInstituicaoServer;
+    var fkGestor = request.body.fkGestorServer;
+
+    usuarioModel.cadastrar(nome, email, senha, tipoUsuario, nivelAcesso, fkInstituicao, fkGestor).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    });
+}
+
 module.exports = {
     entrar
 }

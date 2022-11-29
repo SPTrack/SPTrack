@@ -134,7 +134,7 @@ function cadastrarComponenteDisco(nomeDisco, capacidadeDisco, idEquipamento) {
 }
 
 function alocarMaquina(idEquipamento, idSala) {
-   return database.executar(`INSERT INTO locacao VALUES(${idEquipamento},${idSala}, NOW());`);
+   return database.executar(`INSERT INTO locacao VALUES(${idEquipamento}, ${idSala}, NOW());`);
 }
 
 function pegarInfoChamado(){

@@ -222,7 +222,8 @@ function cadastrarMaquinas() {
         if (resposta.ok) {
             resposta.json().then(json => { 
                 console.log("pegar id nova maquina")
-                cadastrarComponentes(pegarIdNovaMaquina());       
+                pegarIdNovaMaquina();
+
                 Swal.fire(
                     'Sucesso!',
                     'Dados alterados!',
@@ -252,6 +253,14 @@ function cadastrarMaquinas() {
 
 
 function cadastrarComponentes(idMaquina) {
+    console.log(idMaquina);
+    console.log(salaSelectCadastro.value);
+    console.log(nomeProcessador.value);
+    console.log(100);
+    console.log(nomeMemoria.value);
+    console.log(capacidadeMemoria.value);
+    console.log(nomeDisco.value);
+    console.log(capacidadeDisco.value);
     fetch("/medidas/cadastrarComponentes", {
         method: "POST",
         headers: {
@@ -305,11 +314,13 @@ function pegarIdNovaMaquina(){
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            idInstituicaoServer: idInstituicaoServer
         })
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-               return json[0]['idEquipamento'];
+                console.log(json)
+                cadastrarComponentes(json[0]['idEquipamento']);
             });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");

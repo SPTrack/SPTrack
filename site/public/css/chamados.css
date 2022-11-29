@@ -1,0 +1,5 @@
+.div_pai{
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 32px;
+}

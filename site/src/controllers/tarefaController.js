@@ -117,8 +117,20 @@ function insertTarefa(request, response){
     }
 }
 
+function getTarefas(request, response){
+    var idInstituicao = request.body.idInstituicaoServer;
+
+    tarefaModel.getTarefas(idInstituicao).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    });    
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
-    setTarefaXequipamentos
+    setTarefaXequipamentos,
+    getTarefas
 }

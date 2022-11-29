@@ -15,4 +15,8 @@ router.post('/setTarefaXequipamentos', function (request, response) {
     tarefaController.setTarefaXequipamentos(request, response);
 });
 
+router.post('/getTarefas', function (request, response) {
+    tarefaController.getTarefas(request, response);
+});
+
 module.exports = router;

@@ -1,0 +1,34 @@
+.nomeTarefa{
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.descricaoTarefa{
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.fimAtividade{
+    font-size: 16px;
+    font-weight: 300;
+    color: rgb(90, 90, 90);
+}
+
+.linha{
+    cursor: pointer;
+}
+
+.linha:hover{
+    background-color: rgb(240, 235, 235);
+}
+
+.link{
+    text-align: right;
+    color: blue;
+    text-decoration: underline;
+}
+
+.card{
+    border: none;
+    border-radius: none;
+}

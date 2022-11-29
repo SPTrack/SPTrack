@@ -136,8 +136,13 @@ function setTarefaXequipamento(idTarefa, idEquipamento){
     return database.executar(`INSERT INTO tarefaXequipamento VALUES (${idTarefa}, ${idEquipamento});`);
 }
 
+function getTarefas(fkInstituicao){
+    return database.executar(`SELECT * FROM tarefa WHERE fkInstituicao = ${fkInstituicao};`);
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
-    setTarefaXequipamento
+    setTarefaXequipamento,
+    getTarefas
 };

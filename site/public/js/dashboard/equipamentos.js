@@ -68,7 +68,7 @@ function listarMaquinas() {
                                             color:black" href="?idEquipamento=${json[i].idEquipamento}">${json[i]['nomeSala']}<br>${json[i].modelo} - ${json[i]['numeroPatrimonio']}
                                             </a></span>
                                         </div>
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -90,10 +90,10 @@ function listarMaquinas() {
                                                         </a></span>
                                                     </div>
                                         </div>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>`;
+                            </div>
+                        </div>`;
                     }
                 }
             });

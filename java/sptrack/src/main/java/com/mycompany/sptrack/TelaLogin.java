@@ -5,7 +5,6 @@ import DAO.UsuarioSQL;
 import DTO.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -128,7 +127,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.png"))); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("SISTEMA DE MONITORAMENTO DE HARDWARE DE MÁQUINA - ADM");
 
@@ -156,7 +155,7 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(19, 19, 19))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

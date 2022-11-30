@@ -28,10 +28,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <Component id="jPanel2" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-          </Group>
+          <Component id="jPanel2" max="32767" attributes="0"/>
           <Component id="jPanel3" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -40,8 +37,8 @@
           <Group type="102" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="jPanel2" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -64,37 +61,28 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblLogo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblimg2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="73" max="32767" attributes="0"/>
                   <Component id="txtHeader" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel4" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblLogo" pref="67" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="txtHeader" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblimg2" pref="67" max="32767" attributes="0"/>
+                      <Component id="lblLogo" pref="67" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,53 +90,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblLogo">
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel4">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1" green="1" red="1" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fe" green="fe" red="fe" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblLogo2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblimg2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="587" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblimg2" alignment="1" pref="55" max="32767" attributes="0"/>
-                          <Component id="lblLogo2" alignment="1" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblLogo2">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblimg2">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/assets/logo.png"/>
-                </Property>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JLabel" name="txtHeader">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -158,6 +99,13 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SISTEMA DE MONITORAMENTO DE HARDWARE DE M&#xc1;QUINA - ADM"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblimg2">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/assets/logo.png"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -172,46 +120,36 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnMonitoramentoLive" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
-                      <Component id="btnMonitoramentoHist1" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
-                      <Component id="btnProcessos1" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
-                      <Component id="btnChamados" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="211" max="32767" attributes="0"/>
-                  <Component id="lblProcesso" min="-2" pref="387" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="lblSO" min="-2" pref="521" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="btnChamados" min="-2" pref="193" max="-2" attributes="0"/>
+                      <Component id="btnProcessos1" min="-2" pref="193" max="-2" attributes="0"/>
+                      <Component id="btnMonitoramentoHist1" min="-2" pref="193" max="-2" attributes="0"/>
+                      <Component id="btnMonitoramentoLive" min="-2" pref="193" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                  <Component id="lblSO" min="-2" pref="175" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="btnMonitoramentoLive" min="-2" pref="38" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnMonitoramentoHist1" min="-2" pref="38" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnProcessos1" min="-2" pref="38" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnChamados" min="-2" pref="38" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          <Component id="lblProcesso" min="-2" pref="200" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
-                  <Component id="lblSO" min="-2" pref="21" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="lblSO" min="-2" pref="106" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                  <Component id="btnMonitoramentoLive" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnMonitoramentoHist1" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnProcessos1" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnChamados" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -280,25 +218,15 @@
         <Component class="javax.swing.JLabel" name="lblSO">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="1"/>
+              <Font name="Arial" size="10" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Sistema sistema = this.looca.getSistema();&#xa;lblSO.setText(String.format(&quot;Fabricante: %s \n Sistema: %s \n Arquitetura: %s&quot;, sistema.getFabricante(), sistema.getSistemaOperacional(), sistema.getArquitetura()));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Sistema sistema = this.looca.getSistema();&#xa;&#xa;System.out.println(sistema);"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblProcesso">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ProcessosGroup processo = this.looca.getGrupoDeProcessos();">
-              <Font name="Arial" size="8" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -318,9 +246,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblLogo1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="314" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -334,7 +262,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

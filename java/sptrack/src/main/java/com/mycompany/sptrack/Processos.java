@@ -1,14 +1,14 @@
 package com.mycompany.sptrack;
 
+import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
 
 public class Processos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Processos
-     */
+    private final Looca looca = new Looca();
     public Processos() {
         initComponents();
+ 
     }
 
     /**
@@ -23,8 +23,10 @@ public class Processos extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         lblLogo2 = new javax.swing.JLabel();
         lblimg2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         txtHeader = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnVoltar = new javax.swing.JButton();
+        lblProcesso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -32,6 +34,10 @@ public class Processos extends javax.swing.JFrame {
         jPanel4.setForeground(new java.awt.Color(254, 254, 254));
 
         lblimg2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.png"))); // NOI18N
+
+        txtHeader.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtHeader.setForeground(new java.awt.Color(255, 255, 255));
+        txtHeader.setText("LISTAGEM DE PROCESSOS");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -42,7 +48,9 @@ public class Processos extends javax.swing.JFrame {
                 .addComponent(lblLogo2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblimg2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(186, 186, 186)
+                .addComponent(txtHeader)
+                .addContainerGap(215, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -52,29 +60,53 @@ public class Processos extends javax.swing.JFrame {
                     .addComponent(lblimg2, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                     .addComponent(lblLogo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtHeader)
+                .addGap(22, 22, 22))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtHeader.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtHeader.setForeground(new java.awt.Color(0, 0, 0));
-        txtHeader.setText("LISTAGEM DE PROCESSOS");
+        btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
+        btnVoltar.setForeground(new java.awt.Color(255, 255, 255));
+        btnVoltar.setText("Voltar");
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        lblProcesso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblProcesso.setForeground(new java.awt.Color(0, 0, 0));
+        lblProcesso.setFont(new java.awt.Font("Arial", 1, 8)); // NOI18N
+        Processo processos = this.looca.getGrupoDeProcessos();
+        lblProcesso.setForeground(new java.awt.Color(0, 0, 0));
+
+        // Code
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(706, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(txtHeader)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(lblProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtHeader)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addComponent(lblProcesso, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVoltar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,12 +121,18 @@ public class Processos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,9 +170,11 @@ public class Processos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblLogo2;
+    private javax.swing.JLabel lblProcesso;
     private javax.swing.JLabel lblimg2;
     private javax.swing.JLabel txtHeader;
     // End of variables declaration//GEN-END:variables

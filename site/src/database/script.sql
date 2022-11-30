@@ -131,11 +131,16 @@ CREATE TABLE estadoDeUso(
 CREATE TABLE infoChamados(
     idInfo INT PRIMARY KEY AUTO_INCREMENT,
     quantidadeChamados INT NOT NULL,
+    quantidadeChamadosTriagem INT NOT NULL,
+    quantidadeChamadosAtendimento INT NOT NULL,
+    quantidadeChamadosEscalar INT NOT NULL,
     quantidadeChamadosConcluidos INT NOT NULL,
-    
+    quantidadeChamadosArquivado INT NOT NULL,
     fkInstituicao INT,
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 3000;
+
+UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosTriagem = {quantidadeChamadosTriagem}, quantidadeChamadosAtendimento = {quantidadeChamadosAtendimento}, quantidadeChamadosEscalar = {quantidadeChamadosEscalar}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos}, quantidadeChamadosArquivados = {quantidadeChamadosArquivados}, WHERE idInfo = 1;
 
 CREATE TABLE tarefa(
     idTarefa INT PRIMARY KEY AUTO_INCREMENT,
@@ -237,12 +242,6 @@ FROM manutencao WHERE situacao = 'Aberto')) AS qtd FROM sala, locacao,
 manutencao, equipamento, instituicao WHERE idEquipamento = manutencao.fkEquipamento 
 AND fkSala = idSala and manutencao.fkEquipamento = locacao.fkEquipamento
 GROUP BY idSala;
-
-ALTER TABLE infoChamados
-ADD fkInstituicao INT;
-
-ALTER TABLE infoChamados ADD CONSTRAINT fkInstituicao
-FOREIGN KEY(fkInstituicao) REFERENCES instituicao (idInstituicao);
 
 -------------- ZONA DE TESTES --------------
 --------(Executar apenas após cadastro)-------
@@ -348,4 +347,4 @@ INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-23 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-24 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-25 04:29:11', 1000);
 
-INSERT INTO infoChamados VALUES(1,0,0, 1000); 
+INSERT INTO infoChamados VALUES(1,0,0,0,0,0,0,1000); 

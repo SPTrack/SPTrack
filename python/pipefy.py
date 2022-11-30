@@ -13,7 +13,7 @@ cursor = conexao.cursor()
 cursor.execute(f"SELECT * FROM infoChamados;")
 retorno = cursor.fetchall()
 if len(retorno) == 0:
-    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0, 1000);")
+    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0,0,0,0,0,1000);")
 
 
 URL = "https://api.pipefy.com/graphql"
@@ -57,8 +57,14 @@ while True:
         return response.text
 
     def enviarWorldCloud():
+        
         quantidadeChamados = 0
+        quantidadeChamadosTriagem = 0
+        quantidadeChamadosAtendimento = 0
+        quantidadeChamadosEscalar = 0
         quantidadeChamadosConcluidos = 0
+        quantidadeChamadosArquivados = 0
+        
         listaChamados = ""
         resposta = pegarChamadoTriagem()
         objeto = json.loads(resposta)
@@ -67,6 +73,7 @@ while True:
             listaChamados += (card['node']['title'])
             listaChamados += " "
             quantidadeChamados += 1
+            quantidadeChamadosTriagem += 1
 
         resposta = pegarChamadoAtendimento()
         objeto = json.loads(resposta)
@@ -74,6 +81,7 @@ while True:
         for card in cards:
             listaChamados += (card['node']['title'])
             listaChamados += " "
+            quantidadeChamadosAtendimento += 1
             quantidadeChamados += 1
 
         resposta = pegarChamadoEscalar()
@@ -82,6 +90,7 @@ while True:
         for card in cards:
             listaChamados += (card['node']['title'])
             listaChamados += " "
+            quantidadeChamadosEscalar += 1
             quantidadeChamados += 1
 
         resposta = pegarChamadoConcluido()
@@ -99,13 +108,14 @@ while True:
         for card in cards:
             listaChamados += (card['node']['title'])
             listaChamados += " "
+            quantidadeChamadosArquivados += 1
             quantidadeChamados += 1
 
         wordc.plotarWordcloud(listaChamados)
 
         with conexao.cursor() as cursor:
             cursor.execute(
-                f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos} WHERE idInfo = 1;")
+                f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosTriagem = {quantidadeChamadosTriagem}, quantidadeChamadosAtendimento = {quantidadeChamadosAtendimento}, quantidadeChamadosEscalar = {quantidadeChamadosEscalar}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos}, quantidadeChamadosArquivados = {quantidadeChamadosArquivados} WHERE idInfo = 1;")
             conexao.commit()
 
     enviarWorldCloud()

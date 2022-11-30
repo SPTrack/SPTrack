@@ -1,6 +1,6 @@
 .div_pai{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 2fr;
     padding: 32px;
 }
 
@@ -18,8 +18,7 @@
 
 }
 
-#row row_box div_pai{
+/* #row row_box div_pai{
+    grid-template-columns: 2fr 1fr;
 
-align-items: center;
-
-}
+} */

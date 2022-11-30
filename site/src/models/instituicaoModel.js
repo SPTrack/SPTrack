@@ -1,14 +1,7 @@
 var database = require("../database/config");
 
 function cadastrar(razaoSocial, nomeFantasia, cnpj, cep, estado, complemento, cidade, bairro, lougradouro, numero) { 
-    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
-        return database.executar(`INSERT INTO instituicao VALUES (NULL, '${razaoSocial}', '${nomeFantasia}', '${cnpj}', '${cep}', 
-        '${estado}', '${complemento}', '${cidade}', '${bairro}', '${lougradouro}', '${numero}', NOW());`);
-    }else{
-        return database.executar(`INSERT INTO instituicao VALUES 
-        ('${razaoSocial}', '${nomeFantasia}', '${cnpj}', '${cep}', '${estado}', '${complemento}', '${cidade}',
-         '${bairro}', '${lougradouro}', '${numero}', GETDATE());`);
-    }
+    return database.executar(`INSERT INTO instituicao VALUES (NULL, '${razaoSocial}', '${nomeFantasia}', '${cnpj}', '${cep}', '${estado}', '${complemento}', '${cidade}', '${bairro}', '${lougradouro}', '${numero}', NOW());`);
 }
 
 function editar(idInstituicao, nomeFantasia, razaoSocial, cep, estado, complemento, cidade, bairro, logradouro, numero) {

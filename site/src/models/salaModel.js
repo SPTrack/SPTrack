@@ -1,4 +1,3 @@
-const { DateTime } = require("mssql");
 var database = require("../database/config");
 
 function cadastrar(nome, fkInstituicao) {
@@ -13,7 +12,6 @@ function cadastrar(nome, fkInstituicao) {
 function getSalas(idInstituicao){
     return database.executar(`SELECT * FROM sala WHERE fkInstituicao = ${idInstituicao};`)
 }
-
 function getDadoSala(salaAtual,novaSala,idComputador){
     return database.executar(`UPDATE locacao, sala, equipamento 
     SET locacao.fkSala = ${novaSala} 

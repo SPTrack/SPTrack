@@ -52,10 +52,10 @@ function cadastrar(request, response){
     var senha = request.body.senhaServer;
     var tipoUsuario = request.body.tipoUsuarioServer;
     var nivelAcesso = request.body.nivelAcessoServer;
-    var fkInstituicao = request.body.fkInstituicaoServer;
+    var idInstituicao = request.body.idInstituicaoServer;
     var fkGestor = request.body.fkGestorServer;
 
-    usuarioModel.cadastrar(nome, email, senha, tipoUsuario, nivelAcesso, fkInstituicao, fkGestor).then(resultado => {
+    usuarioModel.cadastrar(nome, email, senha, tipoUsuario, nivelAcesso, idInstituicao, fkGestor).then(resultado => {
         response.json(resultado)
     }).catch(function (erro) {
         console.log(erro);
@@ -64,5 +64,6 @@ function cadastrar(request, response){
 }
 
 module.exports = {
-    entrar
+    entrar,
+    cadastrar
 }

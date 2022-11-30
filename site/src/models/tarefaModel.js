@@ -125,7 +125,6 @@ function insertTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
             ${idInstituicao}
         );`)
     }
-    
 }
 
 function getLastTarefa(fkInstituicao){
@@ -159,6 +158,137 @@ function getTarefaXequipamento(idTarefa){
     return database.executar(`SELECT * FROM tarefaXequipamento WHERE fkTarefa = ${idTarefa};`);
 }
 
+function updateTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isDomingo, isSegunda, isTerca, isQuarta, isQuinta, isSexta, isSabado, horarioInicioDomingo, horarioFimDomingo, 
+    horarioInicioSegunda, horarioFimSegunda, horarioInicioTerca, horarioFimTerca, horarioInicioQuarta, horarioFimQuarta, horarioInicioQuinta, horarioFimQuinta, horarioInicioSexta, 
+    horarioFimSexta, horarioInicioSabado, horarioFimSabado, idTarefa, maquinas){
+    
+    if(dtInicio != 'NOW()' && dtFim != 'NULL'){
+            query = `UPDATE tarefa SET
+            nome = '${nomeTarefa}',
+            descricao = '${descricao}',
+            dataInicio = '${dtInicio}',
+            dataFim = '${dtFim}',
+            isDomingo = ${isDomingo},
+            isSegunda = ${isSegunda},
+            isTerca = ${isTerca},
+            isQuarta = ${isQuarta},
+            isQuinta = ${isQuinta},
+            isSexta = ${isSexta},
+            isSabado = ${isSabado},
+            horarioInicioDomingo = ${horarioInicioDomingo},
+            horarioFimDomingo = ${horarioFimDomingo},
+            horarioInicioSegunda = ${horarioInicioSegunda},
+            horarioFimSegunda = ${horarioFimSegunda},
+            horarioInicioTerca = ${horarioInicioTerca},
+            horarioFimTerca = ${horarioFimTerca},
+            horarioInicioQuarta = ${horarioInicioQuarta},
+            horarioFimQuarta = ${horarioFimQuarta},
+            horarioInicioQuinta = ${horarioInicioQuinta},
+            horarioFimQuinta = ${horarioFimQuinta},
+            horarioInicioSexta = ${horarioInicioSexta},
+            horarioFimSexta = ${horarioFimSexta},
+            horarioInicioSabado = ${horarioInicioSabado},
+            horarioFimSabado = ${horarioFimSabado}
+            WHERE idTarefa = ${idTarefa};`
+            database.executar(query);
+            console.log(query)
+    }else if(dtInicio == 'NOW()' && dtFim != 'NULL'){
+            database.executar(`UPDATE tarefa SET
+            nome = '${nomeTarefa}',
+            descricao = '${descricao}',
+            dataInicio = ${dtInicio},
+            dataFim = '${dtFim}',
+            isDomingo = ${isDomingo},
+            isSegunda = ${isSegunda},
+            isTerca = ${isTerca},
+            isQuarta = ${isQuarta},
+            isQuinta = ${isQuinta},
+            isSexta = ${isSexta},
+            isSabado = ${isSabado},
+            horarioInicioDomingo = ${horarioInicioDomingo},
+            horarioFimDomingo = ${horarioFimDomingo},
+            horarioInicioSegunda = ${horarioInicioSegunda},
+            horarioFimSegunda = ${horarioFimSegunda},
+            horarioInicioTerca = ${horarioInicioTerca},
+            horarioFimTerca = ${horarioFimTerca},
+            horarioInicioQuarta = ${horarioInicioQuarta},
+            horarioFimQuarta = ${horarioFimQuarta},
+            horarioInicioQuinta = ${horarioInicioQuinta},
+            horarioFimQuinta = ${horarioFimQuinta},
+            horarioInicioSexta = ${horarioInicioSexta},
+            horarioFimSexta = ${horarioFimSexta},
+            horarioInicioSabado = ${horarioInicioSabado},
+            horarioFimSabado = ${horarioFimSabado},
+            WHERE idTarefa = ${idTarefa};`);
+    }else if(dtInicio != 'NOW()' && dtFim == 'NULL'){
+            database.executar(`UPDATE tarefa SET
+            nome = '${nomeTarefa}',
+            descricao = '${descricao}',
+            dataInicio = '${dtInicio}',
+            dataFim = ${dtFim},
+            isDomingo = ${isDomingo},
+            isSegunda = ${isSegunda},
+            isTerca = ${isTerca},
+            isQuarta = ${isQuarta},
+            isQuinta = ${isQuinta},
+            isSexta = ${isSexta},
+            isSabado = ${isSabado},
+            horarioInicioDomingo = ${horarioInicioDomingo},
+            horarioFimDomingo = ${horarioFimDomingo},
+            horarioInicioSegunda = ${horarioInicioSegunda},
+            horarioFimSegunda = ${horarioFimSegunda},
+            horarioInicioTerca = ${horarioInicioTerca},
+            horarioFimTerca = ${horarioFimTerca},
+            horarioInicioQuarta = ${horarioInicioQuarta},
+            horarioFimQuarta = ${horarioFimQuarta},
+            horarioInicioQuinta = ${horarioInicioQuinta},
+            horarioFimQuinta = ${horarioFimQuinta},
+            horarioInicioSexta = ${horarioInicioSexta},
+            horarioFimSexta = ${horarioFimSexta},
+            horarioInicioSabado = ${horarioInicioSabado},
+            horarioFimSabado = ${horarioFimSabado}
+            WHERE idTarefa = ${idTarefa};`);
+    }else if(dtInicio == 'NOW()' && dtFim == 'NULL'){
+            database.executar(`UPDATE tarefa SET
+            nome = '${nomeTarefa}',
+            descricao = '${descricao}',
+            dataInicio = ${dtInicio},
+            dataFim = ${dtFim},
+            isDomingo = ${isDomingo},
+            isSegunda = ${isSegunda},
+            isTerca = ${isTerca},
+            isQuarta = ${isQuarta},
+            isQuinta = ${isQuinta},
+            isSexta = ${isSexta},
+            isSabado = ${isSabado},
+            horarioInicioDomingo = ${horarioInicioDomingo},
+            horarioFimDomingo = ${horarioFimDomingo},
+            horarioInicioSegunda = ${horarioInicioSegunda},
+            horarioFimSegunda = ${horarioFimSegunda},
+            horarioInicioTerca = ${horarioInicioTerca},
+            horarioFimTerca = ${horarioFimTerca},
+            horarioInicioQuarta = ${horarioInicioQuarta},
+            horarioFimQuarta = ${horarioFimQuarta},
+            horarioInicioQuinta = ${horarioInicioQuinta},
+            horarioFimQuinta = ${horarioFimQuinta},
+            horarioInicioSexta = ${horarioInicioSexta},
+            horarioFimSexta = ${horarioFimSexta},
+            horarioInicioSabado = ${horarioInicioSabado},
+            horarioFimSabado = ${horarioFimSabado}
+            WHERE idTarefa = ${idTarefa};`);
+    }
+
+    if(maquinas != 'vazio'){
+        database.executar(`DELETE FROM tarefaXequipamento WHERE fkTarefa =  ${idTarefa};`);
+
+        for(i = 0; i < maquinas.length; i++){
+            database.executar(`INSERT INTO tarefaXequipamento VALUES (${idTarefa}, ${maquinas[i]});`)
+        }
+    }
+
+    return database.executar(`SELECT * FROM tarefaXequipamento;`);
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
@@ -167,5 +297,6 @@ module.exports = {
     getTarefa,
     getMedidasTarefa,
     deleteTarefa,
-    getTarefaXequipamento
+    getTarefaXequipamento,
+    updateTarefa
 };

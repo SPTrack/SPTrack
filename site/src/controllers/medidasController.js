@@ -310,15 +310,14 @@ function cadastrarMaquinas(request, response) {
 }
 
 function cadastrarComponentes(request, response) {
-    console.log(request.body.idSalaCadastroServer)
-    var idSala =  Number(request.body.idSalaCadastroServer);
+    var idSala =  request.body.idSalaCadastroServer;
     var nomeProcessador = request.body.nomeProcessadorServer;
     var capacidadeProcessador = request.body.capacidadeProcessadorServer;
     var nomeMemoria = request.body.nomeMemoriaServer;
     var capacidadeMemoria = request.body.capacidadeMemoriaServer;
     var nomeDisco = request.body.nomeDiscoServer;
     var capacidadeDisco = request.body.capacidadeDiscoServer;
-    var idEquipamento = Number(request.body.idEquipamentoServer);
+    var idEquipamento = request.body.idEquipamentoServer;
 
     if (idSala == null || idSala == undefined) {
         response.status(400).send('Sala é obrigatório!')

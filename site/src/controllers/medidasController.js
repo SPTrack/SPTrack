@@ -361,7 +361,6 @@ function pegarIdNovaMaquina(request, response){
     function pegarInfoChamado(request, response){
 
         medidasModel.pegarInfoChamado().then(resultado => {
-           console.log(resultado)
             response.json(resultado)
         }).catch(function (erro) {
             console.log(erro);

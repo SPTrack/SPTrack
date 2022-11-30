@@ -31,7 +31,7 @@ CREATE TABLE usuario(
     nome VARCHAR(64) NOT NULL,
     email VARCHAR(64) NOT NULL UNIQUE,
     senha VARCHAR(65) NOT NULL,
-    tipoUsuario VARCHAR(45) CHECK (tipoUsuario IN ('admin', 'analista')) NOT NULL,
+    tipoUsuario VARCHAR(45) NOT NULL,
     dataRegisto DATETIME NOT NULL,
 	nivelAcesso INT NOT NULL,
 

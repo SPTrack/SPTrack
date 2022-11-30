@@ -3,6 +3,11 @@ import pyodbc
 import requests
 import getmac
 import os
+import platform
+
+cls = 'clear' if platform.system() == 'Linux' else 'cls'
+
+
 URL = "https://api.pipefy.com/graphql"
 headers = {
 
@@ -40,20 +45,21 @@ except:
         "Máquina não registrada, entre em contato com o suporte")
         
 
-def abrirChamadoCPUTriagem(modo):
+def abrirChamadoCPUTriagem():
     payload = {
         "query": "mutation { createCard(input: { pipe_id: 302793571, title: \"Uso de CPU acima da média\",fields_attributes:[ {field_id: \"qual_o_assunto_do_seu_pedido\", field_value: \"O computador está esquentando pouco\"}]}) {card {title}}}"}
     response = requests.post(URL, json=payload, headers=headers)
     print(response.text)
     
     if modo == 'dev':
-        cursor.execute(
-            f"INSERT INTO chamado NULL, 'Uso de CPU muito alto', 1, NOW(), '{idEquipamento}'")
-        cursor.commit()
+        query = f"INSERT INTO chamado VALUES (NULL, 'Uso de CPU muito alto', 1, NOW(), {idEquipamento})"
+        print(query)
+        cursor.execute(query)
+        conexao.commit()
     elif modo == 'prod':
         cursor.execute(
-            f"INSERT INTO chamado 'Uso de CPU muito alto', 1, GETDATE(), '{idEquipamento}'")
-        cursor.commit()
+            f"INSERT INTO chamado VALUES ('Uso de CPU muito alto', 1, GETDATE(), {idEquipamento})")
+        conexao.commit()
 
 def abrirChamadoRAMTriagem():
     payload = {

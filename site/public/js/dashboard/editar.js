@@ -389,7 +389,7 @@ function enviarRequisicao(nomeTarefa, descricao, dtInicio, dtFim, diasOperacoes,
                     'success'
                 )                
                 setInterval(() => {
-                    // window.location = window.location.href = "../";
+                    window.location = window.location.origin + "/dashboard/tarefas/";
                 }, 2000); 
             });
         } else {

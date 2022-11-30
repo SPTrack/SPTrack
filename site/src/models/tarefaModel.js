@@ -5,7 +5,7 @@ function insertTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
     horarioFimSexta, horarioInicioSabado, horarioFimSabado) {
     
     if(dtInicio != 'NOW()' && dtFim != 'NULL'){
-        return database.executar(`INSERT INTO tarefa VALUES (
+        query = `INSERT INTO tarefa VALUES (
             NULL,
             '${nomeTarefa}',
             '${descricao}',
@@ -33,7 +33,9 @@ function insertTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
             ${horarioInicioSabado},
             ${horarioFimSabado},
             ${idInstituicao}
-        );`)
+        );`
+        console.log(query)
+        return database.executar(query)
     }else if(dtInicio == 'NOW()' && dtFim != 'NULL'){
         return database.executar(`INSERT INTO tarefa VALUES (
             NULL,
@@ -128,7 +130,11 @@ function insertTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
 }
 
 function getLastTarefa(fkInstituicao){
-    return database.executar(`SELECT idTarefa FROM tarefa WHERE fkInstituicao = ${fkInstituicao} ORDER BY idTarefa DESC LIMIT 1;`)
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`SELECT idTarefa FROM tarefa WHERE fkInstituicao = ${fkInstituicao} ORDER BY idTarefa DESC LIMIT 1;`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`SELECT TOP 1 idTarefa FROM tarefa WHERE fkInstituicao = ${fkInstituicao} ORDER BY idTarefa DESC;`);
+    }
 }
 
 function setTarefaXequipamento(idTarefa, idEquipamento){
@@ -144,7 +150,6 @@ function getTarefa(idTarefa){
 }
 
 function getMedidasTarefa(fkInstituicao, idTarefa){
-    // Atenção, desenvolvedor: Query provisória, será desenvolvida depois
     return database.executar(`SELECT * FROM tarefa WHERE idTarefa = ${idTarefa};`)
 }
 

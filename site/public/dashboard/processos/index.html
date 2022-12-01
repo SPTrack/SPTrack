@@ -5,16 +5,6 @@
         window.location = window.origin + '/login';
     }
 </script>
-<style>
-    @media screen and (max-width:1800px){
-        .box{
-            }}
-    @media screen and(max-width:991px) {
-        .box{
-
-        }
-    }
-</style>
 <!DOCTYPE html>
 <html>
 
@@ -219,22 +209,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="margin-right: 30%;" >
                                 <div class="col-lg-12 offset-lg-3">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
                                             <b style="color: Black;">Lista de Processos</b>
                                         </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col">
+                                        <div class="card-body" >
+                                            <form id="listar">
+                                                <div class="row" style="padding-right: 30px;">
+                                                    <div class="col" style="overflow: scroll;width: 215px;height: 181px;">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>White List</strong></label></div>
                                                         <div class="mb-3">
                                                 <table class="table my-0" id="dataTable">
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ondragstart="dragStart(event)" draggable="true">
                                             <td>$162,700</td>
                                         </tr>
                                         <tr>
@@ -245,13 +235,13 @@
                                         </tr></tbody></table>
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col" ondrop="drop(event)" ondragover="allowDrop(event)" style="overflow: scroll;width: 215px;height: 181px; padding-left: 30px;">
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>Black List</strong></label></div>
                                                         <div class="mb-3">
                                                             <table class="table my-0" id="dataTable">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>$162,700</td>
+                                                                        <td>$161,700</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>$1,200,000</td>
@@ -262,7 +252,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form><button class="btn btn-primary btn-sm" type="submit" style="padding-right: 13px;background-color: Black;">Cadastrar</button>
+                                            </form><button class="btn btn-primary btn-sm" type="submit" style="padding-right: 13px;background-color: Black;" onclick="cadastro()">Cadastrar</button>
                                         </div>
                                     </div>
                                 </div>

@@ -16,14 +16,14 @@ public class ConexaoSQL {
     Connection conn = null;
     
     
-//   o metodo vai tentar fazer o que estiver aqui dentro
+//   o metodo vai tentar conectar com a Azure
          try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
              String url = "jdbc:sqlserver://sptrack.database.windows.net:1433;database=SPTrack;user=sptrackClient@sptrack;password=Sprint2SPTrack;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 //            variavel recebera o conteudo da url
              conn = DriverManager.getConnection(url);
   
-// qualquer problema entra na exception            
+// qualquer problema entra na exception e mostra o erro         
          } catch (SQLException erro) {
              JOptionPane.showMessageDialog(null, "conexaoSQL" + erro.getMessage());
          } catch (ClassNotFoundException ex) {

@@ -3,8 +3,6 @@ package com.mycompany.sptrack;
 import java.io.IOException;
 import com.github.britooo.looca.api.core.Looca;
 
-import DAO.ConexaoSQL;
-
 
 public class Menu extends javax.swing.JFrame {
 
@@ -36,11 +34,12 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(1, 1, 1));
         jPanel1.setForeground(new java.awt.Color(254, 254, 254));
 
-        txtHeader.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtHeader.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtHeader.setForeground(new java.awt.Color(255, 255, 255));
         txtHeader.setText("SISTEMA DE MONITORAMENTO DE HARDWARE DE MÁQUINA - ADM");
 
@@ -55,9 +54,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(lblLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblimg2)
-                .addGap(123, 123, 123)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addComponent(txtHeader)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(99, 99, 99))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +69,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtHeader)
-                .addGap(29, 29, 29))
+                .addGap(30, 30, 30))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -151,7 +150,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnProcessos1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChamados, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(1, 1, 1));
@@ -176,10 +175,10 @@ public class Menu extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLogo1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addComponent(lblLogo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18))
         );
@@ -199,7 +198,8 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();

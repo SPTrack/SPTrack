@@ -22,11 +22,13 @@ public class UsuarioSQL {
             pstm.setString(1, usuario.getEmail_usuario());
             pstm.setString(2, usuario.getSenha_usuario());
             
-            String password = usuario.getSenha_usuario();
+            
+            //cancelado
+//            String password = usuario.getSenha_usuario();
 
-            String senhaBanco = "?";
+//            String senhaBanco = "?";
 
-            BCrypt.Result result = BCrypt.verifyer().verify(password.getBytes(StandardCharsets.UTF_8), senhaBanco.getBytes(StandardCharsets.UTF_8));
+//            BCrypt.Result result = BCrypt.verifyer().verify(password.getBytes(StandardCharsets.UTF_8), senhaBanco.getBytes(StandardCharsets.UTF_8));
 
             ResultSet rs = pstm.executeQuery();
 

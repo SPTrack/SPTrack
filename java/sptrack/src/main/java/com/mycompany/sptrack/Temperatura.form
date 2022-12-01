@@ -55,12 +55,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="grafico1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="289" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
                           <Component id="lblSO" min="-2" pref="289" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="grafico1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -72,9 +72,9 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblSO" min="-2" pref="38" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Component id="grafico1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="86" max="32767" attributes="0"/>
+                  <EmptySpace pref="93" max="32767" attributes="0"/>
                   <Component id="btnVoltar2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -100,9 +100,9 @@
                       <Component id="lblLogo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblimg" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <EmptySpace pref="149" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -133,7 +133,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="14" style="1"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>

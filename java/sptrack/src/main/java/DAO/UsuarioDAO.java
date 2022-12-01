@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-
 public class UsuarioDAO {
 
     Connection conn;

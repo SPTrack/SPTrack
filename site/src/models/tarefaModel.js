@@ -295,7 +295,7 @@ function updateTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
 }
 
 function listarMaquinas(idTarefa){
-    return database.executar(`SELECT equipamento.modelo, equipamento.numeroPatrimonio, sala.nome
+    return database.executar(`SELECT equipamento.idEquipamento, equipamento.modelo, equipamento.numeroPatrimonio, sala.nome
     FROM tarefaXequipamento JOIN equipamento ON tarefaXequipamento.fkEquipamento = equipamento.idEquipamento 
     JOIN locacao ON equipamento.idEquipamento = locacao.fkEquipamento JOIN sala ON locacao.fkSala = sala.idSala
     WHERE tarefaXequipamento.fkTarefa = ${idTarefa}; `)
@@ -312,8 +312,12 @@ function getMediaCPU(idTarefa){
 }
 
 function getDadosMedidas(idTarefa){
-    return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo FROM medidaTarefa 
+    return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
         JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa};`)
+}
+
+function getQuantidadeDias(idTarefa){
+    return database.executar(`SELECT COUNT(dataRegistro) FROM medidaTarefa WHERE fkTarefa = ${idTarefa} GROUP BY DATE_FORMAT(dataRegistro, '%Y%m%d');`);
 }
 
 module.exports = {
@@ -330,5 +334,6 @@ module.exports = {
     listarMaquinas,
     getMediaRAM,
     getMediaCPU,
-    getDadosMedidas
+    getDadosMedidas,
+    getQuantidadeDias
 };

@@ -55,4 +55,9 @@ router.post('/getDadosMedidas', function (request, response) {
     tarefaController.getDadosMedidas(request, response);
 });
 
+router.post('/getQuantidadeDias', function (request, response) {
+    tarefaController.getQuantidadeDias(request, response);
+});
+
+
 module.exports = router;

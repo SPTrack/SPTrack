@@ -52,3 +52,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr !important;
 }
+
+.gridPai{
+    display: grid;
+    grid-template-columns: 60fr 1fr 20fr
+}
+
+.abrangeGraph{
+    padding-left: 60px;
+    flex: 0 0 auto;
+    width: 100%;
+    text-align: -webkit-center;
+
+}
+
+.abrangeKpis{
+    padding-right: 24px;
+}
+
+.left{
+    margin-bottom: 24px;
+}

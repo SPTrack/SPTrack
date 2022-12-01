@@ -4,6 +4,11 @@ isHide = 0;
 statusProc = 0;
 statusRAM = 0;
 statusDK = 0;
+maquinas = []
+totalCPUmaquinas = [];
+totalRAMmaquinas = [];
+totalDKmaquinas = [];
+totalCounterMaquinas = [];
 
 function hide(){
     if(isHide){
@@ -140,6 +145,12 @@ function listarMaquinas() {
                                 </div>
                             </div>
                     </div>`;
+
+                    maquinas.push(json[i]['idEquipamento']);
+                    totalCPUmaquinas.push(0);
+                    totalRAMmaquinas.push(0);
+                    totalDKmaquinas.push(0);
+                    totalCounterMaquinas.push(0);
                 }
 
                 updateTotal(json.length);
@@ -314,6 +325,65 @@ function updateTotal(valor){
     }
 }
 
+function updateQtdDias(valor){
+    if(valor != 1){
+        qtdDias_span.innerHTML = `${valor} dias`;
+    }else{
+        qtdDias_span.innerHTML = `${valor} dia`;
+    }
+}
+
+function updateKPIs(){
+    maquinasAlerta = 0;
+    maquinasOkay = 0;
+
+    for(i = 0; i < maquinas.length; i++){
+        valorCPU = totalCPUmaquinas[i] / totalCounterMaquinas[i];
+        valorRAM = totalRAMmaquinas[i] / totalCounterMaquinas[i];
+        valorDK = totalDKmaquinas[i] / totalCounterMaquinas[i];
+        statusCPU = 0;
+        statusRAM = 0;
+        statusDK = 0;
+        
+
+        if(valorCPU < 40){
+            statusCPU = 4;
+        }else if(valorCPU <= 60){
+            statusCPU = 3;
+        }else if(valorCPU <= 80){
+            statusCPU = 2;
+        }else{
+            statusCPU = 1;
+        }
+
+        if(valorRAM < 20){
+            statusRAM = 1;
+        }else if(valorRAM <= 50){
+            statusRAM = 2;
+        }else if(valorRAM <= 80){
+            statusRAM = 3;
+        }else{
+            statusRAM = 4;
+        }
+
+        statusTotal = (statusProc + statusRAM) / 2;
+
+        if(statusTotal == 1){
+            maquinasAlerta++;
+        }else{
+            maquinasOkay++;
+        }
+    }
+
+    valorMaquinasOkay = (maquinasOkay * 100) / maquinas.length;
+    progMaquinasOkay.style.width = `${valorMaquinasOkay}%`;
+    maquinasOkay_span.innerHTML = `${((maquinasOkay * 100) / maquinas.length).toFixed(0)}%`;
+
+    valorMaquinasAlerta = (maquinasAlerta * 100) / maquinas.length;
+    progMaquinasAlerta.style.width = `${valorMaquinasAlerta}%`;
+    maquinasAlerta_span.innerHTML = `${((valorMaquinasAlerta * 100) / maquinas.length).toFixed(0)}%`;
+}
+
 function plotGrafico(){
     fetch("/tarefas/getDadosMedidas", {
         method: "POST",
@@ -332,8 +402,22 @@ function plotGrafico(){
                 kpiDKcounter = 0;
                 kpiDKtotal = 0;
                 xValues = []
-
+                console.log(maquinas)
                 for(let i = 0; i < json.length; i++){
+                    // Jogar o valor das máquinas
+                    for(j = 0; j < maquinas.length; j++){
+                        if(json[i]['fkEquipamento'] == maquinas[j]){
+                            if(json[i]['tipo'] == "Processador"){
+                                totalCPUmaquinas[j] += json[i]['valor'];
+                                totalCounterMaquinas++;
+                            }else if(json[i]['tipo'] == "Memória RAM"){
+                                totalRAMmaquinas[j] += (Number(json[i]['valor'] * 100) / json[i]['capacidade']);
+                            }else if(json[i]['tipo'] == "Disco Rígido"){
+                                totalDKmaquinas[j] += (Number(json[i]['valor'] * 100) / json[i]['capacidade']);
+                            }
+                        }
+                    }
+
                     if(json[i]['tipo'] == "Processador"){
                         medidasCPU.push(json[i]['valor']);
                     }else if(json[i]['tipo'] == "Memória RAM"){
@@ -352,6 +436,7 @@ function plotGrafico(){
                 console.log(medidasDK)
 
                 updateAlertas(kpiDKtotal / kpiDKcounter);
+                updateKPIs();
                 
                 chart1 = new Chart(grafico, {
                     type: "line",
@@ -439,10 +524,64 @@ function plotGrafico(){
     });
 }
 
-
+function getQuantidadeDias(){
+    fetch("/tarefas/getQuantidadeDias", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idTarefaServer: idTarefa
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                updateQtdDias(json.length);
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
 getTarefa();
 listarMaquinas();
 getMediaRAM();
 getMediaCPU();
 plotGrafico();
+getQuantidadeDias();
+
+
+
+// setTimeout(function() {
+//     setTimeout(function() {
+
+//         setTimeout(function() {
+
+//             setTimeout(function() {
+
+//                 setTimeout(function() {
+
+//                     setTimeout(function() {
+
+//                         getTarefa();
+//                     },100)
+//                     listarMaquinas();
+//                 },100)
+
+//                 getMediaRAM();
+//             },100)
+
+//             getMediaCPU();
+//         },100)
+
+//         plotGrafico();
+//     }, 200)
+//     getQuantidadeDias();
+// }, 2000);

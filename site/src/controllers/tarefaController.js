@@ -314,6 +314,17 @@ function getDadosMedidas(request, response){
     }); 
 }
 
+function getQuantidadeDias(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getQuantidadeDias(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
@@ -327,5 +338,6 @@ module.exports = {
     listarMaquinas,
     getMediaRAM,
     getMediaCPU,
-    getDadosMedidas
+    getDadosMedidas,
+    getQuantidadeDias
 }

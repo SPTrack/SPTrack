@@ -9,6 +9,9 @@ totalCPUmaquinas = [];
 totalRAMmaquinas = [];
 totalDKmaquinas = [];
 totalCounterMaquinas = [];
+valorCPU = 0;
+valorRAM = 0;
+
 
 function hide(){
     if(isHide){
@@ -134,11 +137,13 @@ function listarMaquinas() {
                                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="padding-right: 0px;
                                                     margin-bottom: -19px;color: #000000;">
                                                     <div style="display: grid !important; grid-template-columns: 1fr 3fr !important;">
-                                                    <i id="icon1" class="fas fa-laptop fa-3x" style="color: black; margin-left: 6px;"></i>
-                                                    <div>
+                                                    <i id="icon${json[i]['idEquipamento']}" class="fas fa-laptop fa-3x" style="color: black; margin-left: 6px;"></i>
+                                                    <div class="plotRight">
                                                         <a class="a" style="text-decoration:auto;
                                                         color:black" >${json[i]['modelo']}<br>${json[i]['nome']} - ${json[i]['numeroPatrimonio']}
-                                                        </a></span>
+                                                        </a></span><br>
+                                                        <span><b>CPU: </b></span><span id="stCPU${json[i]['idEquipamento']}" name="stCPU"></span><br>
+                                                        <span><b>RAM: </b></span><span id="stRAM${json[i]['idEquipamento']}" name="stRAM"></span>
                                                     </div>
                                         </div>
                                     </div>
@@ -409,7 +414,7 @@ function plotGrafico(){
                         if(json[i]['fkEquipamento'] == maquinas[j]){
                             if(json[i]['tipo'] == "Processador"){
                                 totalCPUmaquinas[j] += json[i]['valor'];
-                                totalCounterMaquinas++;
+                                totalCounterMaquinas[j]++;
                             }else if(json[i]['tipo'] == "Memória RAM"){
                                 totalRAMmaquinas[j] += (Number(json[i]['valor'] * 100) / json[i]['capacidade']);
                             }else if(json[i]['tipo'] == "Disco Rígido"){
@@ -467,6 +472,7 @@ function plotGrafico(){
                     },
             
                     options: {
+                        // maintainAspectRatio: false,
                         legend: {display: true},
                         scales: {
                             yAxes: [{
@@ -550,6 +556,58 @@ function getQuantidadeDias(){
     });
 }
 
+function setEstadosMaquinas(){
+    // spans_cpu = (document.getElementsByName("stCPU"));
+    // spans_ram = (document.getElementsByName("stRAM"));
+    for(i = 0; i < maquinas.length; i++){
+        valorCPU = totalCPUmaquinas[i] / totalCounterMaquinas[i];
+        valorRAM = totalDKmaquinas[i] / totalCounterMaquinas[i];
+        
+        statusCPU = 0;
+        statusRAM = 0;
+        
+        if(valorCPU < 40){
+            document.getElementById(`stCPU${maquinas[i]}`).innerHTML = "Ótimo";
+            statusCPU += 4;
+        }else if(valorCPU <= 60){
+            document.getElementById(`stCPU${maquinas[i]}`).innerHTML = "Bom";
+            statusCPU += 3;
+        }else if(valorCPU <= 80){
+            document.getElementById(`stCPU${maquinas[i]}`).innerHTML = "Regular";
+            statusCPU += 2;
+        }else if(valorCPU > 80){
+            document.getElementById(`stCPU${maquinas[i]}`).innerHTML = "Ruim";
+            statusCPU += 1;
+        }
+
+        if(valorRAM < 20){
+            document.getElementById(`stRAM${maquinas[i]}`).innerHTML = "Ruim";
+            statusRAM += 1;
+        }else if(valorRAM <= 50){
+            document.getElementById(`stRAM${maquinas[i]}`).innerHTML = "Regular";
+            statusRAM += 2;
+        }else if(valorRAM <= 80){
+            document.getElementById(`stRAM${maquinas[i]}`).innerHTML = "Bom";
+            statusRAM += 3;
+        }else{
+            document.getElementById(`stRAM${maquinas[i]}`).innerHTML = "Ótimo";
+            statusRAM += 4;
+        }
+
+        statusTotal = (statusCPU + statusRAM) / 2;
+
+        if(statusTotal == 4){
+            document.getElementById(`icon${maquinas[i]}`).style.color = '#080';
+        }else if(statusTotal >= 3){
+            document.getElementById(`icon${maquinas[i]}`).style.color = '#FF0';
+        }else if(statusTotal >= 2){
+            document.getElementById(`icon${maquinas[i]}`).style.color = '#cc8400';
+        }else{
+            document.getElementById(`icon${maquinas[i]}`).style.color = '#F00';
+        }
+    }
+}
+
 getTarefa();
 listarMaquinas();
 getMediaRAM();
@@ -557,31 +615,6 @@ getMediaCPU();
 plotGrafico();
 getQuantidadeDias();
 
-
-
-// setTimeout(function() {
-//     setTimeout(function() {
-
-//         setTimeout(function() {
-
-//             setTimeout(function() {
-
-//                 setTimeout(function() {
-
-//                     setTimeout(function() {
-
-//                         getTarefa();
-//                     },100)
-//                     listarMaquinas();
-//                 },100)
-
-//                 getMediaRAM();
-//             },100)
-
-//             getMediaCPU();
-//         },100)
-
-//         plotGrafico();
-//     }, 200)
-//     getQuantidadeDias();
-// }, 2000);
+setTimeout(function() {
+    setEstadosMaquinas();
+}, 2500)

@@ -99,10 +99,10 @@ function updateGroup(isSala){
     if(JSON.parse(isSala)){
         grupo = 0;
         salasSelecionadasField.style.display = 'block';
-        equipamentosSelecionados.style.display = 'none';
+        equipamentosPersonalizados.style.display = 'none';
     }else{
         grupo = 1;
-        equipamentosSelecionados.style.display = 'block';
+        equipamentosPersonalizados.style.display = 'block';
         salasSelecionadasField.style.display = 'none';
     }
 }

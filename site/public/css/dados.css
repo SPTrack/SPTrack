@@ -50,7 +50,7 @@
 
 #lista_maquinas {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
 }
 
 .gridPai{
@@ -63,7 +63,6 @@
     flex: 0 0 auto;
     width: 100%;
     text-align: -webkit-center;
-
 }
 
 .abrangeKpis{
@@ -72,4 +71,8 @@
 
 .left{
     margin-bottom: 24px;
+}
+
+.plotRight{
+    text-align: right;
 }

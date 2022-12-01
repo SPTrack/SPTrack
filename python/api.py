@@ -161,7 +161,7 @@ while True:
                 conexao.commit()
 
         try:
-            # new_dash.display()
+            new_dash.display()
             sleep(1)
         except KeyboardInterrupt:
             break

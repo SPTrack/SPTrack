@@ -314,6 +314,7 @@ function getMediaCPU(idTarefa){
 function getDadosMedidas(idTarefa){
     return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
         JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa};`)
+
 }
 
 function getQuantidadeDias(idTarefa){

@@ -3,6 +3,8 @@ package com.mycompany.sptrack;
 import DAO.UsuarioDAO;
 import DAO.UsuarioSQL;
 import DTO.Usuario;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -88,15 +90,14 @@ public class TelaLogin extends javax.swing.JFrame {
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogin)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(277, 277, 277))
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmail)
@@ -114,11 +115,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(lblPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin))
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(btnLogin)
+                .addGap(17, 17, 17))
         );
 
         jPanel1.setBackground(new java.awt.Color(1, 1, 1));
@@ -140,9 +141,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(lblLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblimg, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,10 +153,10 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(lblimg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel3)
-                .addGap(21, 21, 21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,8 +191,17 @@ public class TelaLogin extends javax.swing.JFrame {
             usuarioDTO.setSenha_usuario(senha_usuario);
 
             UsuarioSQL usuarioSql = new UsuarioSQL();
+            
+            query = String.format(email_usuario,"SELECT email, senha WHERE email = '%s'");
+            
+            
+            BCrypt.Result result = BCrypt.verifyer().verify(email_usuario.getBytes(StandardCharsets.UTF_8), senhaBanco.getBytes(StandardCharsets.UTF_8));
             ResultSet rsusuariodao = usuarioSql.autenticacaoUsuario(usuarioDTO);
-
+            
+            
+            
+            
+            
             if (rsusuariodao.next()) {
                 Menu menu = new Menu();
                 menu.setVisible(true);

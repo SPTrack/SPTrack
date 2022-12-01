@@ -23,35 +23,6 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
 
-        Memoria memoria = new Memoria();
-        Processador processador = new Processador();
-        
-        
-        Connection conn;
-        conn = new ConexaoSQL().conectaSQL();
-
-        try {
-            String sqlCpu = "INSERT INTO medida VALUES({processador}, GETDATE(), {idCPU})";
-
-            String sqlRam = "INSERT INTO medida VALUES({memoria}, GETDATE(), {idRAM})";
-
-            //String sqlDisk = "INSERT INTO medida VALUES({disc_useMB}, GETDATE(), {idDK})";
-
-            PreparedStatement pstmCpu = conn.prepareStatement(sqlCpu);
-            ResultSet rsCpu = pstmCpu.executeQuery();
-            
-            PreparedStatement pstmRam = conn.prepareStatement(sqlRam);
-            ResultSet rsRam = pstmRam.executeQuery();
-            
-            //PreparedStatement pstmDisk = conn.prepareStatement(sqlDisk);
-            //ResultSet rsDisk = pstmDisk.executeQuery();
-
-
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro: " + erro);
- 
-        }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -100,15 +71,15 @@ public class Menu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(txtHeader)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblimg2, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                     .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtHeader)
+                .addGap(30, 30, 30))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -205,9 +176,9 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblLogo1)
-                .addGap(196, 196, 196)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(226, 226, 226))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,10 +186,10 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblLogo1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

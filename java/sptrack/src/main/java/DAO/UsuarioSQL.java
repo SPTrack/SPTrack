@@ -21,7 +21,7 @@ public class UsuarioSQL {
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, usuario.getEmail_usuario());
             pstm.setString(2, usuario.getSenha_usuario());
-
+            
             String password = usuario.getSenha_usuario();
 
             String senhaBanco = "?";

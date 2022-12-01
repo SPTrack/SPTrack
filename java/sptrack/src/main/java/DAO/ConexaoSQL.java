@@ -29,6 +29,8 @@ public class ConexaoSQL {
          } catch (ClassNotFoundException ex) {
               Logger.getLogger(ConexaoSQL.class.getName()).log(Level.SEVERE, null, ex);
           }
+         
+          System.out.println(conn);
     
          return conn;
     }

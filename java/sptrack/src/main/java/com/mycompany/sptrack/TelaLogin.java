@@ -2,9 +2,12 @@ package com.mycompany.sptrack;
 
 import DAO.UsuarioDAO;
 import DAO.UsuarioSQL;
+import DAO.ConexaoSQL;
 import DTO.Usuario;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -180,6 +183,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
+       
         try {
             String email_usuario, senha_usuario;
 
@@ -191,11 +195,15 @@ public class TelaLogin extends javax.swing.JFrame {
             usuarioDTO.setSenha_usuario(senha_usuario);
 
             UsuarioSQL usuarioSql = new UsuarioSQL();
+            ConexaoSQL x = new DAO.ConexaoSQL();
+            Connection conn = x.conectaSQL();
+   
+            String query = String.format(email_usuario,"SELECT email, senha WHERE email = '%s'");
+            var pstm = conn.prepareStatement(query);
             
-            query = String.format(email_usuario,"SELECT email, senha WHERE email = '%s'");
             
-            
-            BCrypt.Result result = BCrypt.verifyer().verify(email_usuario.getBytes(StandardCharsets.UTF_8), senhaBanco.getBytes(StandardCharsets.UTF_8));
+            System.out.println("Vou devolver o PSTM");
+            System.out.println(pstm);
             ResultSet rsusuariodao = usuarioSql.autenticacaoUsuario(usuarioDTO);
             
             

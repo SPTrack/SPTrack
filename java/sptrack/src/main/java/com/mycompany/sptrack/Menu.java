@@ -2,19 +2,9 @@ package com.mycompany.sptrack;
 
 import java.io.IOException;
 import com.github.britooo.looca.api.core.Looca;
-import com.github.britooo.looca.api.group.sistema.Sistema;
-import com.github.britooo.looca.api.group.processador.Processador;
-import com.github.britooo.looca.api.group.temperatura.Temperatura;
-import com.github.britooo.looca.api.group.memoria.Memoria;
-import com.github.britooo.looca.api.group.discos.Disco;
+
 import DAO.ConexaoSQL;
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+
 
 public class Menu extends javax.swing.JFrame {
 
@@ -37,7 +27,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnMonitoramentoLive = new javax.swing.JButton();
         btnChamados = new javax.swing.JButton();
-        btnMonitoramentoHist1 = new javax.swing.JButton();
+        btnMonitoramentoTemp = new javax.swing.JButton();
         btnProcessos1 = new javax.swing.JButton();
         lblSO = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -45,6 +35,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(MAXIMIZED_BOTH);
 
         jPanel1.setBackground(new java.awt.Color(1, 1, 1));
         jPanel1.setForeground(new java.awt.Color(254, 254, 254));
@@ -64,9 +55,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(lblLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblimg2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGap(123, 123, 123)
                 .addComponent(txtHeader)
-                .addGap(66, 66, 66))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,14 +70,15 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtHeader)
-                .addGap(30, 30, 30))
+                .addGap(29, 29, 29))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         btnMonitoramentoLive.setBackground(new java.awt.Color(0, 0, 0));
+        btnMonitoramentoLive.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnMonitoramentoLive.setForeground(new java.awt.Color(255, 255, 255));
-        btnMonitoramentoLive.setText("Monitoramento - Ao Vivo");
+        btnMonitoramentoLive.setText("Monitoramento - CPU x Memória");
         btnMonitoramentoLive.setBorderPainted(false);
         btnMonitoramentoLive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +87,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnChamados.setBackground(new java.awt.Color(0, 0, 0));
+        btnChamados.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnChamados.setForeground(new java.awt.Color(255, 255, 255));
         btnChamados.setText("Central de Chamados - Pipefy");
         btnChamados.setBorderPainted(false);
@@ -104,13 +97,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnMonitoramentoHist1.setBackground(new java.awt.Color(0, 0, 0));
-        btnMonitoramentoHist1.setForeground(new java.awt.Color(255, 255, 255));
-        btnMonitoramentoHist1.setText("Monitoramento - Histórico");
-        btnMonitoramentoHist1.setBorderPainted(false);
-        btnMonitoramentoHist1.addActionListener(new java.awt.event.ActionListener() {
+        btnMonitoramentoTemp.setBackground(new java.awt.Color(0, 0, 0));
+        btnMonitoramentoTemp.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMonitoramentoTemp.setForeground(new java.awt.Color(255, 255, 255));
+        btnMonitoramentoTemp.setText("Monitoramento - Temperatura");
+        btnMonitoramentoTemp.setBorderPainted(false);
+        btnMonitoramentoTemp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMonitoramentoHist1ActionPerformed(evt);
+                btnMonitoramentoTempActionPerformed(evt);
             }
         });
 
@@ -126,9 +120,6 @@ public class Menu extends javax.swing.JFrame {
 
         lblSO.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         lblSO.setForeground(new java.awt.Color(153, 153, 153));
-        Sistema sistema = this.looca.getSistema();
-
-        System.out.println(sistema);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,30 +127,31 @@ public class Menu extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnChamados, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProcessos1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMonitoramentoHist1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMonitoramentoLive, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(105, 105, 105)
-                .addComponent(lblSO, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblSO, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnProcessos1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMonitoramentoTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMonitoramentoLive, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChamados, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(289, 289, 289))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblSO, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addComponent(lblSO, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
                 .addComponent(btnMonitoramentoLive, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMonitoramentoHist1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(btnMonitoramentoTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProcessos1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChamados, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(1, 1, 1));
@@ -178,7 +170,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(lblLogo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(226, 226, 226))
+                .addGap(220, 220, 220))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,10 +178,10 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblLogo1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,16 +189,16 @@ public class Menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -219,10 +211,6 @@ public class Menu extends javax.swing.JFrame {
         processos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnProcessos1ActionPerformed
-
-    private void btnMonitoramentoHist1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonitoramentoHist1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMonitoramentoHist1ActionPerformed
 
     private void btnChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamadosActionPerformed
         try {
@@ -237,6 +225,12 @@ public class Menu extends javax.swing.JFrame {
         monitoramento.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMonitoramentoLiveActionPerformed
+
+    private void btnMonitoramentoTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonitoramentoTempActionPerformed
+        Temperatura temperatura = new Temperatura();
+        temperatura.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMonitoramentoTempActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,8 +268,8 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChamados;
-    private javax.swing.JButton btnMonitoramentoHist1;
     private javax.swing.JButton btnMonitoramentoLive;
+    private javax.swing.JButton btnMonitoramentoTemp;
     private javax.swing.JButton btnProcessos1;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;

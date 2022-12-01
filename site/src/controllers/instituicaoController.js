@@ -59,7 +59,7 @@ function cadastrar(request, response) {
 
             salaModel.cadastrar('Sala de TI', idInstituicao).then(_ => {                
                 bcrypt.hash(senha, 8).then(senhaCriptografada => {
-                    usuarioModel.cadastrar(nomeUsuario, email, senhaCriptografada, 'admin', idInstituicao, null)
+                    usuarioModel.cadastrar(nomeUsuario, email, senhaCriptografada, 'admin', 3, idInstituicao, null)
                     .then(resultado => {
                         response.json(resultado);
                     }).catch(function (erro) {

@@ -33,6 +33,34 @@ function getTarefas(){
                     horarioInicio = [json[i]['horarioInicioDomingo'], json[i]['horarioInicioSegunda'], json[i]['horarioInicioTerca'], json[i]['horarioInicioQuarta'], json[i]['horarioInicioQuinta'], json[i]['horarioInicioSexta'], json[i]['horarioInicioSabado']]
                     horarioFim = [json[i]['horarioFimDomingo'], json[i]['horarioFimSegunda'], json[i]['horarioFimTerca'], json[i]['horarioFimQuarta'], json[i]['horarioQuinta'], json[i]['horarioFimSexta'], json[i]['horarioFimSabado']];
 
+                    if(json[i]['dataFim'] ==  null){
+                        if(inicio <= now){
+                            tarefasAtivas.innerHTML += `
+                            <li class="list-group-item linha">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2" onclick="window.location = window.location.href + 'dados/?${json[i]['idTarefa']}'">
+                                        <span class="nomeTarefa"> ${json[i]['nome']} </span><br>
+                                        <span class="descricaoTarefa"> ${json[i]['descricao']} </span>
+                                    </div>
+                                </div>
+                            </li>`;
+                            qtdAtivas++;
+                        }else if(inicio > now){
+                            tarefasProgramadas.innerHTML += `
+                            <li class="list-group-item linha">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2" onclick="window.location = window.location.href + 'dados/?${json[i]['idTarefa']}'">
+                                        <span class="nomeTarefa"> ${json[i]['nome']} </span><br>
+                                        <span class="descricaoTarefa"> ${json[i]['descricao']} </span><br>
+                                        <span class="fimAtividade"> Iniciará em: ${("0" + inicio.getDate()).slice(-2)}/${("0" + inicio.getMonth()).slice(-2)}/${inicio.getFullYear()} </span>
+                                    </div>
+                                </div>
+                            </li>`;
+    
+                            qtdProgramadas++;
+                        }
+                    }
+
                     if((inicio <= now) && (fim >= now)){
                         tarefasAtivas.innerHTML += `
                         <li class="list-group-item linha">
@@ -53,7 +81,7 @@ function getTarefas(){
                         if(diasDisponiveis[now.getDay()] && horarioInicio[now.getDay()] <=  horarioAgora && horarioFim[now.getDay()] >= horarioAgora){
                             qtdEmExecucao++;
                         }
-                    }else if(fim < now){
+                    }else if(fim < now && json[i]['dataFim'] != null){
                         tarefasEncerrada.innerHTML += `
                         <li class="list-group-item linha">
                             <div class="row align-items-center no-gutters">

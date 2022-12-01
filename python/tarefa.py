@@ -42,7 +42,6 @@ def run(cursor, conexao, idEquipamento, idCPU, idRAM, idDK):
                     free_pass = False
             
                 if (diasDisponiveis[diaN]) and (hrNow >= hrInicio) and (hrNow <= hrFim) and free_pass:
-                    print("Entrou")
                     cursor.execute(f"INSERT INTO medidaTarefa VALUES(NULL, {round(cpu_percent(), 2)}, NOW(), {idCPU}, {tarefa[0]})")
                     conexao.commit()
 
@@ -55,5 +54,4 @@ def run(cursor, conexao, idEquipamento, idCPU, idRAM, idDK):
             cont += 1
 
             if cont == fimCont:
-                print("Fim da contagem")
                 sleep(2)

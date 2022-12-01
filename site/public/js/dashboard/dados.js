@@ -11,7 +11,7 @@ totalDKmaquinas = [];
 totalCounterMaquinas = [];
 valorCPU = 0;
 valorRAM = 0;
-
+isEmpty = false;
 
 function hide(){
     if(isHide){
@@ -80,36 +80,50 @@ function getTarefa(){
 }
 
 function deleteTarefa(){
-    fetch("/tarefas/deleteTarefa", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idTarefaServer: idTarefa
-        })
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
-                Swal.fire(
-                    'Sucesso!',
-                    'Tarefa excluída com sucesso!',
-                    'success'
-                )                
-                setInterval(() => {
-                    window.location = window.location.href = "../";
-                }, 2000); 
-            });
-        } else {
-            console.log("Houve um erro ao tentar se comunicar!");
-        
-            resposta.text().then(texto => {
-                console.log(texto)
+    isExit = false;
+
+    Swal.fire({
+        title: 'Tem Certeza?',
+        text: "Todos os dados da tarefa serão apagados!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch("/tarefas/deleteTarefa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idTarefaServer: idTarefa
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        Swal.fire(
+                            'Sucesso!',
+                            'Tarefa excluída com sucesso!',
+                            'success'
+                        )                
+                        setInterval(() => {
+                            window.location = window.location.href = "../";
+                        }, 2000); 
+                    });
+                } else {
+                    console.log("Houve um erro ao tentar se comunicar!"); 
+                    resposta.text().then(texto => {
+                        console.log(texto)
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
             });
         }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
+    })
 }
 
 function editarTarefa(){
@@ -379,7 +393,7 @@ function updateKPIs(){
             maquinasOkay++;
         }
     }
-
+    
     valorMaquinasOkay = (maquinasOkay * 100) / maquinas.length;
     progMaquinasOkay.style.width = `${valorMaquinasOkay}%`;
     maquinasOkay_span.innerHTML = `${((maquinasOkay * 100) / maquinas.length).toFixed(0)}%`;
@@ -401,6 +415,25 @@ function plotGrafico(){
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
+                if(json.length == 0){
+                    isEmpty = true;
+
+                    Swal.fire({
+                        title: 'A tarefa ainda não foi executada',
+                        text: "Retornar à página incial?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Continuar',
+                        cancelButtonText: 'Voltar',
+                      }).then((result) => {
+                        if (!result.isConfirmed) {
+                            window.location = window.location.origin + '/dashboard/tarefas'
+                        }
+                      })
+                }
+
                 medidasCPU = [];
                 medidasRAM = [];
                 medidasDK = [];
@@ -409,7 +442,6 @@ function plotGrafico(){
                 xValues = []
                 console.log(maquinas)
                 for(let i = 0; i < json.length; i++){
-                    // Jogar o valor das máquinas
                     for(j = 0; j < maquinas.length; j++){
                         if(json[i]['fkEquipamento'] == maquinas[j]){
                             if(json[i]['tipo'] == "Processador"){
@@ -441,7 +473,9 @@ function plotGrafico(){
                 console.log(medidasDK)
 
                 updateAlertas(kpiDKtotal / kpiDKcounter);
-                updateKPIs();
+                setTimeout(function() {
+                    updateKPIs();
+                }, 500)
                 
                 chart1 = new Chart(grafico, {
                     type: "line",
@@ -557,8 +591,6 @@ function getQuantidadeDias(){
 }
 
 function setEstadosMaquinas(){
-    // spans_cpu = (document.getElementsByName("stCPU"));
-    // spans_ram = (document.getElementsByName("stRAM"));
     for(i = 0; i < maquinas.length; i++){
         valorCPU = totalCPUmaquinas[i] / totalCounterMaquinas[i];
         valorRAM = totalDKmaquinas[i] / totalCounterMaquinas[i];
@@ -608,6 +640,26 @@ function setEstadosMaquinas(){
     }
 }
 
+function verificarEmpty(){
+    if(isEmpty){
+        usoMedioCPU_span.innerHTML = "0%";
+        usoMedioRAM_span.innerHTML = "0%";
+        qtd_span.innerHTML = "0%";
+        span_status.innerHTML = "Dados Insuficientes";
+        maquinasOkay_span.innerHTML = "0%";
+        progMaquinasOkay.style.width = "0%";
+        cpuIcon.style.color = '#858796';
+        ramIcon.style.color = '#858796';
+        icoStatus.style.color = '#858796';
+        randIcon1.style.color = '#858796';
+        randIcon2.style.color = '#858796';
+        randIcon3.style.color = '#858796';
+        graphSpace.innerHTML = `
+            <div class="notData">Ainda não há dados por enquanto...</div>
+        `;
+    }
+}
+
 getTarefa();
 listarMaquinas();
 getMediaRAM();
@@ -617,4 +669,5 @@ getQuantidadeDias();
 
 setTimeout(function() {
     setEstadosMaquinas();
+    verificarEmpty();
 }, 2500)

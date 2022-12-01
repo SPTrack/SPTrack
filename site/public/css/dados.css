@@ -47,3 +47,8 @@
     background-color: rgb(230, 65, 65);
     border: 1px solid rgb(230, 65, 65);
 }
+
+#lista_maquinas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr !important;
+}

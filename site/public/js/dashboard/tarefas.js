@@ -29,9 +29,9 @@ function getTarefas(){
                     inicio = new Date(json[i]['dataInicio'])
                     fim = new Date(json[i]['dataFim'])
 
-                    diasDisponiveis = [json[i][5], json[i][6], json[i][7], json[i][8], json[i][9], json[i][10], json[i][11]]
-                    horarioInicio = [json[i][12], json[i][14], json[i][16], json[i][18], json[i][20], json[i][22], json[i][24]]
-                    horarioFim = [json[i][13], json[i][15], json[i][17], json[i][19], json[i][21], json[i][23], json[i][25]]                    
+                    diasDisponiveis = [json[i]['isDomingo'], json[i]['isSegunda'], json[i]['isTerca'], json[i]['isQuarta'], json[i]['isQuinta'], json[i]['isSexta'], json[i]['isSabado']]
+                    horarioInicio = [json[i]['horarioInicioDomingo'], json[i]['horarioInicioSegunda'], json[i]['horarioInicioTerca'], json[i]['horarioInicioQuarta'], json[i]['horarioInicioQuinta'], json[i]['horarioInicioSexta'], json[i]['horarioInicioSabado']]
+                    horarioFim = [json[i]['horarioFimDomingo'], json[i]['horarioFimSegunda'], json[i]['horarioFimTerca'], json[i]['horarioFimQuarta'], json[i]['horarioQuinta'], json[i]['horarioFimSexta'], json[i]['horarioFimSabado']];
 
                     if((inicio <= now) && (fim >= now)){
                         tarefasAtivas.innerHTML += `
@@ -45,7 +45,11 @@ function getTarefas(){
                         </li>`;
                         qtdAtivas++;
 
-                        horarioAgora = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+                        horarioAgora = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+                        // console.log(horarioAgora)
+                        // console.log(now.getDay())
+                        // console.log(diasDisponiveis)
+
                         if(diasDisponiveis[now.getDay()] && horarioInicio[now.getDay()] <=  horarioAgora && horarioFim[now.getDay()] >= horarioAgora){
                             qtdEmExecucao++;
                         }

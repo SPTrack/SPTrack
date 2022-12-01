@@ -39,5 +39,20 @@ router.post('/updateTarefa', function (request, response) {
     tarefaController.updateTarefa(request, response);
 });
 
+router.post('/listarMaquinas', function (request, response) {
+    tarefaController.listarMaquinas(request, response);
+});
+
+router.post('/getMediaRAM', function (request, response) {
+    tarefaController.getMediaRAM(request, response);
+});
+
+router.post('/getMediaCPU', function (request, response) {
+    tarefaController.getMediaCPU(request, response);
+});
+
+router.post('/getDadosMedidas', function (request, response) {
+    tarefaController.getDadosMedidas(request, response);
+});
 
 module.exports = router;

@@ -187,21 +187,20 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Média Uso
-                                                    de CPU</span></div>
+                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Média - Processador</span></div>
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="usoMedioCPU_span">30.90%</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="usoMedioCPU_span">00.00%</span></div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm">
-                                                        <div id="progCPU" class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 30.899%; background-color: #008000 !important"><span class="visually-hidden">50%</span>
+                                                        <div id="progCPU" class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><span class="visually-hidden">50%</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto"><i id="cpuIcon" class="fas fa-microchip fa-2x text-gray-300" style="color: #008000 !important"></i></div>
+                                        <div class="col-auto"><i id="cpuIcon" class="fas fa-microchip fa-2x 300"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -211,46 +210,21 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Média
-                                                    Memória RAM</span></div>
+                                            <div class="text-uppercase text-info fw-bold text-xs mb-1">
+                                                <span>Média - Memória RAM</span></div>
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="usoMedioRAM_span">56.84%</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="usoMedioRAM_span">00.00%</span></div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm">
-                                                        <div id="progRAM" class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 56.842625000000005%; background-color: #ff6600 !important;"><span class="visually-hidden">50%</span>
+                                                        <div id="progRAM" class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #c6c6c6;"><span class="visually-hidden">50%</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto"><i id="ramIcon" class="fas fa-memory fa-2x text-gray-300" style="color: #ff6600 !important"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-info py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Máquinas em
-                                                    Alerta</span></div>
-                                            <div class="row g-0 align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span>0</span></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm">
-                                                        <div class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                                                            <span class="visually-hidden">50%</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-satellite-dish fa-2x text-black-300"></i>
-                                        </div>
+                                        <div class="col-auto"><i id="ramIcon" class="fas fa-memory fa-2x 300" style="color: #ff6600 !important"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -262,9 +236,29 @@
                                         <div class="col me-2">
                                             <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>Máquinas
                                                     Monitoradas</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span id="qtd_span">10</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span id="qtd_span">0</span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-laptop fa-2x text-black-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-start-info py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-2">
+                                            <div class="text-uppercase text-info fw-bold text-xs mb-1">
+                                                <span>Status</span>
+                                            </div>
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="text-dark fw-bold h5 mb-0 me-3"><span id="span_status">...</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto"><i id="icoStatus" class="fas fa-satellite-dish fa-2x 300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -294,6 +288,8 @@
                 <button class="btn btn-primary excluir-tarefa" onclick="deleteTarefa()">Excluir Tarefa</button>
             </div>
 
+            <div id="lista_maquinas" style="display: none;"></div>
+            
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
@@ -302,6 +298,7 @@
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="../../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../../bootstrap/js/chart.min.js"></script>
     <script src="../../../bootstrap/js/script.min.js"></script>
     <script src="../../../js/dashboard/dados.js"></script>
 </body>

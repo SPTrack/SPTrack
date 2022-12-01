@@ -270,6 +270,50 @@ function updateTarefa(request, response){
     }
 }
 
+function listarMaquinas(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.listarMaquinas(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
+function getMediaRAM(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getMediaRAM(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
+function getMediaCPU(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getMediaCPU(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
+function getDadosMedidas(request, response){
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getDadosMedidas(idTarefa).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
@@ -279,5 +323,9 @@ module.exports = {
     getMedidasTarefa,
     deleteTarefa,
     getTarefaXequipamento,
-    updateTarefa
+    updateTarefa,
+    listarMaquinas,
+    getMediaRAM,
+    getMediaCPU,
+    getDadosMedidas
 }

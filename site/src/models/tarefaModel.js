@@ -294,6 +294,28 @@ function updateTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
     return database.executar(`SELECT * FROM tarefaXequipamento;`);
 }
 
+function listarMaquinas(idTarefa){
+    return database.executar(`SELECT equipamento.modelo, equipamento.numeroPatrimonio, sala.nome
+    FROM tarefaXequipamento JOIN equipamento ON tarefaXequipamento.fkEquipamento = equipamento.idEquipamento 
+    JOIN locacao ON equipamento.idEquipamento = locacao.fkEquipamento JOIN sala ON locacao.fkSala = sala.idSala
+    WHERE tarefaXequipamento.fkTarefa = ${idTarefa}; `)
+}
+
+function getMediaRAM(idTarefa){
+    return database.executar(`SELECT medidaTarefa.valor, componente.capacidade FROM medidaTarefa JOIN 
+    componente ON medidaTarefa.fkComponente = componente.idComponente WHERE fkTarefa = ${idTarefa} AND componente.tipo = 'Memória RAM';`);
+}
+
+function getMediaCPU(idTarefa){
+    return database.executar(`SELECT medidaTarefa.valor FROM medidaTarefa JOIN 
+    componente ON medidaTarefa.fkComponente = componente.idComponente WHERE fkTarefa = ${idTarefa} AND componente.tipo = 'Processador';`);
+}
+
+function getDadosMedidas(idTarefa){
+    return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo FROM medidaTarefa 
+        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa};`)
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
@@ -304,5 +326,9 @@ module.exports = {
     getMedidasTarefa,
     deleteTarefa,
     getTarefaXequipamento,
-    updateTarefa
+    updateTarefa,
+    listarMaquinas,
+    getMediaRAM,
+    getMediaCPU,
+    getDadosMedidas
 };

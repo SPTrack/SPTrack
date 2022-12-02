@@ -23,6 +23,7 @@ modo = 'dev'
 if modo == 'dev':
     conexao = pymysql.connect(
         host="localhost", user="sptrackClient", password="urubu100", database="SPTrack")
+    print(conexao)
 elif modo == 'prod':
     try:
         conexao = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+"sptrack.database.windows.net" +

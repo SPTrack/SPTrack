@@ -325,6 +325,20 @@ function getQuantidadeDias(request, response){
     }); 
 }
 
+function getDadosMedidasPersonalizado(request, response){
+    var tempo = request.body.tempoServer;
+    var equipamento = request.body.equipamentoServer;
+    var idTarefa = request.body.idTarefaServer;
+
+    tarefaModel.getDadosMedidasPersonalizado(idTarefa, tempo, equipamento).then(resultado => {
+        response.json(resultado)
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    }); 
+}
+
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
@@ -339,5 +353,6 @@ module.exports = {
     getMediaRAM,
     getMediaCPU,
     getDadosMedidas,
-    getQuantidadeDias
+    getQuantidadeDias,
+    getDadosMedidasPersonalizado
 }

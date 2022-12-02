@@ -170,6 +170,13 @@ function listarMaquinas() {
                     totalRAMmaquinas.push(0);
                     totalDKmaquinas.push(0);
                     totalCounterMaquinas.push(0);
+
+
+                    if(i == 0){
+                        selectEquipamento.innerHTML += `<option value="0" selected>Todos os Equipamentos</option>`;
+                    }
+
+                    selectEquipamento.innerHTML += `<option value="${json[i]['idEquipamento']}">${json[i]['modelo']} - ${json[i]['numeroPatrimonio']}</option>`;
                 }
 
                 updateTotal(json.length);
@@ -419,7 +426,7 @@ function plotGrafico(){
                     isEmpty = true;
 
                     Swal.fire({
-                        title: 'A tarefa ainda não foi executada',
+                        title: 'A tarefa ainda não possui registros',
                         text: "Retornar à página incial?",
                         icon: 'warning',
                         showCancelButton: true,
@@ -429,7 +436,7 @@ function plotGrafico(){
                         cancelButtonText: 'Voltar',
                       }).then((result) => {
                         if (!result.isConfirmed) {
-                            window.location = window.location.origin + '/dashboard/tarefas'
+                            window.location = window.location.origin + '/dashboard/tarefas';
                         }
                       })
                 }
@@ -440,7 +447,7 @@ function plotGrafico(){
                 kpiDKcounter = 0;
                 kpiDKtotal = 0;
                 xValues = []
-                console.log(maquinas)
+
                 for(let i = 0; i < json.length; i++){
                     for(j = 0; j < maquinas.length; j++){
                         if(json[i]['fkEquipamento'] == maquinas[j]){
@@ -470,10 +477,12 @@ function plotGrafico(){
                     xValues.push(i+1);
                 }
 
-                console.log(medidasDK)
-
-                updateAlertas(kpiDKtotal / kpiDKcounter);
                 setTimeout(function() {
+                    updateAlertas(kpiDKtotal / kpiDKcounter);
+                    setTimeout(function() {
+                        updateKPIs();
+                    }, 1000)
+
                     updateKPIs();
                 }, 500)
                 
@@ -506,7 +515,8 @@ function plotGrafico(){
                     },
             
                     options: {
-                        // maintainAspectRatio: false,
+                        responsive: true,
+                        maintainAspectRatio: false,
                         legend: {display: true},
                         scales: {
                             yAxes: [{
@@ -640,6 +650,53 @@ function setEstadosMaquinas(){
     }
 }
 
+function atualizarLista(){
+    fetch("/tarefas/listarMaquinas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idTarefaServer: idTarefa
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {      
+                lista_maquinas.innerHTML = '';
+
+                for (let i = 0; i < json.length; i++) {
+                    lista_maquinas.innerHTML+=`
+                    <div class="card shadow border-start-info py-2" style="margin: 16px">
+                            <div class="card-body"  style="cursor:pointer;">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2">
+                                        <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="padding-right: 0px;
+                                                    margin-bottom: -19px;color: #000000;">
+                                                    <div style="display: grid !important; grid-template-columns: 1fr 3fr !important;">
+                                                    <i id="icon${json[i]['idEquipamento']}" class="fas fa-laptop fa-3x" style="color: black; margin-left: 6px;"></i>
+                                                    <div class="plotRight">
+                                                        <a class="a" style="text-decoration:auto;
+                                                        color:black" >${json[i]['modelo']}<br>${json[i]['nome']} - ${json[i]['numeroPatrimonio']}
+                                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>`;
+                }
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
 function verificarEmpty(){
     if(isEmpty){
         usoMedioCPU_span.innerHTML = "0%";
@@ -657,7 +714,140 @@ function verificarEmpty(){
         graphSpace.innerHTML = `
             <div class="notData">Ainda não há dados por enquanto...</div>
         `;
+        atualizarLista();
     }
+}
+
+function changeGraph(){
+    console.log("Gráfico se alterando...")
+    tempo = Number(selectTempo.value);
+    equipamento = Number(selectEquipamento.value);
+
+    fetch("/tarefas/getDadosMedidasPersonalizado", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idTarefaServer: idTarefa,
+            tempoServer: tempo,
+            equipamentoServer: equipamento
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                valorCPU = [];
+                valorRAM = [];
+                valorDK = [];
+                xValues = [];
+                
+                for(let i = 0; i < json.length; i++){
+                    if(json[i]['tipo'] == "Processador"){
+                        valorCPU.push(json[i]['valor']);
+                    }else if(json[i]['tipo'] == "Memória RAM"){
+                        valorRAM.push((Number(json[i]['valor'] * 100) / json[i]['capacidade']));
+                    }else if(json[i]['tipo'] == "Disco Rígido"){
+                        valorDK.push((Number(json[i]['valor'] * 100) / json[i]['capacidade']));
+                    }
+                }
+
+                for(i = 0; i < json.length / 3; i++){
+                    xValues.push(i+1);
+                }
+                
+                grafico.remove();
+                cnv = document.createElement("canvas");
+                cnv.setAttribute('id', 'grafico');
+                cnv.setAttribute('style', 'width: 100% !important; height: 100% !important;');
+                grafico1pai.appendChild(cnv);
+                
+                chart1 = new Chart(grafico, {
+                    type: "line",
+                    data: {
+                    labels: xValues,
+                    datasets: [{ 
+                            data: valorCPU,
+                            backgroundColor: "brown",
+                            borderColor: "brown",
+                            fill: false,
+                            yAxisID: 'A',
+                            label: 'CPU (%)'
+                        }, { 
+                            data: valorRAM,
+                            backgroundColor: "green",
+                            borderColor: 'green',
+                            fill: false,
+                            yAxisID: 'B',
+                            label: 'Memória RAM (GB)'
+                        }, { 
+                            data: valorDK,
+                            backgroundColor: "blue",
+                            borderColor: 'blue',
+                            fill: false,
+                            yAxisID: 'C',
+                            label: 'Disco Rígido (GB)'
+                        }]
+                    },
+            
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {display: true},
+                        scales: {
+                            yAxes: [{
+                                id: 'A',
+                                type: 'linear',
+                                position: 'left',
+                                ticks: {
+                                    max: 100,
+                                    min: 0
+                                }
+                            }, {
+                                id: 'B',
+                                type: 'linear',
+                                position: 'right',
+                                ticks: {
+                                    max: 100,
+                                    min: 0,
+                                    display: false
+                                }
+                            },{
+                                id: 'C',
+                                type: 'linear',
+                                position: 'right',
+                                ticks: {
+                                    max: 100,
+                                    min: 0,
+                                    display: false
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    maxTicksLimit: 5,
+                                    maxRotation: 0,
+                                    minRotation: 0
+                                    // autoSkip: true
+                                }
+                            }]
+                        },
+                        animation: 0,
+                        title: {
+                            display: false
+                        }
+                    }
+                });
+            });
+        } else {
+            console.log("Houve um erro ao tentar se comunicar!");
+        
+            resposta.text().then(texto => {
+                console.log(texto)
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+
 }
 
 getTarefa();
@@ -670,4 +860,4 @@ getQuantidadeDias();
 setTimeout(function() {
     setEstadosMaquinas();
     verificarEmpty();
-}, 2500)
+}, 3000)

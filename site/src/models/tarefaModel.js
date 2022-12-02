@@ -321,6 +321,26 @@ function getQuantidadeDias(idTarefa){
     return database.executar(`SELECT COUNT(dataRegistro) FROM medidaTarefa WHERE fkTarefa = ${idTarefa} GROUP BY DATE_FORMAT(dataRegistro, '%Y%m%d');`);
 }
 
+function getDadosMedidasPersonalizado(idTarefa, tempo, equipamento){
+    day = 0
+
+    if(tempo == 0 && equipamento == 0){
+        return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa};`);
+    }else if(tempo != 0 && equipamento == 0){
+        return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND 
+        medidaTarefa.dataRegistro <= NOW() AND medidaTarefa.dataRegistro >= NOW() - INTERVAL ${tempo} DAY;`);
+    }else if(tempo == 0 && equipamento != 0){
+        return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND fkEquipamento = ${equipamento};`);
+    }else{
+        return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND fkEquipamento = ${equipamento}
+        AND medidaTarefa.dataRegistro <= NOW() AND medidaTarefa.dataRegistro >= NOW() - INTERVAL ${tempo} DAY;`)
+    }
+}
+
 module.exports = {
     insertTarefa,
     getLastTarefa,
@@ -336,5 +356,6 @@ module.exports = {
     getMediaRAM,
     getMediaCPU,
     getDadosMedidas,
-    getQuantidadeDias
+    getQuantidadeDias,
+    getDadosMedidasPersonalizado
 };

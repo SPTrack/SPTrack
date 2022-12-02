@@ -59,5 +59,9 @@ router.post('/getQuantidadeDias', function (request, response) {
     tarefaController.getQuantidadeDias(request, response);
 });
 
+router.post('/getDadosMedidasPersonalizado', function (request, response) {
+    tarefaController.getDadosMedidasPersonalizado(request, response);
+});
+
 
 module.exports = router;

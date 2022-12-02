@@ -41,19 +41,17 @@ try:
     idEquipamento = dados[1]
 except:
     os.system(cls)
-    print(
-        "Máquina não registrada, entre em contato com o suporte")
+    print("Máquina não registrada, entre em contato com o suporte")
         
 
 def abrirChamadoCPUTriagem():
     payload = {
         "query": "mutation { createCard(input: { pipe_id: 302793571, title: \"Uso de CPU acima da média\",fields_attributes:[ {field_id: \"qual_o_assunto_do_seu_pedido\", field_value: \"O computador está esquentando pouco\"}]}) {card {title}}}"}
     response = requests.post(URL, json=payload, headers=headers)
-    print(response.text)
+    x = response.text
     
     if modo == 'dev':
         query = f"INSERT INTO chamado VALUES (NULL, 'Uso de CPU muito alto', 1, NOW(), {idEquipamento})"
-        print(query)
         cursor.execute(query)
         conexao.commit()
     elif modo == 'prod':
@@ -65,6 +63,6 @@ def abrirChamadoRAMTriagem():
     payload = {
         "query": "mutation { createCard(input: { pipe_id: 302793571, title: \"Uso de RAM acima da média\",fields_attributes:[ {field_id: \"qual_o_assunto_do_seu_pedido\", field_value: \"O computador está travando\"}]}) {card {title}}}"}
     response = requests.post(URL, json=payload, headers=headers)
-    print(response.text)
+    x = response.text
 
 

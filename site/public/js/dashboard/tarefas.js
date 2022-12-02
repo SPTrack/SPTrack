@@ -31,8 +31,10 @@ function getTarefas(){
 
                     diasDisponiveis = [json[i]['isDomingo'], json[i]['isSegunda'], json[i]['isTerca'], json[i]['isQuarta'], json[i]['isQuinta'], json[i]['isSexta'], json[i]['isSabado']]
                     horarioInicio = [json[i]['horarioInicioDomingo'], json[i]['horarioInicioSegunda'], json[i]['horarioInicioTerca'], json[i]['horarioInicioQuarta'], json[i]['horarioInicioQuinta'], json[i]['horarioInicioSexta'], json[i]['horarioInicioSabado']]
-                    horarioFim = [json[i]['horarioFimDomingo'], json[i]['horarioFimSegunda'], json[i]['horarioFimTerca'], json[i]['horarioFimQuarta'], json[i]['horarioQuinta'], json[i]['horarioFimSexta'], json[i]['horarioFimSabado']];
-
+                    horarioFim = [json[i]['horarioFimDomingo'], json[i]['horarioFimSegunda'], json[i]['horarioFimTerca'], json[i]['horarioFimQuarta'], json[i]['horarioFimQuinta'], json[i]['horarioFimSexta'], json[i]['horarioFimSabado']];
+                    if(json[i]['nome'] == 'Análise da ai'){
+                        console.log(horarioFim)
+                    }
                     if(json[i]['dataFim'] ==  null){
                         if(inicio <= now){
                             tarefasAtivas.innerHTML += `
@@ -62,25 +64,33 @@ function getTarefas(){
                     }
 
                     if((inicio <= now) && (fim >= now)){
-                        tarefasAtivas.innerHTML += `
-                        <li class="list-group-item linha">
-                            <div class="row align-items-center no-gutters">
-                                <div class="col me-2" onclick="window.location = window.location.href + 'dados/?${json[i]['idTarefa']}'">
-                                    <span class="nomeTarefa"> ${json[i]['nome']} </span><br>
-                                    <span class="descricaoTarefa"> ${json[i]['descricao']} </span>
-                                </div>
-                            </div>
-                        </li>`;
-                        qtdAtivas++;
-
                         horarioAgora = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
-                        // console.log(horarioAgora)
-                        // console.log(now.getDay())
-                        // console.log(diasDisponiveis)
 
-                        if(diasDisponiveis[now.getDay()] && horarioInicio[now.getDay()] <=  horarioAgora && horarioFim[now.getDay()] >= horarioAgora){
+                        if((diasDisponiveis[now.getDay()]) && (horarioInicio[now.getDay()] <= horarioAgora) && (horarioFim[now.getDay()] >= horarioAgora)){
                             qtdEmExecucao++;
+                            tarefasAtivas.innerHTML += `
+                                <li class="list-group-item linha">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-2" onclick="window.location = window.location.href + 'dados/?${json[i]['idTarefa']}'">
+                                            <span class="nomeTarefa"> ${json[i]['nome']} </span> <span style="float: right"> Executando...
+                                            <img src="../../../assets/img/live.png" style="height: 24px; margin-top: -2px"></span><br>
+                                            <span class="descricaoTarefa"> ${json[i]['descricao']} </span>
+                                        </div>
+                                    </div>
+                                </li>`;
+                        }else{
+                            tarefasAtivas.innerHTML += `
+                            <li class="list-group-item linha">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2" onclick="window.location = window.location.href + 'dados/?${json[i]['idTarefa']}'">
+                                        <span class="nomeTarefa"> ${json[i]['nome']} </span><br>
+                                        <span class="descricaoTarefa"> ${json[i]['descricao']} </span>
+                                    </div>
+                                </div>
+                            </li>`;
                         }
+
+                        qtdAtivas++;
                     }else if(fim < now && json[i]['dataFim'] != null){
                         tarefasEncerrada.innerHTML += `
                         <li class="list-group-item linha">

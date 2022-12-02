@@ -59,7 +59,7 @@
 }
 
 .abrangeGraph{
-    padding-left: 60px;
+    padding-left: 24px;
     flex: 0 0 auto;
     width: 100%;
     text-align: -webkit-center;
@@ -85,4 +85,13 @@
     font-size: 32px;
     font-weight: 500;
     line-height: 1000%;
+}
+
+.selects select{
+    border-radius: 3px;
+    border: 1px solid #4d4d4d;
+    background-color: #fff;
+    color: #4d4d4d;
+    width: 200px;
+    margin-left: 16px;
 }

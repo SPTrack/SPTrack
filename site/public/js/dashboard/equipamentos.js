@@ -5,6 +5,14 @@ var idEquipamento;
 var idNovaMaquina;
 var idSala = 0;
 
+if(window.location.search.split('?')[1]){
+    console.log(idEquipamento)
+    hide(1);
+}
+// x = window.location.search.split('?idEquipamento')[1]
+// console.log(x)
+// console.log('a')
+
 window.onload = () => {
     const parametrosString = window.location.search;
     const parametros = new URLSearchParams(parametrosString);

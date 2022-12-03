@@ -1,10 +1,20 @@
 var database = require("../database/config");
 
+function getComponentes(fkEquipamento) {
+    return database.executar(`SELECT DISTINCT tipo FROM medida JOIN componente ON componente.idComponente = medida.fkComponente AND componente.fkEquipamento = ${fkEquipamento};`);
+}
+
 // Gráfico 1
 function getHistoricoDisponibilidade(idInstituicao, dias){
-    return database.executar(`SELECT valor, DATE_FORMAT(dataRegistro, '%d/%m') AS dataRegistro 
-    FROM disponibilidade JOIN instituicao ON fkInstituicao = ${idInstituicao}
-    WHERE dataRegistro >= DATE(NOW() - INTERVAL ${dias+1} DAY) ORDER BY dataRegistro DESC LIMIT ${dias};`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`SELECT valor, DATE_FORMAT(dataRegistro, '%d/%m') AS dataRegistro 
+        FROM disponibilidade JOIN instituicao ON fkInstituicao = ${idInstituicao}
+        WHERE dataRegistro >= DATE(NOW() - INTERVAL ${dias+1} DAY) ORDER BY dataRegistro DESC LIMIT ${dias};`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`SELECT TOP ${dias} valor, FORMAT(dataRegistro, 'dd/M') as dataRegistro
+        FROM disponibilidade JOIN instituicao ON fkInstituicao = ${idInstituicao}
+        WHERE dataRegistro >=  DATEADD(DAY , -${dias+1}, GETDATE()) ORDER BY dataRegistro DESC;`);
+    }
 }
 
 // Gráfico 2
@@ -13,12 +23,12 @@ function getDisponibilidade(fkInstituicao) {
     JOIN instituicao ON fkInstituicao = idInstituicao WHERE situacao = 'Aberto' AND idInstituicao = ${fkInstituicao};`);
 }
 
-function getComponentes(fkEquipamento) {
-    return database.executar(`SELECT DISTINCT tipo FROM medida JOIN componente ON componente.idComponente = medida.fkComponente AND componente.fkEquipamento = ${fkEquipamento};`);
-}
-
 function getMedidasInstituicao(idInstituicao){
-    return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro DESC LIMIT 300;`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`SELECT * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro DESC LIMIT 300;`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`SELECT TOP 300 * FROM vw_medidasInstituicao WHERE idInstituicao = ${idInstituicao} ORDER BY dataRegistro DESC;`);
+    }
 }
 
 function getMaquinasMonitoradas(idInstituicao){
@@ -34,7 +44,7 @@ function getMaquinasInstituicao(idInstituicao){
 function getMaquinasManutencao(idInstituicao){
     return database.executar(`SELECT idEquipamento, modelo, numeroPatrimonio, sala.nome AS nomeSala, manutencao.descricao, idManutencao , sala.idSala AS idSala 
     FROM equipamento JOIN manutencao ON idEquipamento = manutencao.fkEquipamento JOIN locacao ON locacao.fkEquipamento = idEquipamento JOIN sala 
-    ON fkSala = idSala WHERE sala.fkInstituicao = ${idInstituicao} AND situacao = "Aberto" ORDER BY numeroPatrimonio;`);
+    ON fkSala = idSala WHERE sala.fkInstituicao = ${idInstituicao} AND situacao = 'Aberto' ORDER BY numeroPatrimonio;`);
 }
 
 function getMediasEquipamentos(idInstituicao){
@@ -45,11 +55,24 @@ function getMediasEquipamentos(idInstituicao){
 }
 
 function retirarDaManutencao(patrimonio, descricao, idManutencao){
-    return database.executar(`UPDATE manutencao SET situacao = "Finalizado", dtFim = NOW(), descricao = '${descricao}' WHERE idManutencao = ${idManutencao};`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`UPDATE manutencao 
+                                  SET situacao = 'Finalizado', dtFim = NOW(), descricao = '${descricao}' 
+                                  WHERE idManutencao = ${idManutencao};`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`UPDATE manutencao 
+                                  SET situacao = 'Finalizado', dtFim = GETDATE(), descricao = '${descricao}' 
+                                  WHERE idManutencao = ${idManutencao};`);
+
+    }
 }
 
 function inserirNaManutencao(idEquipamento, descricao, idUsuario){
-    return database.executar(`INSERT INTO manutencao VALUES (NULL, NOW(), NULL, 'Aberto', '${descricao}', ${idUsuario}, ${idEquipamento});`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`INSERT INTO manutencao VALUES (NULL, NOW(), NULL, 'Aberto', '${descricao}', ${idUsuario}, ${idEquipamento});`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`INSERT INTO manutencao VALUES (GETDATE(), NULL, 'Aberto', '${descricao}', ${idUsuario}, ${idEquipamento});`);
+    }
 }
 
 // PARA SISTEMA DE PONTUAÇÃO
@@ -64,7 +87,11 @@ function getEstadosDeUso(idInstituicao){
 }
 
 function getDadosEquipamentoEspecifico(idEquipamento){
-    return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro LIMIT 90`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`SELECT * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro LIMIT 90`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`SELECT TOP 90 * FROM vw_medidasEquipamento WHERE idEquipamento = ${idEquipamento} ORDER BY dataRegistro;`)
+    }
 }
 
 function listarMaquinas(idInstituicao){
@@ -79,21 +106,51 @@ function listarDadosMaquinas(idEquipamento){
 }
 
 function editarMaquinasProc(idEquipamento, modelo,  cpu, sistemaOperacional, idCpu  ) {
-    return database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${cpu}', 
-    sistemaOperacional = '${sistemaOperacional}' 
-    WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idCpu } AND tipo = 'processador';`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${cpu}', 
+        sistemaOperacional = '${sistemaOperacional}' 
+        WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idCpu} AND tipo = 'Processador';`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`UPDATE equipamento 
+        SET modelo = '${modelo}', sistemaOperacional = '${sistemaOperacional}' 
+        WHERE idEquipamento = ${idEquipamento};
+        
+        UPDATE componente
+        SET nome = '${cpu}'
+        WHERE idComponente = ${idCpu};`);
+    }
 }
 
 function editarMaquinasMemo(idEquipamento, modelo,  memoria, sistemaOperacional, idMemoria ) {
-    database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${memoria}', 
-    sistemaOperacional = '${sistemaOperacional}' 
-    WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idMemoria} AND tipo = 'Memória RAM';`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${memoria}', 
+        sistemaOperacional = '${sistemaOperacional}' 
+        WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idMemoria} AND tipo = 'Memória RAM';`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`UPDATE equipamento 
+        SET modelo = '${modelo}', sistemaOperacional = '${sistemaOperacional}' 
+        WHERE idEquipamento = ${idEquipamento};
+        
+        UPDATE componente
+        SET nome = '${memoria}'
+        WHERE idComponente = ${idMemoria};`);
+    }
 }
 
 function editarMaquinasDisc(idEquipamento, modelo,  armazenamento, sistemaOperacional,idArmazenamento ) {
-    database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${armazenamento}', 
-    sistemaOperacional = '${sistemaOperacional}' 
-    WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idArmazenamento} AND tipo = 'Disco Rígido';`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        database.executar(`UPDATE equipamento, componente SET modelo = '${modelo}',  nome = '${armazenamento}', 
+        sistemaOperacional = '${sistemaOperacional}' 
+        WHERE fkEquipamento = idEquipamento AND idEquipamento = ${idEquipamento} AND idComponente = ${idArmazenamento} AND tipo = 'Disco Rígido';`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`UPDATE equipamento 
+        SET modelo = '${modelo}', sistemaOperacional = '${sistemaOperacional}' 
+        WHERE idEquipamento = ${idEquipamento};
+        
+        UPDATE componente
+        SET nome = '${armazenamento}'
+        WHERE idComponente = ${idArmazenamento};`);
+    }
 }
 
 function editarLocacao(idEquipamento, idSala) {
@@ -108,11 +165,19 @@ function editarMaquinas(idInstituicao, modelo, cpu ,memoria ,armazenamento ,idCp
 }
 
 function cadastrarMaquinas(nomeMaquinaCadastro, sistemaCadastro, numeroPatrimonio, enderecoMac, numeroSerial, idInstituicao){
-    return database.executar(`INSERT INTO equipamento VALUES(NULL, '${nomeMaquinaCadastro}', '${sistemaCadastro}','${numeroPatrimonio}', '${enderecoMac}', '${numeroSerial}', NOW(), ${idInstituicao});`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`INSERT INTO equipamento VALUES(NULL, '${nomeMaquinaCadastro}', '${sistemaCadastro}','${numeroPatrimonio}', '${enderecoMac}', '${numeroSerial}', NOW(), ${idInstituicao});`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`INSERT INTO equipamento VALUES('${nomeMaquinaCadastro}', '${sistemaCadastro}','${numeroPatrimonio}', '${numeroSerial}', GETDATE(), ${idInstituicao}, '${enderecoMac}');`);
+    }
 }
 
 function pegarIdNovaMaquina() {
-    return database.executar(`SELECT idEquipamento FROM equipamento ORDER BY dataRegistro DESC`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`SELECT idEquipamento FROM equipamento ORDER BY dataRegistro DESC LIMIT 1;`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`SELECT TOP 1 idEquipamento FROM equipamento ORDER BY dataRegistro DESC;`);
+    }
 }
 
 function cadastrarComponentes(idSala, nomeProcessador, capacidadeProcessador, nomeMemoria, capacidadeMemoria, nomeDisco, capacidadeDisco, idEquipamento){
@@ -123,18 +188,34 @@ function cadastrarComponentes(idSala, nomeProcessador, capacidadeProcessador, no
 }
 
 function cadastrarComponenteProcessador(nomeProcessador, capacidadeProcessador, idEquipamento) {
-    database.executar(`INSERT INTO componente VALUES (NULL, '${nomeProcessador}', '%', ${capacidadeProcessador}, 'Processador', ${idEquipamento});`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        database.executar(`INSERT INTO componente VALUES (NULL, '${nomeProcessador}', '%', ${capacidadeProcessador}, 'Processador', ${idEquipamento});`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        database.executar(`INSERT INTO componente VALUES ('${nomeProcessador}', '%', ${capacidadeProcessador}, 'Processador', ${idEquipamento});`);
+    }
 }
 
 function cadastrarComponenteMemoria(nomeMemoria, capacidadeMemoria, idEquipamento) {
-    database.executar(`INSERT INTO componente VALUES (NULL, '${nomeMemoria}', '%', ${capacidadeMemoria}, 'Memória RAM', ${idEquipamento});`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        database.executar(`INSERT INTO componente VALUES (NULL, '${nomeMemoria}', '%', ${capacidadeMemoria}, 'Memória RAM', ${idEquipamento});`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        database.executar(`INSERT INTO componente VALUES ('${nomeMemoria}', '%', ${capacidadeMemoria}, 'Memória RAM', ${idEquipamento});`);
+    }
 }
 function cadastrarComponenteDisco(nomeDisco, capacidadeDisco, idEquipamento) {
-    database.executar(`INSERT INTO componente VALUES (NULL, '${nomeDisco}', '%', ${capacidadeDisco}, 'Disco Rígido', ${idEquipamento});`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        database.executar(`INSERT INTO componente VALUES (NULL, '${nomeDisco}', '%', ${capacidadeDisco}, 'Disco Rígido', ${idEquipamento});`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        database.executar(`INSERT INTO componente VALUES ('${nomeDisco}', '%', ${capacidadeDisco}, 'Disco Rígido', ${idEquipamento});`);
+    }
 }
 
 function alocarMaquina(idEquipamento, idSala) {
-    return database.executar(`INSERT INTO locacao VALUES(${idEquipamento}, ${idSala}, NOW());`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`INSERT INTO locacao VALUES(${idEquipamento}, ${idSala}, NOW());`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`INSERT INTO locacao VALUES(${idEquipamento}, ${idSala}, GETDATE());`);
+    }
 }
 
 function pegarInfoChamado(){

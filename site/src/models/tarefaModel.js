@@ -298,7 +298,7 @@ function listarMaquinas(idTarefa){
     return database.executar(`SELECT equipamento.idEquipamento, equipamento.modelo, equipamento.numeroPatrimonio, sala.nome
     FROM tarefaXequipamento JOIN equipamento ON tarefaXequipamento.fkEquipamento = equipamento.idEquipamento 
     JOIN locacao ON equipamento.idEquipamento = locacao.fkEquipamento JOIN sala ON locacao.fkSala = sala.idSala
-    WHERE tarefaXequipamento.fkTarefa = ${idTarefa}; `)
+    WHERE tarefaXequipamento.fkTarefa = ${idTarefa};`)
 }
 
 function getMediaRAM(idTarefa){
@@ -314,11 +314,14 @@ function getMediaCPU(idTarefa){
 function getDadosMedidas(idTarefa){
     return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
         JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa};`)
-
 }
 
 function getQuantidadeDias(idTarefa){
-    return database.executar(`SELECT COUNT(dataRegistro) FROM medidaTarefa WHERE fkTarefa = ${idTarefa} GROUP BY DATE_FORMAT(dataRegistro, '%Y%m%d');`);
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`SELECT COUNT(dataRegistro) FROM medidaTarefa WHERE fkTarefa = ${idTarefa} GROUP BY DATE_FORMAT(dataRegistro, '%Y%m%d');`);
+    }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`SELECT COUNT(dataRegistro) FROM medidaTarefa WHERE fkTarefa = ${idTarefa} GROUP BY CONVERT(VARCHAR, dataRegistro, 105);`);
+    }
 }
 
 function getDadosMedidasPersonalizado(idTarefa, tempo, equipamento){
@@ -328,16 +331,29 @@ function getDadosMedidasPersonalizado(idTarefa, tempo, equipamento){
         return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
         JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa};`);
     }else if(tempo != 0 && equipamento == 0){
-        return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
-        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND 
-        medidaTarefa.dataRegistro <= NOW() AND medidaTarefa.dataRegistro >= NOW() - INTERVAL ${tempo} DAY;`);
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+            return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+            JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND 
+            medidaTarefa.dataRegistro <= NOW() AND medidaTarefa.dataRegistro >= NOW() - INTERVAL ${tempo} DAY;`);
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+            JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND 
+            medidaTarefa.dataRegistro <= GETDATE() AND medidaTarefa.dataRegistro >= DATEADD(DAY, -${tempo}, GETDATE());`);
+        }
     }else if(tempo == 0 && equipamento != 0){
         return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
         JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND fkEquipamento = ${equipamento};`);
     }else{
-        return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
-        JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND fkEquipamento = ${equipamento}
-        AND medidaTarefa.dataRegistro <= NOW() AND medidaTarefa.dataRegistro >= NOW() - INTERVAL ${tempo} DAY;`)
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+            return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+            JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND fkEquipamento = ${equipamento}
+            AND medidaTarefa.dataRegistro <= NOW() AND medidaTarefa.dataRegistro >= NOW() - INTERVAL ${tempo} DAY;`)
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            return database.executar(`SELECT medidaTarefa.valor, componente.capacidade, medidaTarefa.dataRegistro, componente.tipo, componente.fkEquipamento FROM medidaTarefa 
+            JOIN componente ON medidaTarefa.fkComponente = componente.idComponente WHERE medidaTarefa.fkTarefa = ${idTarefa} AND fkEquipamento = ${equipamento}
+            AND medidaTarefa.dataRegistro <= GETDATE() AND medidaTarefa.dataRegistro >= GETDATE() - DATEADD(DAY, -${tempo}, GETDATE());`);
+    
+        }
     }
 }
 
@@ -358,4 +374,4 @@ module.exports = {
     getDadosMedidas,
     getQuantidadeDias,
     getDadosMedidasPersonalizado
-};
+}

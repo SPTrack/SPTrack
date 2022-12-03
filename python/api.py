@@ -17,13 +17,12 @@ idEquipamento = 0
 os.system(cls)
 print('\033[1mSPTrack\033[0m\n\nloading...')
 
-modo = 'dev'
-# modo = 'prod'
+#modo = 'dev'
+modo = 'prod'
 
 if modo == 'dev':
     conexao = pymysql.connect(
         host="localhost", user="sptrackClient", password="urubu100", database="SPTrack")
-    print(conexao)
 elif modo == 'prod':
     try:
         conexao = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+"sptrack.database.windows.net" +
@@ -71,7 +70,7 @@ except:
     exit()
 
 try:
-    thread = Thread(target = run, args=[cursor, conexao, idEquipamento, idCPU, idRAM, idDK])
+    thread = Thread(target = run, args=[idEquipamento, idCPU, idRAM, idDK, modo])
     thread.start()
 except:
     print('Ocorreu um erro ao rodar as tarefas!')

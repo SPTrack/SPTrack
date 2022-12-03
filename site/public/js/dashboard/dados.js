@@ -437,6 +437,8 @@ function plotGrafico(){
                       }).then((result) => {
                         if (!result.isConfirmed) {
                             window.location = window.location.origin + '/dashboard/tarefas';
+                        }else{
+                            verificarEmpty();
                         }
                       })
                 }
@@ -859,5 +861,4 @@ getQuantidadeDias();
 
 setTimeout(function() {
     setEstadosMaquinas();
-    verificarEmpty();
-}, 3000)
+}, 5500)

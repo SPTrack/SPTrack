@@ -352,7 +352,6 @@ function enviarRequisicao(nomeTarefa, descricao, dtInicio, dtFim, diasOperacoes,
         })
     }).then(function (resposta) {
         if (resposta.ok) {
-            resposta.json().then(json => {
                 getLastTarefa(maquinas);
                 Swal.fire(
                     'Sucesso!',
@@ -362,7 +361,6 @@ function enviarRequisicao(nomeTarefa, descricao, dtInicio, dtFim, diasOperacoes,
                 setInterval(() => {
                     window.location = window.location.href = "../";
                 }, 2000); 
-            });
         } else {
             console.log("Houve um erro ao tentar se comunicar!");
         

@@ -5,97 +5,197 @@ function insertTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
     horarioFimSexta, horarioInicioSabado, horarioFimSabado) {
     
     if(dtInicio != 'NOW()' && dtFim != 'NULL'){
-        return database.executar(`INSERT INTO tarefa VALUES (
-            NULL,
-            '${nomeTarefa}',
-            '${descricao}',
-            '${dtInicio}',
-            '${dtFim}',
-            ${isDomingo},
-            ${isSegunda},
-            ${isTerca},
-            ${isQuarta},
-            ${isQuinta},
-            ${isSexta},
-            ${isSabado},
-            ${horarioInicioDomingo},
-            ${horarioFimDomingo},
-            ${horarioInicioSegunda},
-            ${horarioFimSegunda},
-            ${horarioInicioTerca},
-            ${horarioFimTerca},
-            ${horarioInicioQuarta},
-            ${horarioFimQuarta},
-            ${horarioInicioQuinta},
-            ${horarioFimQuinta},
-            ${horarioInicioSexta},
-            ${horarioFimSexta},
-            ${horarioInicioSabado},
-            ${horarioFimSabado},
-            ${idInstituicao}
-        );`)
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+            return database.executar(`INSERT INTO tarefa VALUES (
+                NULL,
+                '${nomeTarefa}',
+                '${descricao}',
+                '${dtInicio}',
+                '${dtFim}',
+                ${isDomingo},
+                ${isSegunda},
+                ${isTerca},
+                ${isQuarta},
+                ${isQuinta},
+                ${isSexta},
+                ${isSabado},
+                ${horarioInicioDomingo},
+                ${horarioFimDomingo},
+                ${horarioInicioSegunda},
+                ${horarioFimSegunda},
+                ${horarioInicioTerca},
+                ${horarioFimTerca},
+                ${horarioInicioQuarta},
+                ${horarioFimQuarta},
+                ${horarioInicioQuinta},
+                ${horarioFimQuinta},
+                ${horarioInicioSexta},
+                ${horarioFimSexta},
+                ${horarioInicioSabado},
+                ${horarioFimSabado},
+                ${idInstituicao}
+            );`);
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            query = `INSERT INTO tarefa VALUES (
+                '${nomeTarefa}',
+                '${descricao}',
+                '${dtInicio.slice(0, 19).replace('T', ' ') + ':00'}',
+                '${dtFim.slice(0, 19).replace('T', ' ') + ':00'}',
+                ${isDomingo},
+                ${isSegunda},
+                ${isTerca},
+                ${isQuarta},
+                ${isQuinta},
+                ${isSexta},
+                ${isSabado},
+                ${horarioInicioDomingo},
+                ${horarioFimDomingo},
+                ${horarioInicioSegunda},
+                ${horarioFimSegunda},
+                ${horarioInicioTerca},
+                ${horarioFimTerca},
+                ${horarioInicioQuarta},
+                ${horarioFimQuarta},
+                ${horarioInicioQuinta},
+                ${horarioFimQuinta},
+                ${horarioInicioSexta},
+                ${horarioFimSexta},
+                ${horarioInicioSabado},
+                ${horarioFimSabado},
+                ${idInstituicao}
+                );`;
+            console.log(query)
+            return database.executar(query);
+        }
     }else if(dtInicio == 'NOW()' && dtFim != 'NULL'){
-        return database.executar(`INSERT INTO tarefa VALUES (
-            NULL,
-            '${nomeTarefa}',
-            '${descricao}',
-            ${dtInicio},
-            '${dtFim}',
-            ${isDomingo},
-            ${isSegunda},
-            ${isTerca},
-            ${isQuarta},
-            ${isQuinta},
-            ${isSexta},
-            ${isSabado},
-            ${horarioInicioDomingo},
-            ${horarioFimDomingo},
-            ${horarioInicioSegunda},
-            ${horarioFimSegunda},
-            ${horarioInicioTerca},
-            ${horarioFimTerca},
-            ${horarioInicioQuarta},
-            ${horarioFimQuarta},
-            ${horarioInicioQuinta},
-            ${horarioFimQuinta},
-            ${horarioInicioSexta},
-            ${horarioFimSexta},
-            ${horarioInicioSabado},
-            ${horarioFimSabado},
-            ${idInstituicao}
-        );`)
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+            return database.executar(`INSERT INTO tarefa VALUES (
+                NULL,
+                '${nomeTarefa}',
+                '${descricao}',
+                ${dtInicio},
+                '${dtFim}',
+                ${isDomingo},
+                ${isSegunda},
+                ${isTerca},
+                ${isQuarta},
+                ${isQuinta},
+                ${isSexta},
+                ${isSabado},
+                ${horarioInicioDomingo},
+                ${horarioFimDomingo},
+                ${horarioInicioSegunda},
+                ${horarioFimSegunda},
+                ${horarioInicioTerca},
+                ${horarioFimTerca},
+                ${horarioInicioQuarta},
+                ${horarioFimQuarta},
+                ${horarioInicioQuinta},
+                ${horarioFimQuinta},
+                ${horarioInicioSexta},
+                ${horarioFimSexta},
+                ${horarioInicioSabado},
+                ${horarioFimSabado},
+                ${idInstituicao}
+            );`)
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            query = `INSERT INTO tarefa VALUES (
+                '${nomeTarefa}',
+                '${descricao}',
+                GETDATE(),
+                '${dtFim.slice(0, 19).replace('T', ' ') + ':00'}',
+                ${isDomingo},
+                ${isSegunda},
+                ${isTerca},
+                ${isQuarta},
+                ${isQuinta},
+                ${isSexta},
+                ${isSabado},
+                ${horarioInicioDomingo},
+                ${horarioFimDomingo},
+                ${horarioInicioSegunda},
+                ${horarioFimSegunda},
+                ${horarioInicioTerca},
+                ${horarioFimTerca},
+                ${horarioInicioQuarta},
+                ${horarioFimQuarta},
+                ${horarioInicioQuinta},
+                ${horarioFimQuinta},
+                ${horarioInicioSexta},
+                ${horarioFimSexta},
+                ${horarioInicioSabado},
+                ${horarioFimSabado},
+                ${idInstituicao}
+                );`;
+            console.log(query)
+            return database.executar(query);
+        }
     }else if(dtInicio != 'NOW()' && dtFim == 'NULL'){
-        return database.executar(`INSERT INTO tarefa VALUES (
-            NULL,
-            '${nomeTarefa}',
-            '${descricao}',
-            '${dtInicio}',
-            ${dtFim},
-            ${isDomingo},
-            ${isSegunda},
-            ${isTerca},
-            ${isQuarta},
-            ${isQuinta},
-            ${isSexta},
-            ${isSabado},
-            ${horarioInicioDomingo},
-            ${horarioFimDomingo},
-            ${horarioInicioSegunda},
-            ${horarioFimSegunda},
-            ${horarioInicioTerca},
-            ${horarioFimTerca},
-            ${horarioInicioQuarta},
-            ${horarioFimQuarta},
-            ${horarioInicioQuinta},
-            ${horarioFimQuinta},
-            ${horarioInicioSexta},
-            ${horarioFimSexta},
-            ${horarioInicioSabado},
-            ${horarioFimSabado},
-            ${idInstituicao}
-        );`)
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+            return database.executar(`INSERT INTO tarefa VALUES (
+                NULL,
+                '${nomeTarefa}',
+                '${descricao}',
+                '${dtInicio}',
+                ${dtFim},
+                ${isDomingo},
+                ${isSegunda},
+                ${isTerca},
+                ${isQuarta},
+                ${isQuinta},
+                ${isSexta},
+                ${isSabado},
+                ${horarioInicioDomingo},
+                ${horarioFimDomingo},
+                ${horarioInicioSegunda},
+                ${horarioFimSegunda},
+                ${horarioInicioTerca},
+                ${horarioFimTerca},
+                ${horarioInicioQuarta},
+                ${horarioFimQuarta},
+                ${horarioInicioQuinta},
+                ${horarioFimQuinta},
+                ${horarioInicioSexta},
+                ${horarioFimSexta},
+                ${horarioInicioSabado},
+                ${horarioFimSabado},
+                ${idInstituicao}
+            );`)
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            query = `INSERT INTO tarefa VALUES (
+                '${nomeTarefa}',
+                '${descricao}',
+                '${dtInicio.slice(0, 19).replace('T', ' ') + ':00'}',
+                NULL,
+                ${isDomingo},
+                ${isSegunda},
+                ${isTerca},
+                ${isQuarta},
+                ${isQuinta},
+                ${isSexta},
+                ${isSabado},
+                ${horarioInicioDomingo},
+                ${horarioFimDomingo},
+                ${horarioInicioSegunda},
+                ${horarioFimSegunda},
+                ${horarioInicioTerca},
+                ${horarioFimTerca},
+                ${horarioInicioQuarta},
+                ${horarioFimQuarta},
+                ${horarioInicioQuinta},
+                ${horarioFimQuinta},
+                ${horarioInicioSexta},
+                ${horarioFimSexta},
+                ${horarioInicioSabado},
+                ${horarioFimSabado},
+                ${idInstituicao}
+                );`;
+            console.log(query)
+            return database.executar(query);
+        }
     }else if(dtInicio == 'NOW()' && dtFim == 'NULL'){
-        return database.executar(`INSERT INTO tarefa VALUES (
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+            return database.executar(`INSERT INTO tarefa VALUES (
             NULL,
             '${nomeTarefa}',
             '${descricao}',
@@ -123,9 +223,38 @@ function insertTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
             ${horarioInicioSabado},
             ${horarioFimSabado},
             ${idInstituicao}
-        );`)
+            );`);
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            return database.executar(`INSERT INTO tarefa VALUES (
+            '${nomeTarefa}',
+            '${descricao}',
+            GETDATE(),
+            NULL,
+            ${isDomingo},
+            ${isSegunda},
+            ${isTerca},
+            ${isQuarta},
+            ${isQuinta},
+            ${isSexta},
+            ${isSabado},
+            ${horarioInicioDomingo},
+            ${horarioFimDomingo},
+            ${horarioInicioSegunda},
+            ${horarioFimSegunda},
+            ${horarioInicioTerca},
+            ${horarioFimTerca},
+            ${horarioInicioQuarta},
+            ${horarioFimQuarta},
+            ${horarioInicioQuinta},
+            ${horarioFimQuinta},
+            ${horarioInicioSexta},
+            ${horarioFimSexta},
+            ${horarioInicioSabado},
+            ${horarioFimSabado},
+            ${idInstituicao}
+            );`);
+        }
     }
-    
 }
 
 function getLastTarefa(fkInstituicao){
@@ -168,6 +297,7 @@ function updateTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
     horarioFimSexta, horarioInicioSabado, horarioFimSabado, idTarefa, maquinas){
 
     if(dtInicio != 'NOW()' && dtFim != 'NULL'){
+        if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
             query = `UPDATE tarefa SET
             nome = '${nomeTarefa}',
             descricao = '${descricao}',
@@ -197,6 +327,37 @@ function updateTarefa(idInstituicao, nomeTarefa, descricao, dtInicio, dtFim, isD
             WHERE idTarefa = ${idTarefa};`
             database.executar(query);
             console.log(query)
+        }else if(process.env.AMBIENTE_PROCESSO == 'producao'){
+            query = `UPDATE tarefa SET
+            nome = '${nomeTarefa}',
+            descricao = '${descricao}',
+            dataInicio = '${dtInicio.slice(0, 19).replace('T', ' ') + ':00'}',
+            dataFim = '${dtFim.slice(0, 19).replace('T', ' ') + ':00'}',
+            isDomingo = ${isDomingo},
+            isSegunda = ${isSegunda},
+            isTerca = ${isTerca},
+            isQuarta = ${isQuarta},
+            isQuinta = ${isQuinta},
+            isSexta = ${isSexta},
+            isSabado = ${isSabado},
+            horarioInicioDomingo = '${horarioInicioDomingo}',
+            horarioFimDomingo = '${horarioFimDomingo}',
+            horarioInicioSegunda = '${horarioInicioSegunda}',
+            horarioFimSegunda = '${horarioFimSegunda}',
+            horarioInicioTerca = '${horarioInicioTerca}',
+            horarioFimTerca = '${horarioFimTerca}',
+            horarioInicioQuarta = '${horarioInicioQuarta}',
+            horarioFimQuarta = '${horarioFimQuarta}',
+            horarioInicioQuinta = '${horarioInicioQuinta}',
+            horarioFimQuinta = '${horarioFimQuinta}',
+            horarioInicioSexta = '${horarioInicioSexta}',
+            horarioFimSexta = '${horarioFimSexta}',
+            horarioInicioSabado = '${horarioInicioSabado}',
+            horarioFimSabado = '${horarioFimSabado}'
+            WHERE idTarefa = ${idTarefa};`
+            database.executar(query);
+            console.log(query)
+        }
     }else if(dtInicio == 'NOW()' && dtFim != 'NULL'){
             database.executar(`UPDATE tarefa SET
             nome = '${nomeTarefa}',

@@ -14,10 +14,16 @@ function getSalas(idInstituicao){
 }
 
 function getDadoSala(salaAtual,novaSala,idComputador){
-    return database.executar(`UPDATE locacao, sala, equipamento 
-    SET locacao.fkSala = ${novaSala} 
-    WHERE idEquipamento = fkEquipamento and idSala = fkSala and sala.idSala = ${salaAtual} 
-    AND equipamento.idEquipamento = ${idComputador};`)
+    if(process.env.AMBIENTE_PROCESSO == 'desenvolvimento'){
+        return database.executar(`UPDATE locacao, sala, equipamento 
+                                  SET locacao.fkSala = ${novaSala} 
+                                  WHERE idEquipamento = fkEquipamento and idSala = fkSala and sala.idSala = ${salaAtual} 
+                                  AND equipamento.idEquipamento = ${idComputador};`)
+    }else if (process.env.AMBIENTE_PROCESSO == 'producao'){
+        return database.executar(`UPDATE locacao
+                                  SET locacao.fkSala = ${novaSala} 
+                                  WHERE fkSala = ${salaAtual} AND fkEquipamento = ${idComputador};`);
+    }
 }
 
 function getMaquinasSala(idInstituicao, idSala){

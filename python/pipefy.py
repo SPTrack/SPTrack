@@ -13,7 +13,7 @@ cursor = conexao.cursor()
 cursor.execute(f"SELECT * FROM infoChamados;")
 retorno = cursor.fetchall()
 if len(retorno) == 0:
-    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0,0,0,0,0,1000);")
+    cursor.execute(f"INSERT INTO infoChamados VALUES(1,0,0,0,0,0,0,0,1000);")
 
 
 URL = "https://api.pipefy.com/graphql"
@@ -63,6 +63,7 @@ while True:
         quantidadeChamadosAtendimento = 0
         quantidadeChamadosEscalar = 0
         quantidadeChamadosConcluidos = 0
+        quantidadeChamadosAbertos = 0
         quantidadeChamadosArquivados = 0
         
         listaChamados = ""
@@ -73,6 +74,7 @@ while True:
             listaChamados += (card['node']['title'])
             listaChamados += " "
             quantidadeChamados += 1
+            quantidadeChamadosAbertos += 1
             quantidadeChamadosTriagem += 1
 
         resposta = pegarChamadoAtendimento()
@@ -82,6 +84,7 @@ while True:
             listaChamados += (card['node']['title'])
             listaChamados += " "
             quantidadeChamadosAtendimento += 1
+            quantidadeChamadosAbertos += 1
             quantidadeChamados += 1
 
         resposta = pegarChamadoEscalar()
@@ -91,6 +94,7 @@ while True:
             listaChamados += (card['node']['title'])
             listaChamados += " "
             quantidadeChamadosEscalar += 1
+            quantidadeChamadosAbertos += 1
             quantidadeChamados += 1
 
         resposta = pegarChamadoConcluido()
@@ -115,7 +119,7 @@ while True:
 
         with conexao.cursor() as cursor:
             cursor.execute(
-                f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosTriagem = {quantidadeChamadosTriagem}, quantidadeChamadosAtendimento = {quantidadeChamadosAtendimento}, quantidadeChamadosEscalar = {quantidadeChamadosEscalar}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos}, quantidadeChamadosArquivados = {quantidadeChamadosArquivados} WHERE idInfo = 1;")
+                f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosTriagem = {quantidadeChamadosTriagem}, quantidadeChamadosAtendimento = {quantidadeChamadosAtendimento}, quantidadeChamadosEscalar = {quantidadeChamadosEscalar}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos}, quantidadeChamadosAbertos = {quantidadeChamadosAbertos}, quantidadeChamadosArquivados = {quantidadeChamadosArquivados} WHERE idInfo = 1;")
             conexao.commit()
 
     enviarWorldCloud()

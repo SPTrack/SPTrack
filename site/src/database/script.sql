@@ -135,12 +135,12 @@ CREATE TABLE infoChamados(
     quantidadeChamadosAtendimento INT NOT NULL,
     quantidadeChamadosEscalar INT NOT NULL,
     quantidadeChamadosConcluidos INT NOT NULL,
-    quantidadeChamadosArquivado INT NOT NULL,
+    quantidadeChamadosAbertos INT NOT NULL,
+    quantidadeChamadosArquivados INT NOT NULL,
     fkInstituicao INT,
     FOREIGN KEY (fkInstituicao) REFERENCES instituicao (idInstituicao)
 ) AUTO_INCREMENT = 3000;
 
-UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosTriagem = {quantidadeChamadosTriagem}, quantidadeChamadosAtendimento = {quantidadeChamadosAtendimento}, quantidadeChamadosEscalar = {quantidadeChamadosEscalar}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos}, quantidadeChamadosArquivados = {quantidadeChamadosArquivados}, WHERE idInfo = 1;
 
 CREATE TABLE tarefa(
     idTarefa INT PRIMARY KEY AUTO_INCREMENT,
@@ -347,4 +347,4 @@ INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-23 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-24 04:29:11', 1000);
 INSERT INTO estadoDeUso VALUES(NULL, 1, 4, 1, 0, '2022-11-25 04:29:11', 1000);
 
-INSERT INTO infoChamados VALUES(1,0,0,0,0,0,0,1000); 
+INSERT INTO infoChamados VALUES(1,0,0,0,0,0,0,0,1000); 

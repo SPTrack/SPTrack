@@ -1,5 +1,6 @@
 qtdTotal = 0
 qtdConcluido = 0
+qtdAbertos = 0
 quantidadeChamadosTriagem = 0
 quantidadeChamadosAtendimento = 0
 quantidadeChamadosEscalar = 0
@@ -60,7 +61,8 @@ function get(){
         if (resposta.ok) {
             resposta.json().then(json => {
                 qtdTotal = json[0]['quantidadeChamados']  
-                qtdConcluido = json[0]['quantidadeChamadosConcluidos'] 
+                qtdConcluido = json[0]['quantidadeChamadosConcluidos']
+                qtdAbertos = json[0]['quantidadeChamadosAbertos']  
                 quantidadeChamadosTriagem = json[0]['quantidadeChamadosTriagem'] 
                 quantidadeChamadosAtendimento = json[0]['quantidadeChamadosAtendimento'] 
                 quantidadeChamadosEscalar = json[0]['quantidadeChamadosEscalar'] 
@@ -70,6 +72,7 @@ function get(){
                 grafico.update()
 
                 span_qtdConcluidos.innerHTML = qtdConcluido + " Chamados";
+                span_qtdAbertos.innerHTML = qtdAbertos + " Chamados";
                 span_qtdTotal.innerHTML = qtdTotal + " Chamados";
 
                 

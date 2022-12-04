@@ -24,6 +24,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="../../js/sweet.js"></script>
+    <link rel="stylesheet" href="../../css/swal.css">
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
 </head>
 
@@ -48,7 +49,7 @@
                                 class="fas fa-tools"></i><span>Manutenção</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../equipamentos/"><i
                                 class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href=""><i
+                    <li class="nav-item"><a class="nav-link" href="../instituicao/"><i
                                 class="fas fa-building"></i><span>Instituição</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../tarefas/"><i
                                 class="far fa-clock"></i><span>Tarefas</span></a></li>
@@ -90,35 +91,8 @@
                                         <!--<span class="badge bg-danger badge-counter">3+</span>--><i
                                             class="fas fa-bell fa-fw"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">alerts center</h6><a
-                                            class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-primary icon-circle"><i
-                                                        class="fas fa-file-alt text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 12, 2019</span>
-                                                <p>A new monthly report is ready to download!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-success icon-circle"><i
-                                                        class="fas fa-donate text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 7, 2019</span>
-                                                <p>$290.29 has been deposited into your account!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-warning icon-circle"><i
-                                                        class="fas fa-exclamation-triangle text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 2, 2019</span>
-                                                <p>Spending Alert: We've noticed unusually high spending for your
-                                                    account.</p>
-                                            </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                            Alerts</a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in" id="paiNotificacoes">
+                                        <h6 class="dropdown-header" style="background-color: black;">notificacoes</h6>
                                     </div>
                                 </div>
                             </li>
@@ -324,4 +298,5 @@
 <script>
     verifyNav();
     verificarAcesso(JSON.parse(sessionStorage.usuario).nivelAcesso, 3)
+    notificacoes();
 </script>

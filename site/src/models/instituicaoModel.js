@@ -20,8 +20,16 @@ function getInstituicao(idInstituicao) {
     ,SUBSTRING(cnpj,9,4),'-',SUBSTRING(cnpj,13,2)) AS resultado FROM instituicao where idInstituicao = ${idInstituicao};`);
 }
 
+function notificacoes(idInstituicao) {
+    return database.executar(`SELECT titulo, dataChamado, sala.nome AS sala, equipamento.modelo AS modelo, equipamento.numeroPatrimonio AS patrimonio
+    FROM chamado JOIN equipamento ON chamado.fkEquipamento = idEquipamento JOIN locacao ON equipamento.idEquipamento = locacao.fkEquipamento
+    JOIN sala ON locacao.fkSala = idSala where equipamento.fkInstituicao = ${idInstituicao} ORDER BY dataChamado desc LIMIT 8;
+    `);
+}
+
 module.exports = {
     cadastrar,
     editar,
-    getInstituicao
+    getInstituicao,
+    notificacoes
 }

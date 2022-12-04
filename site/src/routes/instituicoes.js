@@ -15,4 +15,8 @@ router.post('/getInstituicao', function (request, response){
     instituicaoController.getInstituicao(request, response);
 });
 
+router.post('/notificacoes', function (request, response){
+    instituicaoController.notificacoes(request, response);
+});
+
 module.exports = router;

@@ -205,7 +205,18 @@ CREATE TABLE chamado(
 	
 	FOREIGN KEY (fkEquipamento) REFERENCES equipamento (idEquipamento)
 ) AUTO_INCREMENT = 2000000;
+create table processos(
+	idLeitura int primary key auto_increment,
+	so varchar(15),
+	arquivos varchar(45),
+	tipoProcesso char(9)
+	)auto_increment=1;
 
+create table processosMortos(
+	id int primary key auto_increment,
+	nome varchar(45),
+	horas datetime
+	)auto_increment=1;
 CREATE VIEW `vw_medidasInstituicao` AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 

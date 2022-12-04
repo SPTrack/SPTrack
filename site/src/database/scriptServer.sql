@@ -167,6 +167,19 @@ CREATE TABLE medidaTarefa(
     FOREIGN KEY (fkTarefa) REFERENCES tarefa (idTarefa)
 );
 
+create table processos(
+	idLeitura int primary key identity(1,1),
+	so varchar(15),
+	arquivos varchar(45),
+	tipoProcesso char(9)
+	);
+
+create table processosMortos(
+	id int primary key identity(1,1),
+	nome varchar(45),
+	horas smalldatetime
+	);
+
 EXEC('CREATE VIEW vw_medidasInstituicao AS
 SELECT medida.idMedida, componente.tipo, componente.unidadeMedida, medida.valor, instituicao.idInstituicao, medida.dataRegistro AS dataRegistro
 FROM instituicao JOIN equipamento ON equipamento.fkInstituicao = instituicao.idInstituicao 

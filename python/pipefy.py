@@ -56,6 +56,7 @@ while True:
         response = requests.post(URL, json=payload, headers=headers)
         return response.text
 
+
     def enviarWorldCloud():
         
         quantidadeChamados = 0
@@ -121,6 +122,8 @@ while True:
             cursor.execute(
                 f"UPDATE infoChamados SET quantidadeChamados = {quantidadeChamados}, quantidadeChamadosTriagem = {quantidadeChamadosTriagem}, quantidadeChamadosAtendimento = {quantidadeChamadosAtendimento}, quantidadeChamadosEscalar = {quantidadeChamadosEscalar}, quantidadeChamadosConcluidos = {quantidadeChamadosConcluidos}, quantidadeChamadosAbertos = {quantidadeChamadosAbertos}, quantidadeChamadosArquivados = {quantidadeChamadosArquivados} WHERE idInfo = 1;")
             conexao.commit()
-
-    enviarWorldCloud()
+    try:
+        enviarWorldCloud()
+    except:
+        print("STOP em andamento")
     sleep(5)

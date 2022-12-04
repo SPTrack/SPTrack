@@ -1,3 +1,5 @@
+span_usuario.innerHTML = JSON.parse(sessionStorage.usuario).nome;
+
 qtdTotal = 0
 qtdConcluido = 0
 qtdAbertos = 0

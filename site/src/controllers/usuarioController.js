@@ -18,9 +18,9 @@ function entrar(request, response) {
                         delete usuarioEncontrado[0].senha;
                         
                         if(usuarioEncontrado[0].fkGestor == null){
-                            usuarioEncontrado[0]['nivelAcesso'] = "Admin";
+                            usuarioEncontrado[0]['tipoUsuario'] = "Admin";
                         }else{
-                            usuarioEncontrado[0]['nivelAcesso'] = "Suporte";
+                            usuarioEncontrado[0]['tipoUsuario'] = "Suporte";
                         }
                         
                         response.json(usuarioEncontrado[0]);

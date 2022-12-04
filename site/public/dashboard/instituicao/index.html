@@ -15,6 +15,7 @@
     <meta charset="utf-8">
     <script src="../../js/funcoes.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>SPTrack - Instituição</title>
     <link rel="stylesheet" href="../../bootstrap/bootstrap/css/bootstrap.min.css">
@@ -48,6 +49,8 @@
                     <li class="nav-item"><a class="nav-link" href="../tarefas/"><i class="far fa-clock"></i><span>Tarefas</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../chamados/"><i class="fas fa-info-circle"></i><span>Chamados</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../processos/"><i class="fas fa-cog"></i><span>Processos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../funcionarios/"><i
+                        class="fas fa-user"></i><span>Funcionarios</span></a></li>
 
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
@@ -344,4 +347,5 @@
 
 <script>
     verifyNav();
+    verificarAcesso(JSON.parse(sessionStorage.usuario).nivelAcesso, 3)
 </script>

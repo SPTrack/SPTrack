@@ -57,3 +57,18 @@ function verifyNav(){
         localStorage.setItem("mode", "aberto");
     }
 }
+
+function verificarAcesso(nivelAcesso, nivelPagina) {
+    console.log(nivelAcesso)
+    console.log(nivelPagina)
+
+    if (nivelAcesso < nivelPagina || nivelAcesso == null || nivelAcesso == undefined) {
+        Swal.fire(
+            'Erro de Acesso',
+            'Você não tem permissão de acessar essa página',
+            'error'
+          )
+        window.location.href = "../index.html"
+        
+    }
+}

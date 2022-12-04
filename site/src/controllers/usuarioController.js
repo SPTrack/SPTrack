@@ -49,18 +49,22 @@ function entrar(request, response) {
 function cadastrar(request, response){
     var nome = request.body.nomeServer;
     var email = request.body.emailServer;
-    var senha = request.body.senhaServer;
     var tipoUsuario = request.body.tipoUsuarioServer;
     var nivelAcesso = request.body.nivelAcessoServer;
     var idInstituicao = request.body.idInstituicaoServer;
     var fkGestor = request.body.fkGestorServer;
-
-    usuarioModel.cadastrar(nome, email, senha, tipoUsuario, nivelAcesso, idInstituicao, fkGestor).then(resultado => {
-        response.json(resultado)
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+    
+    bcrypt.hash(request.body.senhaServer, 8).then(senhaCriptografada => {
+        usuarioModel.cadastrar(nome, email, senhaCriptografada, tipoUsuario, nivelAcesso, idInstituicao, fkGestor)
+        .then(resultado => {
+            response.json(resultado);
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao pegar os dados da tarefa! Erro: ", erro.sqlMessage);
+        });
     });
+
+    
 }
 
 module.exports = {

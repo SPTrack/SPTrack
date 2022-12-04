@@ -63,12 +63,17 @@ function verificarAcesso(nivelAcesso, nivelPagina) {
     console.log(nivelPagina)
 
     if (nivelAcesso < nivelPagina || nivelAcesso == null || nivelAcesso == undefined) {
-        Swal.fire(
-            'Erro de Acesso',
-            'Você não tem permissão de acessar essa página',
-            'error'
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(() => 
+              window.location.href = "../index.html"
           )
-        window.location.href = "../index.html"
         
+        
+
     }
 }

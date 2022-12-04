@@ -64,5 +64,13 @@ def abrirChamadoRAMTriagem():
         "query": "mutation { createCard(input: { pipe_id: 302793571, title: \"Uso de RAM acima da média\",fields_attributes:[ {field_id: \"qual_o_assunto_do_seu_pedido\", field_value: \"O computador está travando\"}]}) {card {title}}}"}
     response = requests.post(URL, json=payload, headers=headers)
     x = response.text
+    if modo == 'dev':
+        query = f"INSERT INTO chamado VALUES (NULL, 'Uso de CPU muito alto', 1, NOW(), {idEquipamento})"
+        cursor.execute(query)
+        conexao.commit()
+    elif modo == 'prod':
+        cursor.execute(
+            f"INSERT INTO chamado VALUES ('Uso de RAM muito alto', 2, GETDATE(), {idEquipamento})")
+        conexao.commit()
 
 

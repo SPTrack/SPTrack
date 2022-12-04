@@ -25,11 +25,11 @@ def plotarWordcloud(listaChamados):
     plt.tight_layout(pad=0)
     etc()
 
-    plt.savefig("../site/public/assets/img/wordclouds/"+"wordcloudChamados")
+    plt.savefig("site/public/assets/img/wordclouds/"+"wordcloudChamados")
 
 
 def etc():
-    path = "../site/public/assets/img/"
+    path = "site/public/assets/img/"
     dir = os.listdir(path)
     for file in dir:
         if file == "wordcloudChamados":

@@ -72,6 +72,18 @@ CREATE TABLE locacao(
     PRIMARY KEY (fkEquipamento, fkSala, dtEstadia)
 );
 
+CREATE TABLE historico(
+	fkEquipamento INT NOT NULL,
+    FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento),
+    
+    fkSala INT NOT NULL,
+    FOREIGN KEY (fkSala) REFERENCES sala(idSala),
+    
+    dtRegistro DATETIME NOT NULL,
+    PRIMARY KEY (fkEquipamento, fkSala, dtRegistro)
+);
+
+
 CREATE TABLE manutencao(
 	idManutencao INT PRIMARY KEY IDENTITY(5000,1),
     dtInicio DATETIME NOT NULL,

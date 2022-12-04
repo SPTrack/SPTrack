@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../../bootstrap/fonts/fontawesome-all.min.css">
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
     <link rel="stylesheet" href="../../css/equipamentos.css">
-    <link rel="stylesheet" href="../../css/swal.css">
+
 </head>
 
 <body id="page-top">
@@ -35,19 +35,21 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                   
-                    <li class="nav-item"><a class="nav-link" href="../"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../estatisticas/"><i class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../manutencao/"><i class="fas fa-tools"></i><span>Manutenção</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../instituicao/"><i class="fas fa-building"></i><span>Instituição</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../tarefas/"><i class="far fa-clock"></i><span>Tarefas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../chamados/"><i class="fas fa-info-circle"></i><span>Chamados</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../processos/"><i class="fas fa-cog"></i><span>Processos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="../funcionarios/"><i
-                        class="fas fa-user"></i><span>Funcionários</span></a></li>
 
-
+                    <li class="nav-item"><a class="nav-link" href="../"><i
+                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../estatisticas/"><i
+                                class="fas fa-chart-bar"></i><span>Estatísticas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../manutencao/"><i
+                                class="fas fa-tools"></i><span>Manutenção</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href=""><i
+                                class="fas fa-laptop"></i><span>Equipamentos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../instituicao/"><i
+                                class="fas fa-building"></i><span>Instituição</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tarefas/"><i
+                                class="far fa-clock"></i><span>Tarefas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../chamados/"><i
+                                class="fas fa-info-circle"></i><span>Chamados</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
                         id="sidebarToggle" type="button" onclick="movaNav()"></button></div>
@@ -143,9 +145,16 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small" id="span_usuario">Usuário</span><img class="border rounded-circle img-profile" src="../../bootstrap/img/avatars/avatar1.png"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in" onclick="limparSessao()">
-                                        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Sair</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                        aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
+                                            class="d-none d-lg-inline me-2 text-gray-600 small"
+                                            id="span_usuario">Usuário</span><img
+                                            class="border rounded-circle img-profile"
+                                            src="../../bootstrap/img/avatars/avatar1.png"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"
+                                        onclick="limparSessao()">
+                                        <a class="dropdown-item" href="#"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Sair</a>
                                     </div>
                                 </div>
                             </li>
@@ -159,7 +168,11 @@
                             <button class="btn btn-primary btn-sm" style="padding: 10px 16px; margin-right: 16px; 
                             font-size: 16px; width: 130px;" onclick="hide(0)" id="cadButton">Cadastrar</button>
                             <button class="btn btn-primary btn-sm" style="background-color: #858796; color: black; border: 1px solid #858796; 
-                            padding: 10px 16px; margin-left: 16px; font-size: 16px; width: 130px;" onclick="hide(1)" id="editButton">Editar</button>
+                            padding: 10px 16px; margin-left: 16px; font-size: 16px; width: 130px;" onclick="hide(1)"
+                                id="editButton">Editar</button>
+                            <button class="btn btn-primary btn-sm" style="background-color: #858796; color: black; border: 1px solid #858796; 
+                            padding: 10px 16px; margin-left: 16px; font-size: 16px; width: 130px; " onclick="hide(2)"
+                                id="histButton">Histórico</button>
                         </div>
 
                         <div class="col-lg-8">
@@ -199,15 +212,16 @@
                                 <div class="col">
                                     <div class="card shadow mb-3" id="hideEditar" style="display: none">
                                         <div class="container-fluid">
-                                            <div id="lista_maquinas" class="d-sm-flex justify-content-between align-items-center mb-4">
-                
+                                            <div id="lista_maquinas"
+                                                class="d-sm-flex justify-content-between align-items-center mb-4">
+
                                             </div>
                                             <div class="row" id="divPai">
                                                 <div class="col-md-6 col-xl-3 mb-4">
-                
+
                                                 </div>
-                
-                
+
+
                                             </div>
                                         </div>
                                         <div class="card-header py-3">
@@ -282,9 +296,20 @@
 
                             <div class="row">
                                 <div class="col">
+                                    <div class="card shadow mb-3" id="hideHistorico"  style="display: none">
+                                        <ul id="ul" class="list-group list-group-flush">
+                                        </ul> 
+                                        
+                                    </div>
+                                </div>
+                            </div>    
+
+                            <div class="row">
+                                <div class="col">
                                     <div class="card shadow mb-3" id="hideCadastrar">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Formulário de Cadastro de
+                                            <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Formulário de
+                                                Cadastro de
                                                 Equipamento</p>
                                         </div>
                                         <div class="card-body">
@@ -293,145 +318,187 @@
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label"
                                                                 for="username"><strong>Nome da
-                                                                    Máquina</strong><br></label><input id="nomeMaquinaCadastro"
-                                                                class="form-control" type="text"
-                                                                placeholder="Nome da Máquina"></div>
+                                                                    Máquina</strong><br></label><input
+                                                                id="nomeMaquinaCadastro" class="form-control"
+                                                                type="text" placeholder="Nome da Máquina"></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"
                                                             style="margin-bottom: 63px;padding-bottom: 0px;"><label
-                                                                class="form-label" for="email"><strong>Sistema Operacional</strong><br></label><input id="sistemaCadastro"
-                                                                class="form-control" type="text"
-                                                                placeholder="Linux, Windows, MAC." name="sistema_operacional">
+                                                                class="form-label" for="email"><strong>Sistema
+                                                                    Operacional</strong><br></label><input
+                                                                id="sistemaCadastro" class="form-control" type="text"
+                                                                placeholder="Linux, Windows, MAC."
+                                                                name="sistema_operacional">
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label"
-                                                                for="first_name"><strong>Número Patrimônio</strong><br></label><input id="numeroPatrimonio"
-                                                                class="form-control" type="text"
-                                                                placeholder="0123"
-                                                                name="numero_patrimonio"></div>
+                                                                for="first_name"><strong>Número
+                                                                    Patrimônio</strong><br></label><input
+                                                                id="numeroPatrimonio" class="form-control" type="text"
+                                                                placeholder="0123" name="numero_patrimonio"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label"
-                                                                for="first_name"><strong>Endereço MAC</strong><br></label><input
-                                                                id="enderecoMac" class="form-control" type="text"
+                                                                for="first_name"><strong>Endereço
+                                                                    MAC</strong><br></label><input id="enderecoMac"
+                                                                class="form-control" type="text"
                                                                 placeholder="0a:b1:2c:3e:d4:5e" name="endereco_mac">
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label"
-                                                                for="last_name"><strong>Número Serial</strong><br></label><input id="numeroSerial"
-                                                                class="form-control" type="text"
-                                                                placeholder="0123"
+                                                                for="last_name"><strong>Número
+                                                                    Serial</strong><br></label><input id="numeroSerial"
+                                                                class="form-control" type="text" placeholder="0123"
                                                                 name="numero_serial"></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label"
                                                                 for="first_name"><strong>Sala</strong><br></label>
                                                             <select id="salaSelectCadastro" class="form-control">
-                                                       </select>
-                                                        </div>                                                   
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="card-header py-3"></div>
                                                     <div class="card-header py-3">
-                                                    <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Processador</p>
+                                                        <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">
+                                                            Processador</p>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Modelo</strong><br></label><input id="nomeProcessador"
-                                                                    class="form-control" type="text"
-                                                                    placeholder="Exemplo: Intel I5 11 Gen"
-                                                                    name="nome_processador"></div>
-                                                        </div>
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="last_name"><strong>Modelo</strong><br></label><input
+                                                                        id="nomeProcessador" class="form-control"
+                                                                        type="text"
+                                                                        placeholder="Exemplo: Intel I5 11 Gen"
+                                                                        name="nome_processador"></div>
+                                                            </div>
 
-                                                        
 
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Capacidade (em %)</strong><br></label><input id="capacidadeProcessador"
-                                                                    class="form-control" type="number"
-                                                                    placeholder="100"
-                                                                    name="capacidade_processador" disabled></div>
-                                                        </div>
-                                                        <div class="card-header py-3"></div>
-                                                        <div class="card-header py-3">
-                                                        <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Memória RAM</p>
-                                                        </div>
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Modelo da Memória</strong><br></label><input id="nomeMemoria"
-                                                                    class="form-control" type="text"
-                                                                    placeholder="Exemplo: Pente 4x4"
-                                                                    name="nome_memória"></div>
-                                                        </div>
 
-                                                        
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label"
+                                                                        for="last_name"><strong>Capacidade (em
+                                                                            %)</strong><br></label><input
+                                                                        id="capacidadeProcessador" class="form-control"
+                                                                        type="number" placeholder="100"
+                                                                        name="capacidade_processador" disabled></div>
+                                                            </div>
+                                                            <div class="card-header py-3"></div>
+                                                            <div class="card-header py-3">
+                                                                <p class="text-primary m-0 fw-bold"
+                                                                    style="color: rgb(0,0,0);">Memória RAM</p>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="mb-3"><label class="form-label"
+                                                                                for="last_name"><strong>Modelo da
+                                                                                    Memória</strong><br></label><input
+                                                                                id="nomeMemoria" class="form-control"
+                                                                                type="text"
+                                                                                placeholder="Exemplo: Pente 4x4"
+                                                                                name="nome_memória"></div>
+                                                                    </div>
 
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Quantidade (em GB)</strong><br></label><input id="capacidadeMemoria"
-                                                                    class="form-control" type="number"
-                                                                    placeholder="Exemplo: 8"
-                                                                    name="capacidade_memoria"></div>
-                                                        </div>
 
-                                                        <div class="card-header py-3"></div>
-                                                        <div class="card-header py-3">
-                                                        <p class="text-primary m-0 fw-bold" style="color: rgb(0,0,0);">Disco Rígido</p>
-                                                        </div>
 
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Nome do Disco Rígido</strong><br></label><input id="nomeDisco"
-                                                                    class="form-control" type="text"
-                                                                    placeholder="Exemplo: SSD SATA 256GB"
-                                                                    name="nome_disco"></div>
-                                                        </div>
+                                                                    <div class="col">
+                                                                        <div class="mb-3"><label class="form-label"
+                                                                                for="last_name"><strong>Quantidade (em
+                                                                                    GB)</strong><br></label><input
+                                                                                id="capacidadeMemoria"
+                                                                                class="form-control" type="number"
+                                                                                placeholder="Exemplo: 8"
+                                                                                name="capacidade_memoria"></div>
+                                                                    </div>
 
-                                                        
+                                                                    <div class="card-header py-3"></div>
+                                                                    <div class="card-header py-3">
+                                                                        <p class="text-primary m-0 fw-bold"
+                                                                            style="color: rgb(0,0,0);">Disco Rígido</p>
+                                                                    </div>
 
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label"
-                                                                    for="last_name"><strong>Capacidade (em GB)</strong><br></label><input id="capacidadeDisco"
-                                                                    class="form-control" type="number"
-                                                                    placeholder="Exemplo: 512"
-                                                                    name="capacidade_disco"></div>
-                                                        </div>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label
+                                                                                        class="form-label"
+                                                                                        for="last_name"><strong>Nome do
+                                                                                            Disco
+                                                                                            Rígido</strong><br></label><input
+                                                                                        id="nomeDisco"
+                                                                                        class="form-control" type="text"
+                                                                                        placeholder="Exemplo: SSD SATA 256GB"
+                                                                                        name="nome_disco"></div>
+                                                                            </div>
 
-                                                    </div>
-                                                    </div>
 
-                                                </div>
-                                                <div class="mb-3"></div>
-                                                
-                                            
+
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label
+                                                                                        class="form-label"
+                                                                                        for="last_name"><strong>Capacidade
+                                                                                            (em
+                                                                                            GB)</strong><br></label><input
+                                                                                        id="capacidadeDisco"
+                                                                                        class="form-control"
+                                                                                        type="number"
+                                                                                        placeholder="Exemplo: 512"
+                                                                                        name="capacidade_disco"></div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="mb-3"></div>
+
+                                            </form><button onclick="cadastrarMaquinas()" class="btn btn-primary btn-sm"
+                                                type="submit" style="background: rgb(0,0,0);">Cadastrar</button>
+                                        </div>
+
                                     </div>
-                                    
+
+
+
                                 </div>
-                            
+
+
+
                             </div>
-                       
+                            
+
+                              
+
+
+
                         </div>
-                    </form><button onclick="cadastrarMaquinas()" class="btn btn-primary btn-sm"
-                    type="submit" style="background: rgb(0,0,0);">Cadastrar</button>
+
+
+
+                    </div>
+
+
+
+
                 </div>
 
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 
     <script src="../../bootstrap/bootstrap/js/bootstrap.min.js"></script>
@@ -444,5 +511,7 @@
 
 <script>
     verifyNav();
-    verificarAcesso(JSON.parse(sessionStorage.usuario).nivelAcesso, 1)
+    verificarAcesso(JSON.parse(sessionStorage.usuario).nivelAcesso, 2)
+
+    
 </script>

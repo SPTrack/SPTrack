@@ -87,4 +87,8 @@ router.post('/pegarInfoChamado', function (request, response){
     medidasController.pegarInfoChamado(request, response);
 });
 
+router.post('/historico', function (request, response) {
+    medidasController.historico(request, response);
+});
+
 module.exports = router;

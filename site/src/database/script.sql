@@ -93,6 +93,17 @@ CREATE TABLE locacao(
     PRIMARY KEY (fkEquipamento, fkSala, dtEstadia)
 ) AUTO_INCREMENT = 500;
 
+CREATE TABLE historico(
+	fkEquipamento INT NOT NULL,
+    FOREIGN KEY (fkEquipamento) REFERENCES equipamento(idEquipamento),
+    
+    fkSala INT NOT NULL,
+    FOREIGN KEY (fkSala) REFERENCES sala(idSala),
+    
+    dtRegistro DATETIME NOT NULL,
+    PRIMARY KEY (fkEquipamento, fkSala, dtRegistro)
+);
+
 CREATE TABLE manutencao(
 	idManutencao INT PRIMARY KEY AUTO_INCREMENT,
     dtInicio DATETIME NOT NULL,

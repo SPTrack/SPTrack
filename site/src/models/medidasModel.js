@@ -222,6 +222,10 @@ function pegarInfoChamado(){
     return database.executar(`SELECT * FROM infoChamados;`);
 }
 
+function historico(idInstituicao){
+    return database.executar(`select modelo, numeroPatrimonio, fkSala, dtRegistro from equipamento, historico where idEquipamento=fkEquipamento and fkinstituicao=${idInstituicao}  order by dtRegistro desc ;`);
+}
+
 module.exports = {
     getComponentes,
     getHistoricoDisponibilidade,
@@ -246,4 +250,5 @@ module.exports = {
     pegarIdNovaMaquina,
     cadastrarComponentes,
     pegarInfoChamado,
+    historico
 }

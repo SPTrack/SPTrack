@@ -368,7 +368,21 @@ function pegarIdNovaMaquina(request, response){
         });
     }
 
-
+    function historico(request, response){
+        var idInstituicao = request.body.idInstituicaoServer;
+    
+        if ((idInstituicao == null || idInstituicao == undefined)) {
+            response.status(400).send("Requisição negada. Dados não integros!");
+        } else {
+            medidasModel.historico(idInstituicao).then(resultado => {
+                response.json(resultado)
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao pegar o historico! Erro: ", erro.sqlMessage);
+                response.status(500).json(erro.sqlMessage);
+            });
+        }
+    }
 
 
 module.exports = {
@@ -391,4 +405,5 @@ module.exports = {
     cadastrarComponentes,
     pegarIdNovaMaquina,
     pegarInfoChamado,
+    historico
 }

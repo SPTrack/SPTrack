@@ -55,7 +55,8 @@ function atualizaLista(){
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      
+      soServer: soT.value,
+      nomeServer: nameT.value,
       idServer : idP.value,
       tipoServer: tipoT.value
     })
@@ -98,7 +99,8 @@ function morto(){
   cad1.style.display="none";
   cad4.style.display="block";
   titulo.innerHTML="Processos Mortos";
-  
+  printarMortos.innerHTML=""
+  i=0
   
   fetch("/processo/getProcessosMortos", {
     method: "POST",
@@ -126,6 +128,14 @@ function morto(){
 }).catch(function (erro) {
     console.log(erro);
 })
+  interval = setInterval(() => {
+    if (i==10) {
+      morto()
+      clearInterval(interval)
+    }    
+    i++
+  }, 3000);
+  
 }
 function voltar(){
   location.href = "index.html";

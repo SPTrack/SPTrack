@@ -9,8 +9,8 @@ function getProcessosMortos(){
 function getProcessos(){
     return database.executar("select * from processos;");
 }
-function setCategoria(id,tipoP){
-    return database.executar(`update processos set tipoProcesso = '${tipoP}' where idLeitura = '${id}' ;`);
+function setCategoria(id,soP,nomeP,tipoP){
+    return database.executar(`update processos set so='${soP}',arquivos='${nomeP}',tipoProcesso = '${tipoP}' where idLeitura = '${id}' ;`);
 }
 module.exports = {
     cadastro,

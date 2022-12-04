@@ -7,7 +7,6 @@
 </script>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <script src="../../js/funcoes.js"></script>
@@ -190,7 +189,7 @@
                                 <div class="col-lg-12 offset-lg-3">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <b style="color: Black;">Lista de Processos</b>
+                                            <b style="color: Black; " id="titulo">Lista de Processos</b>
                                         </div>
                                         <div class="card-body" >
                                             <form id="listar">
@@ -198,38 +197,95 @@
                                                     <div class="col" style="overflow: scroll;width: 215px;height: 181px;">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>White List</strong></label></div>
                                                         <div class="mb-3">
-                                                <table class="table my-0" id="dataTable">
-                                    </thead>
-                                    <tbody>
-                                        <tr ondragstart="dragStart(event)" draggable="true">
-                                            <td>$162,700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>$1,200,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>$86,000</td>
-                                        </tr></tbody></table>
+                                                <table class="table my-0" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tarefa</th>
+                                                            <th>Sistema Operacional</th>
+                                                        </tr>
+                                                    </thead>
+                                    <tbody id="printarProc1">
+                                        </tbody></table>
                                                         </div>
                                                     </div>
-                                                    <div class="col" ondrop="drop(event)" ondragover="allowDrop(event)" style="overflow: scroll;width: 215px;height: 181px; padding-left: 30px;">
+                                                    <div class="col"  style="overflow: scroll;width: 215px;height: 181px; padding-left: 30px;">
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>Black List</strong></label></div>
                                                         <div class="mb-3">
-                                                            <table class="table my-0" id="dataTable">
-                                                                <tbody>
+                                                            <table class="table my-0" >
+                                                                <thead>
                                                                     <tr>
-                                                                        <td>$161,700</td>
+                                                                        <th>Tarefa</th>
+                                                                        <th>Sistema Operacional</th>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>$1,200,000</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>$86,000</td>
-                                                                    </tr></tbody></table>                                                        
+                                                                </thead>
+                                                                <tbody id="printarProc2">
+                                                                  
+                                                                </tbody></table>                                                        
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form><button class="btn btn-primary btn-sm" type="submit" style="padding-right: 13px;background-color: Black;" onclick="cadastro()">Cadastrar</button>
+                                                
+                                            </form>
+                                    <!--Inicio cadastro-->
+
+                                            <div id="novo" style="display: none;">
+                                                
+                                                <div id="tipos" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo de processo
+                                                <select class="d-inline-block form-select form-select-sm" id="tipo">
+                                                    <option value="---">---</option>
+                                                    <option value="whitelist">white list</option>
+                                                    <option value="blacklist">black list</option>
+                                                </select>&nbsp;</label></div>
+                                                <div class="col-md-6">
+                                                    <div id="tipos" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Nome do Processo</label></div>
+                                                    <div class="text-md-end dataTables_filter" id="dataTable_filter" style="padding-right: 70%;"><label class="form-label">
+                                                        <input type="text" class="form-control form-control-sm" style="width: 200px;" aria-controls="dataTable" placeholder="nome" id="nameP"></label></div>
+                                                </div><br>
+                                                <div class="col-md-6">
+                                                    <div id="tipos" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Sistema Operacional</label></div>
+                                                    <div class="text-md-end dataTables_filter" id="dataTable_filter" style="padding-right: 70%;"><label class="form-label"><input type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder="SO" id="sisop"></label></div>
+                                                </div>
+                                    </div>
+
+                                    <div id="trocaT" style="display: none;">
+                                        <div class="col-md-6">
+                                            <div id="tipos" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Sistema Operacional</label></div>
+                                            <div class="text-md-end dataTables_filter" id="dataTable_filter" style="padding-right: 70%;"><label class="form-label">
+                                                <input type="text" disabled class="form-control form-control-sm" aria-controls="dataTable" placeholder="SO" id="soT"></label></div>
+                                        </div>        
+                                        <br>
+                                        <div class="col-md-6">
+                                            <div id="tipos" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Nome do Processo</label></div>
+                                            <div class="text-md-end dataTables_filter" id="dataTable_filter" style="padding-right: 70%;" ><label class="form-label">
+                                                <input type="text" disabled  class="form-control form-control-sm" style="width: 200px;" aria-controls="dataTable" placeholder="nome" id="nameT"></label></div>
+                                        </div><br>
+                                                <div id="tipos" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo de processo
+                                                <select class="d-inline-block form-select form-select-sm" id="tipoT">
+                                                    <option value="whitelist">white list</option>
+                                                    <option value="blacklist">black list</option>
+                                                </select>&nbsp;</label></div>
+                                                <input type="text" id="idP" style="display: none;">
+                                                
+                                                
+                                    </div>
+
+                                    <div id="mortos" style="display: none;">
+                                        <div class="col" style="overflow: scroll;width: 700px;height: 181px;padding-left: 10px;">
+                                        <table class="table my-0" id="dataTable" >
+                                            <tbody id="printarMortos">
+                                            </tbody></table>
+                                    </div>
+                                </div>
+                                    <br>
+                                    <button class="btn btn-primary btn-sm" type="submit" style="padding-right: 13px;background-color: Black;" onclick="cadastro1()" id="cad1">Cadastrar</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" style="padding-right: 13px;background-color: Black;display: none;" onclick="cadastro2()" id="cad2">Cadastrar</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" style="background-color: Black;margin-left: 2px;" onclick="morto()" id="cad3">Processos mortos</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" style="background-color: Black;margin-left: 2px;display: none;" onclick="voltar()" id="cad4">Listar Processos</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" style="background-color: Black;margin-left: 2px;display: none;" onclick="atualizaLista()" id="cad5">Trocar</button>
+                                    
+
+                                    <!--Fim cadastro-->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -238,7 +294,7 @@
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
+            <footer class="bg-white sticky-footer" style="position: absolute;bottom:0;left: 50%;">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © SPTrack 2022</span></div>
                 </div>

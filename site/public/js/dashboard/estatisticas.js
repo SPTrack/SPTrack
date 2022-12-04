@@ -234,9 +234,9 @@ function plot1(){
     chart1 = new Chart(grafico, {
         type: "line",
         data: {
-        labels: datasDisp,
+        labels: datasDisp.reverse(),
         datasets: [{ 
-                data: valoresDisp,
+                data: valoresDisp.reverse(),
                 borderColor: corDisp,
                 backgroundColor: corDisp,
                 fill: false,
@@ -341,7 +341,7 @@ function plot4(){
                     position: 'left',
                     ticks: {
                         max: 6,
-                        min: 0
+                        min: 0,
                     }
                 }, {
                     id: 'B',

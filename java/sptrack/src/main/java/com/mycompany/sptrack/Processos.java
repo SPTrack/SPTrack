@@ -27,7 +27,38 @@ public class Processos extends javax.swing.JFrame {
     TimerTask processo;
 
     public Processos() {
+        
+       this.processo = new TimerTask() {
+            @Override
+            public void run() {
+                
+                List<Processo> processos = looca.getGrupoDeProcessos().getProcessos();
+                
+                processoNome = "";
+                
+                processoId = "";
+                
+                processoCPU = "";
+                
+                for (int i = 0; i < 20; i++) {
+                    processoId = String.format("%d " + "\n", processos.get(i).getPid());
+
+                    processoNome = processos.get(i).getNome() + "\n";
+
+                    processoCPU = String.format("%.2f" + "\n", processos.get(i).getUsoCpu());
+
+                    tblProcesso.setValueAt(processoId, i, 0);
+
+                    tblProcesso.setValueAt(processoNome, i, 1);
+
+                    tblProcesso.setValueAt(processoCPU, i, 2);
+                }
+            }
+            
+        };
         initComponents();
+
+        time.scheduleAtFixedRate(processo, 0, segundos);
 
     }
 
@@ -48,10 +79,8 @@ public class Processos extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
         lblProcessos = new javax.swing.JLabel();
         lblThreads = new javax.swing.JLabel();
-        lblPid = new javax.swing.JLabel();
-        lblNomeProc = new javax.swing.JLabel();
-        lblPIDResult = new javax.swing.JLabel();
-        lblNomeResult = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProcesso = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -112,82 +141,66 @@ public class Processos extends javax.swing.JFrame {
         lblThreads.setForeground(new java.awt.Color(0, 0, 0));
         lblThreads.setText("Total de Threads:");
 
-        lblPid.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
-        lblPid.setForeground(new java.awt.Color(0, 0, 0));
-        lblPid.setText("PID");
+        tblProcesso.setBackground(new java.awt.Color(255, 255, 255));
+        tblProcesso.setForeground(new java.awt.Color(0, 0, 0));
+        tblProcesso.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "PID", "Nome", "% CPU"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        lblNomeProc.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
-        lblNomeProc.setForeground(new java.awt.Color(0, 0, 0));
-        lblNomeProc.setText("Nome");
-
-        lblPIDResult.setForeground(new java.awt.Color(0, 0, 0));
-
-        lblNomeResult.setForeground(new java.awt.Color(0, 0, 0));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblProcesso.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(tblProcesso);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(700, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnVoltar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPid)
-                                    .addComponent(lblPIDResult, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(128, 128, 128)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNomeProc)
-                                    .addComponent(lblNomeResult, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
                                 .addComponent(lblProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(lblThreads, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(49, 49, 49)
+                                .addComponent(lblThreads, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblProcessos)
-                    .addComponent(lblThreads))
+                    .addComponent(lblThreads)
+                    .addComponent(lblProcessos))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPid)
-                    .addComponent(lblNomeProc))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblNomeResult, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 352, Short.MAX_VALUE)
-                        .addComponent(btnVoltar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblPIDResult, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVoltar)
                 .addContainerGap())
         );
 
         lblProcessos.setText(String.format("Total de processos: %s",processos.getTotalProcessos()));
         lblThreads.setText(String.format("Total de threads: %s",processos.getTotalThreads()));
-        List<Processo> processos = looca.getGrupoDeProcessos().getProcessos();
-
-        for (int i = 0; i < 20; i++) {
-            processoId = String.format("%d " + "\n", processos.get(i).getPid());
-        }
-
-        lblPIDResult.setText(processoId);
-        for (int i = 0; i < 20; i++) {
-            processoNome = processos.get(i).getNome() + "\n";
-            lblNomeResult.setText(processoNome);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,14 +270,12 @@ public class Processos extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo2;
-    private javax.swing.JLabel lblNomeProc;
-    private javax.swing.JLabel lblNomeResult;
-    private javax.swing.JLabel lblPIDResult;
-    private javax.swing.JLabel lblPid;
     private javax.swing.JLabel lblProcessos;
     private javax.swing.JLabel lblThreads;
     private javax.swing.JLabel lblimg2;
+    private javax.swing.JTable tblProcesso;
     private javax.swing.JLabel txtHeader;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,6 @@ fetch("/processo/getProcessos", {
           } else {
             printarProc2.innerHTML+=`<tr id="list${i}" onclick="change('${json[i]['idLeitura']}','${json[i]['so']}','${json[i]['arquivos']}','${json[i]['tipoProcesso']}')" style="cursor: pointer;"><td>${json[i]['arquivos']}</td><td>${json[i]['so']}</td></tr>`;    
           }
-          console.log(json[i]['idLeitura'])
 
         }
       });
@@ -47,8 +46,6 @@ function change(idT,so,arquivo,tipoP){
 
 }
 function atualizaLista(){
-  console.log(idP.value)
-  console.log(tipoT.value)
   fetch("/processo/setCategoria", {
     method: "POST",
     headers: {
@@ -114,8 +111,12 @@ function morto(){
     if (resposta.ok) {
         resposta.json().then(json => {
           for(i=0;i<json.length;i++){
-            printarMortos.innerHTML+=`<tr><td>${json[i]['nome']}</td><td>${json[i]['horas'].slice(0,19).replace("T"," ")}</td></tr>`;
+            if (process.env.AMBIENTE_PROCESSO=='producao') {
+            printarMortos.innerHTML+=`<tr><td>${json[i]['nome']}</td><td>${json[i]['horas'].slice(0,19).replace("T"," ")}</td></tr>`; 
+            } else {              
+            printarMortos.innerHTML+=`<tr><td>${json[i]['nome']}</td><td>${json[i]['horas']}</td></tr>`;
 
+            }
           }
         });
     } else {
@@ -128,6 +129,9 @@ function morto(){
 }).catch(function (erro) {
     console.log(erro);
 })
+
+
+
   interval = setInterval(() => {
     if (i==10) {
       morto()

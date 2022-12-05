@@ -158,10 +158,15 @@ function editarLocacao(idEquipamento, idSala) {
 }
 
 function editarMaquinas(idInstituicao, modelo, cpu ,memoria ,armazenamento ,idCpu ,idMemoria ,idArmazenamento, idEquipamento, sistema, idSala) {
+    editarHist(idEquipamento, idSala);
     editarLocacao(idEquipamento, idSala);
     editarMaquinasMemo(idEquipamento, modelo,  memoria , sistema, idMemoria);
     editarMaquinasProc(idEquipamento, modelo, cpu, sistema, idCpu);
     return editarMaquinasDisc(idEquipamento, modelo,  armazenamento , sistema, idArmazenamento);
+}
+
+function editarHist(idEquipamento, idSala) {
+    database.executar(`INSERT INTO historico values( ${idEquipamento},  ${idSala}, NOW()); `);
 }
 
 function cadastrarMaquinas(nomeMaquinaCadastro, sistemaCadastro, numeroPatrimonio, enderecoMac, numeroSerial, idInstituicao){

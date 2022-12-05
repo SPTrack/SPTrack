@@ -375,6 +375,7 @@ function pegarIdNovaMaquina(request, response){
             response.status(400).send("Requisição negada. Dados não integros!");
         } else {
             medidasModel.historico(idInstituicao).then(resultado => {
+                console.log(resultado)
                 response.json(resultado)
             }).catch(function (erro) {
                 console.log(erro);

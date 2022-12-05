@@ -436,11 +436,8 @@ function historico() {
                   <div class="row align-items-center no-gutters">
                   <div class="col me-2" >
                   
-                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na sala de TI</label><br>
+                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na SALA 1A - CCO</label><br>
                   </div></div></li> 
-                  
-                  
-                  
                   
                                   </h6>
                               </div>
@@ -463,7 +460,7 @@ function historico() {
                   <div class="row align-items-center no-gutters">
                   <div class="col me-2" >
                   
-                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na sala de SI  </label><br>
+                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na SALA 2A - SIS </label><br>
                   </div></div></li> 
                   
                   
@@ -490,22 +487,58 @@ function historico() {
                   <div class="row align-items-center no-gutters">
                   <div class="col me-2" >
                   
-                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na sala de CCO</label><br>
+                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na SALA 3A - ADS</label><br>
                   </div></div></li> 
-                  
-                  
-                  
-                  
                                   </h6>
                               </div>
                           </div>
                       </li>
+                  `;
+                  }
+
+                  if (hist[contHist].fkSala == 4) {
+                    document.getElementById(
+                        "ul"
+                      ).innerHTML += `
+                      <li class="list-group-item">
+                          <div class="row align-items-center no-gutters">
+                              <div class="col me-2">
+                                  <h6 class="mb-0">
+                                      <div id="paiDisps">
+                                       <li id="listgrup" class="list-group-item">
+                  <div class="row align-items-center no-gutters">
+                  <div class="col me-2" >
                   
-                      
+                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na SALA 4A - ADS</label><br>
+                  </div></div></li> 
+                                  </h6>
+                              </div>
+                          </div>
+                      </li>
                   `;
                   }
                 
-             
+                  if (hist[contHist].fkSala == 5) {
+                    document.getElementById(
+                        "ul"
+                      ).innerHTML += `
+                      <li class="list-group-item">
+                          <div class="row align-items-center no-gutters">
+                              <div class="col me-2">
+                                  <h6 class="mb-0">
+                                      <div id="paiDisps">
+                                       <li id="listgrup" class="list-group-item">
+                  <div class="row align-items-center no-gutters">
+                  <div class="col me-2" >
+                  
+                  <label for="maquinaD0" class="onmouseoverclass"> ${hist[contHist].modelo} foi modificado e esta alocado na SALA 6A - ADS</label><br>
+                  </div></div></li> 
+                                  </h6>
+                              </div>
+                          </div>
+                      </li>
+                  `;
+                  }
                     
                     
                    

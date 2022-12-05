@@ -111,12 +111,10 @@ function morto(){
     if (resposta.ok) {
         resposta.json().then(json => {
           for(i=0;i<json.length;i++){
-            if (window.location.origin == 'https://sptrack.azurewebsites.net') {
             printarMortos.innerHTML+=`<tr><td>${json[i]['nome']}</td><td>${json[i]['horas'].slice(0,19).replace("T"," ")}</td></tr>`; 
-            } else if(window.location.origin == 'http://localhost:3333'){              
             printarMortos.innerHTML+=`<tr><td>${json[i]['nome']}</td><td>${json[i]['horas']}</td></tr>`;
 
-            }
+            
           }
         });
     } else {

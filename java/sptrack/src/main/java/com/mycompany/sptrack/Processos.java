@@ -83,7 +83,6 @@ public class Processos extends javax.swing.JFrame {
         tblProcesso = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setExtendedState(MAXIMIZED_BOTH);
         setUndecorated(true);
 
         jPanel4.setBackground(new java.awt.Color(1, 1, 1));
@@ -199,7 +198,7 @@ public class Processos extends javax.swing.JFrame {
                                 .addGap(46, 46, 46)
                                 .addComponent(lblThreads, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 16, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
